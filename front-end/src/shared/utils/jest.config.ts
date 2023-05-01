@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'shared',
+  displayName: 'shared-utils',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [

@@ -37,7 +37,7 @@
       "@front-end/interface-adapters/controllers/user": [
         "src/interface-adapters/controllers/user/src/index.ts"
       ],
-      "@front-end/shared": ["src/shared/src/index.ts"]
+      "@front-end/shared/utils": ["src/shared/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
