@@ -3,17 +3,15 @@
   "npmScope": "front-end",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx-cloud",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "NmZlNDI4YzMtOWFmMi00ODNhLWJlYTEtNDNjNDFjMGU3MWI3fHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
+  },
+  "workspaceLayout": {
+    "appsDir": "src/frameworks-and-drivers/vove",
+    "libsDir": "src/"
   },
   "targetDefaults": {
     "build": {

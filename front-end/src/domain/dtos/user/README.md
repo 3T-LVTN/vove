@@ -1,0 +1,7 @@
+# domain-dtos-user
+
+This library was generated with [Nx](https://nx.dev).
+
+## Running unit tests
+
+Run `nx test domain-dtos-user` to execute the unit tests via [Jest](https://jestjs.io).

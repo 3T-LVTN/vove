@@ -1,0 +1,107 @@
+{
+  "testRunner": {
+    "args": {
+      "$0": "jest",
+      "config": "./jest.config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000
+    }
+  },
+  "apps": {
+    "ios.debug": {
+      "type": "ios.app",
+      "build": "cd ../../../../src/frameworks-and-drivers/vove/vove/ios && xcodebuild -workspace Vove.xcworkspace -scheme Vove -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/ios/build/Build/Products/Debug-iphonesimulator/Vove.app"
+    },
+    "ios.release": {
+      "type": "ios.app",
+      "build": "cd ../../../../src/frameworks-and-drivers/vove/vove/ios && xcodebuild -workspace Vove.xcworkspace -scheme Vove -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/ios/build/Build/Products/Release-iphonesimulator/Vove.app"
+    },
+
+    "ios.eas": {
+      "type": "ios.app",
+      "build": "npx nx run vove:download --platform ios --distribution simulator --output=src/frameworks-and-drivers/vove/vove/dist/",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/dist/Vove.app"
+    },
+    "ios.local": {
+      "type": "ios.app",
+      "build": "npx nx run vove:build --platform ios --profile preview --wait --local --no-interactive --output=src/frameworks-and-drivers/vove/vove/dist/",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/dist/Vove.app"
+    },
+
+    "android.debug": {
+      "type": "android.apk",
+      "build": "cd ../../../../src/frameworks-and-drivers/vove/vove/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/android/app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "android.release": {
+      "type": "android.apk",
+      "build": "cd ../../../../src/frameworks-and-drivers/vove/vove/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/android/app/build/outputs/apk/release/app-release.apk"
+    },
+
+    "android.eas": {
+      "type": "ios.app",
+      "build": "npx nx run vove:download --platform android --output=src/frameworks-and-drivers/vove/vove/dist/",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/dist/Vove.apk"
+    },
+    "android.local": {
+      "type": "ios.app",
+      "build": "npx nx run vove:build --platform android --profile preview --wait --local --no-interactive --output=src/frameworks-and-drivers/vove/vove/dist/",
+      "binaryPath": "../../../../src/frameworks-and-drivers/vove/vove/dist/Vove.apk"
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 14"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4a_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios.sim.release": {
+      "device": "simulator",
+      "app": "ios.release"
+    },
+    "ios.sim.debug": {
+      "device": "simulator",
+      "app": "ios.debug"
+    },
+
+    "ios.sim.eas": {
+      "device": "simulator",
+      "app": "ios.eas"
+    },
+    "ios.sim.local": {
+      "device": "simulator",
+      "app": "ios.local"
+    },
+
+    "android.emu.release": {
+      "device": "emulator",
+      "app": "android.release"
+    },
+    "android.emu.debug": {
+      "device": "emulator",
+      "app": "android.debug"
+    },
+
+    "android.emu.eas": {
+      "device": "simulator",
+      "app": "android.eas"
+    },
+    "android.emu.local": {
+      "device": "simulator",
+      "app": "android.local"
+    }
+  }
+}
