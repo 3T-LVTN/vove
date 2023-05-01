@@ -11,9 +11,10 @@ import {
   Linking,
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import {Login} from "../screens/login/login";
 
 export function App() {
-  return <Text>Hello</Text>;
+  return <Login></Login>;
 }
 
 export default App;

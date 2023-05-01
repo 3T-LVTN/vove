@@ -37,6 +37,7 @@
       "@front-end/interface-adapters/controllers/user": [
         "src/interface-adapters/controllers/user/src/index.ts"
       ],
+      "@front-end/shared/ui": ["src/shared/ui/src/index.ts"],
       "@front-end/shared/utils": ["src/shared/utils/src/index.ts"]
     }
   },
