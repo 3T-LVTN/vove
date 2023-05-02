@@ -1,9 +1,7 @@
 import * as React from "react";
-import { Dimensions } from "react-native";
 import { TextInput } from "react-native-paper";
-import {Color, initializeFonts, TextStyle} from "@front-end/shared/utils";
+import {Color, initializeFonts, TextStyle, ScreenSize} from "@front-end/shared/utils";
 
-const width = Dimensions.get("window").width;
 
 export interface InputTextProps {
   title: string;
@@ -25,7 +23,7 @@ export const InputText = (props: InputTextProps) => {
       onChangeText={(text) => setText(text)}
       style={{
         ...TextStyle.bodyLarge,
-        width: (327 / 375) * width,
+        width: (327 / 375) * ScreenSize.width,
         backgroundColor: Color.white_100,
       }}
     />

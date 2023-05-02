@@ -30,7 +30,6 @@ export function Login(props: LoginProps) {
         <View style={{alignItems: "center", paddingVertical: ScreenSize.height * 0.15}}>
           <InputText title={"Phone number"} placeholder={"Please enter your phone number"}></InputText>
           <InputPassword></InputPassword>
-          {/*<Text>Hello</Text>*/}
         </View>
       </ScrollView>
     </AnimatedSplash>
