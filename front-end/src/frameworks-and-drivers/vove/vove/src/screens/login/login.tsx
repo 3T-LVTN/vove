@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import {Alert, Pressable, ScrollView, Text, View} from "react-native";
-import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
+import {ScrollView, View} from "react-native";
+import {Color, ScreenSize} from "@front-end/shared/utils";
 import AnimatedSplash from "react-native-animated-splash-screen";
-import {Button, Input} from "@ui-kitten/components";
 import {InputText} from "../../components/inputs/input-text";
 import {InputPassword} from "../../components/inputs/input-password";
 
