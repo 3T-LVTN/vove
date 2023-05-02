@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TextInput } from "react-native-paper";
-import {Color, initializeFonts, TextStyle, ScreenSize} from "@front-end/shared/utils";
+import {Color, InitializeFonts, TextStyle, ScreenSize} from "@front-end/shared/utils";
 
 
 export interface InputTextProps {
@@ -10,7 +10,7 @@ export interface InputTextProps {
 
 export const InputText = (props: InputTextProps) => {
   const [text, setText] = React.useState("");
-  initializeFonts();
+  InitializeFonts();
   return (
     <TextInput
       label={props.title}

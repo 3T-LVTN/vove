@@ -5,7 +5,7 @@ export interface SignupProps {
   navigation: any;
 }
 
-export function Signup1(props: SignupProps) {
+export function Signup(props: SignupProps) {
   return (
     <View style={styles.center}>
       <Text>Sign Up</Text>
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup1;
+export default Signup;

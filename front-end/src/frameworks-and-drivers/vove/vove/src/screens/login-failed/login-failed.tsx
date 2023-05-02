@@ -10,10 +10,6 @@ export function LoginFailed(props: LoginFailedProps) {
     <View style={styles.center}>
       <Text>Login failed</Text>
       <Button
-        title="Sign Up"
-        onPress={() => props.navigation.navigate("Signup")}
-      />
-      <Button
         title="Back to Login"
         onPress={() => props.navigation.navigate("Login")}
       />

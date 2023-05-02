@@ -29,7 +29,7 @@ export function Login(props: LoginProps) {
         <View style={{alignItems: "center", paddingVertical: ScreenSize.height * 0.15}}>
           <Text>Login</Text>
           <InputText title={"Phone number"} placeholder={"Please enter your phone number"}></InputText>
-          <InputPassword></InputPassword>
+          <InputPassword title="Password" allowOutput={false}></InputPassword>
           <Button
             title="Login Failed"
             onPress={() => props.navigation.navigate("LoginFailed")}
