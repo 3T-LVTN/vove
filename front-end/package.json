@@ -25,9 +25,11 @@
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
     "react-native-animated-splash-screen": "^2.0.5",
+    "react-native-paper": "^5.7.0",
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "1.0.0",
     "react-native-web": "~0.18.12",
+    "reactstrap": "^9.1.9",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

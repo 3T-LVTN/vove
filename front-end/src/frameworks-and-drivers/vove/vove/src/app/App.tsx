@@ -14,7 +14,7 @@ import Svg, { Path } from 'react-native-svg';
 import {Login} from "../screens/login/login";
 
 export function App() {
-  return <Login></Login>;
+  return <Login navigation={1}></Login>;
 }
 
 export default App;

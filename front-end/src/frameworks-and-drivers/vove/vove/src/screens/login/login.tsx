@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import {ScreenSize} from "@front-end/shared/utils";
+import {Alert, Pressable, ScrollView, Text, View} from "react-native";
+import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import AnimatedSplash from "react-native-animated-splash-screen";
+import {Button, Input} from "@ui-kitten/components";
+import {InputText} from "../../components/inputs/input-text";
+import {InputPassword} from "../../components/inputs/input-password";
 
+export interface LoginProps {
+  navigation: any
+}
 
-export function Login() {
+export function Login(props: LoginProps) {
   const [loading, setLoading] = useState(false);
-
   setTimeout(() => {
     setLoading(true);
   }, 2000);
+
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   return (
     <AnimatedSplash
@@ -19,19 +26,13 @@ export function Login() {
       backgroundColor={"#ffffff"}
       logoWidth={ScreenSize.height * 0.8}
     >
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View>
+      <ScrollView style={{backgroundColor: Color.white_100}}>
+        <View style={{alignItems: "center", paddingVertical: ScreenSize.height * 0.15}}>
+          <InputText title={"Phone number"} placeholder={"Please enter your phone number"}></InputText>
+          <InputPassword></InputPassword>
+          {/*<Text>Hello</Text>*/}
+        </View>
+      </ScrollView>
     </AnimatedSplash>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
