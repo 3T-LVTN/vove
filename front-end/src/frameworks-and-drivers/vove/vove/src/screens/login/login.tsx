@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, Text, Button} from "react-native";
 import {Color, ScreenSize} from "@front-end/shared/utils";
 import AnimatedSplash from "react-native-animated-splash-screen";
 import {InputText} from "../../components/inputs/input-text";
@@ -27,10 +27,29 @@ export function Login(props: LoginProps) {
     >
       <ScrollView style={{backgroundColor: Color.white_100}}>
         <View style={{alignItems: "center", paddingVertical: ScreenSize.height * 0.15}}>
+          <Text>Login</Text>
           <InputText title={"Phone number"} placeholder={"Please enter your phone number"}></InputText>
           <InputPassword></InputPassword>
+          <Button
+            title="Login Failed"
+            onPress={() => props.navigation.navigate("LoginFailed")}
+          />
+          <Button
+            title="Home"
+            onPress={() => props.navigation.navigate("UserStack")}
+          />
+          <Button
+            title="Sign Up"
+            onPress={() => props.navigation.navigate("Signup")}
+          />
+          <Button
+            title="Forget pass"
+            onPress={() => props.navigation.navigate("ForgetPassword")}
+          />
         </View>
       </ScrollView>
     </AnimatedSplash>
   );
 }
+
+export default Login;

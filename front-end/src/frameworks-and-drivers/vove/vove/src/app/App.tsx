@@ -12,9 +12,10 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import {Login} from "../screens/login/login";
+import {MainStack} from "../navigation/main.navigator";
 
 export function App() {
-  return <Login navigation={1}></Login>;
+  return <MainStack></MainStack>;
 }
 
 export default App;
