@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'domain-dtos-user',
+  displayName: 'frameworks-and-drivers-app-sync-axios-user',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   transformIgnorePatterns: [
