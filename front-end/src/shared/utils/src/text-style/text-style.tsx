@@ -5,7 +5,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/lato';
 
-export const initializeFonts = () => {
+export const InitializeFonts = () => {
   useFonts({
     Lato_700Bold,
     Lato_400Regular,

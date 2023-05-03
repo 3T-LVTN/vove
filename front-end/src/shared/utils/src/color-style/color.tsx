@@ -9,7 +9,7 @@ export class Color {
   static light_80 = '#C5F6FA';
   static light_60 = '#99E9F2';
   static light_40 = '#66D9E8';
-  
+
   static dark_100 = '#2E3034';
   static dark_80 = 'rgba(46, 48, 52, 0.8)';
   static dark_60 = 'rgba(46, 48, 52, 0.6)';
