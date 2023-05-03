@@ -13,6 +13,8 @@
   "dependencies": {
     "@expo-google-fonts/audiowide": "^0.2.2",
     "@expo-google-fonts/lato": "^0.2.2",
+    "expo-firebase-recaptcha": "^2.3.1",
+    "firebase": "^9.15.0",
     "@expo/metro-config": "0.7.1",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
