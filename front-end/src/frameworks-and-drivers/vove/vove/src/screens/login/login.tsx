@@ -66,7 +66,7 @@ export function Login(props: LoginProps) {
 
           <ButtonFullWidth content='Log In' onPress={() => {
             if (username === "" || password === "")
-              Alert.alert("Please enter all necessary information!");
+              Alert.alert("Please enter all information!");
             else
               props.navigation.navigate("UserStack", {username: username, password: password})
           }}></ButtonFullWidth>
@@ -74,9 +74,14 @@ export function Login(props: LoginProps) {
           <View style={{marginTop: ScreenSize.height * 0.02, flexDirection: 'row'}}>
             <Text style={{...TextStyle.h3, color: Color.grey_100}}>No account? </Text>
             <Pressable onPress={() => props.navigation.navigate("SignupStack")}>
-              <Text style={{...TextStyle.h3, color: Color.primary_100}}>Crate one!</Text>
+              <Text style={{...TextStyle.h3, color: Color.primary_100}}>Create one!</Text>
             </Pressable>
           </View>
+
+          {/*<ButtonFullWidth*/}
+          {/*  content="Login Failed"*/}
+          {/*  onPress={() => props.navigation.navigate("LoginFailed")}*/}
+          {/*></ButtonFullWidth>*/}
         </View>
       </ScrollView>
     </AnimatedSplash>

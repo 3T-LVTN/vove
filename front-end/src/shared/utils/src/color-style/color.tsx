@@ -37,9 +37,9 @@ export class Color {
   static green_40 = 'rgba(56, 217, 169, 0.4)';
   static green_20 = 'rgba(56, 217, 169, 0.2)';
 
-  static red_100 = '#FF8787';
-  static red_80 = 'rgba(255, 135, 135, 0.8)';
-  static red_60 = 'rgba(255, 135, 135, 0.6)';
-  static red_40 = 'rgba(255, 135, 135, 0.4)';
-  static red_20 = 'rgba(255, 135, 135, 0.2)';
+  static red_100 = '#C92A2A';
+  static red_80 = 'rgba(240, 62, 62, 0.8)';
+  static red_60 = 'rgba(240, 62, 62, 0.6)';
+  static red_40 = 'rgba(240, 62, 62, 0.4)';
+  static red_20 = 'rgba(240, 62, 62, 0.2)';
 }
