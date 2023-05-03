@@ -10,6 +10,7 @@ import LoginFailed from "../screens/login-failed/login-failed";
 import ForgetPassword from "../screens/forget-password/forget-password";
 import {SignUpStack} from "./signup.navigator";
 import {UserStack} from "./user.navigator";
+import {ForgetPasswordStack} from "./forget-password.navigator";
 
 export function MainStack() {
   const Stack = createStackNavigator();
@@ -53,12 +54,12 @@ export function MainStack() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="ForgetPassword"
-          component={ForgetPassword}
+          name="ForgetPasswordStack"
+          component={ForgetPasswordStack}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Signup"
+          name="SignupStack"
           component={SignUpStack}
           options={{headerShown: false}}
         />

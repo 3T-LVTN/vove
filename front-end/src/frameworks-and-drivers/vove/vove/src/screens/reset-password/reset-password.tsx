@@ -1,17 +1,17 @@
 import React from "react";
 import {Button, StyleSheet, View, Text} from "react-native";
 
-export interface SignupProps {
+export interface ResetPasswordProps {
   navigation: any;
 }
 
-export function Signup(props: SignupProps) {
+export function ResetPassword(props: ResetPasswordProps) {
   return (
     <View style={styles.center}>
-      <Text>Sign Up</Text>
+      <Text>Reset password</Text>
       <Button
-        title="Next"
-        onPress={() => props.navigation.navigate("InsertOtpSignup")}
+        title="Confirm"
+        onPress={() => props.navigation.navigate("ResetPasswordSucceed")}
       />
     </View>
   );
@@ -27,4 +27,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup;
+export default ResetPassword
+;

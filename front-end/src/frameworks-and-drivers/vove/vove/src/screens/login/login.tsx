@@ -40,11 +40,11 @@ export function Login(props: LoginProps) {
           />
           <Button
             title="Sign Up"
-            onPress={() => props.navigation.navigate("Signup")}
+            onPress={() => props.navigation.navigate("SignupStack")}
           />
           <Button
             title="Forget pass"
-            onPress={() => props.navigation.navigate("ForgetPassword")}
+            onPress={() => props.navigation.navigate("ForgetPasswordStack")}
           />
         </View>
       </ScrollView>

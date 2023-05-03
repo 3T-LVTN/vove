@@ -1,17 +1,17 @@
 import React from "react";
 import {Button, StyleSheet, View, Text} from "react-native";
 
-export interface SignupProps {
+export interface SignupSucceedProps {
   navigation: any;
 }
 
-export function Signup(props: SignupProps) {
+export function SignupSucceed(props: SignupSucceedProps) {
   return (
     <View style={styles.center}>
-      <Text>Sign Up</Text>
+      <Text>Sign up succeed</Text>
       <Button
-        title="Next"
-        onPress={() => props.navigation.navigate("InsertOtpSignup")}
+        title="Back to Login"
+        onPress={() => props.navigation.goBack(props.navigation.popToTop())}
       />
     </View>
   );
@@ -27,4 +27,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup;
+export default SignupSucceed
+;

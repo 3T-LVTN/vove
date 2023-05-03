@@ -3,6 +3,10 @@ import { Image } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {ScreenSize} from "@front-end/shared/utils";
 import Signup from "../screens/signup/sigup";
+import InsertOtp from "../screens/insert-otp/insert-otp";
+import SetNewPassword from "../screens/set-new-password/set-new-password";
+import SignupSucceed from "../screens/signup-succeed/signup-succeed";
+import InsertOtpSignup from "../screens/insert-otp/insert-otp-signup/insert-otp-signup";
 
 
 const Stack = createStackNavigator();
@@ -37,6 +41,9 @@ export const SignUpStack = () => {
   return (
     <Stack.Navigator initialRouteName="SignUp">
       <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="InsertOtpSignup" component={InsertOtpSignup}/>
+      <Stack.Screen name="SetNewPassword" component={SetNewPassword} />
+      <Stack.Screen name="SignupSucceed" component={SignupSucceed} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };
