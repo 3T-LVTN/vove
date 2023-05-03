@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, StyleSheet, View, Text} from "react-native";
-import {InputText} from "../../components/inputs/input-text";
+import {InputText} from "../../components/src/inputs/input-text";
 
 export interface ForgetPasswordProps {
   navigation: any;

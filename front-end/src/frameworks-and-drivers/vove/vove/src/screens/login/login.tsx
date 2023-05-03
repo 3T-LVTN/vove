@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import {Image, ScrollView, View, Text, Pressable, Alert} from "react-native";
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import AnimatedSplash from "react-native-animated-splash-screen";
-import {InputText} from "../../components/inputs/input-text";
-import {InputPassword} from "../../components/inputs/input-password";
-import {ButtonFullWidth} from "../../components/buttons/button-full-width";
+import {ButtonFullWidth, InputPassword, InputText} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+
 
 export interface LoginProps {
   navigation: any

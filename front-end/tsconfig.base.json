@@ -34,6 +34,9 @@
       "@front-end/domain/entities/user": [
         "src/domain/entities/user/src/index.ts"
       ],
+      "@front-end/frameworks-and-drivers/vove/vove/src/components": [
+        "src/frameworks-and-drivers/vove/vove/src/components/src/index.ts"
+      ],
       "@front-end/interface-adapters/controllers/user": [
         "src/interface-adapters/controllers/user/src/index.ts"
       ],

@@ -1,7 +1,7 @@
 import React from "react";
 import {Image, StyleSheet, View, Text} from "react-native";
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
-import {ButtonFullWidth} from "../../components/buttons/button-full-width";
+import {ButtonFullWidth} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 
 export interface LoginFailedProps {
   navigation: any;
