@@ -3,9 +3,9 @@ import {Pressable, StyleSheet, Text} from "react-native";
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 
 export interface ButtonFullWidthProps {
-  type?: string;
-  content: string;
-  onPress: any;
+  readonly type?: string;
+  readonly content: string;
+  readonly onPress: any;
 }
 
 export const ButtonFullWidth = (props: ButtonFullWidthProps) => {

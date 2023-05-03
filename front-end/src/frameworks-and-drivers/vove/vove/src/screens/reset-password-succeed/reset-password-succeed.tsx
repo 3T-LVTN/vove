@@ -2,7 +2,7 @@ import React from "react";
 import {Button, StyleSheet, View, Text} from "react-native";
 
 export interface ResetPasswordSucceedProps {
-  navigation: any;
+  readonly navigation: any;
 }
 
 export function ResetPasswordSucceed(props: ResetPasswordSucceedProps) {

@@ -3,7 +3,7 @@ import {Button, StyleSheet, View, Text} from "react-native";
 import {InputText} from "../../components/src/inputs/input-text";
 
 export interface SetNewPasswordProps {
-  navigation: any;
+  readonly navigation: any;
 }
 
 export function SetNewPassword(props: SetNewPasswordProps) {

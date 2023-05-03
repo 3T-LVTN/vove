@@ -3,7 +3,7 @@ import {Button, StyleSheet, Text, View} from "react-native";
 import {InputText} from "../../../components/src/inputs/input-text";
 
 export interface InsertOtpSignupProps {
-  navigation: any;
+  readonly navigation: any;
 }
 
 export function InsertOtpSignup(props: InsertOtpSignupProps) {

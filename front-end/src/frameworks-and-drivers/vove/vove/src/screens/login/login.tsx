@@ -6,7 +6,7 @@ import {ButtonFullWidth, InputPassword, InputText} from "@front-end/frameworks-a
 
 
 export interface LoginProps {
-  navigation: any
+  readonly navigation: any
 }
 
 export function Login(props: LoginProps) {

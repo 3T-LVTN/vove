@@ -2,7 +2,7 @@ import React from "react";
 import {Button, StyleSheet, View, Text} from "react-native";
 
 export interface SignupSucceedProps {
-  navigation: any;
+  readonly navigation: any;
 }
 
 export function SignupSucceed(props: SignupSucceedProps) {

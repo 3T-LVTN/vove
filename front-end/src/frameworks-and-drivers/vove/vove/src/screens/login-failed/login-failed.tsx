@@ -4,18 +4,11 @@ import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils"
 import {ButtonFullWidth} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 
 export interface LoginFailedProps {
-  navigation: any;
+  readonly navigation: any;
 }
 
 export function LoginFailed(props: LoginFailedProps) {
   return (
-    // <View style={styles.center}>
-    //   <Text>Login failed</Text>
-    //   <Button
-    //     title="Back to Login"
-    //     onPress={() => props.navigation.navigate("Login")}
-    //   />
-    // </View>
     <View style={styles.container}>
       <View style={{...styles.container, paddingTop: ScreenSize.height * 0.03, justifyContent: 'center'}}>
         <Image

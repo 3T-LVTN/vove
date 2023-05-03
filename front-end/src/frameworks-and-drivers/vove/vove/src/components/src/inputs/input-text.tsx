@@ -4,16 +4,16 @@ import {TextInput} from "react-native-paper";
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 
 export interface InputTextProps {
-  title: string;
-  placeholder: string;
-  rightIcon: any;
-  onPress?: any;
-  defaultValue?: string;
-  output: React.Dispatch<React.SetStateAction<string>>;
-  allowOutput: boolean;
+  readonly title: string;
+  readonly placeholder: string;
+  readonly rightIcon: any;
+  readonly onPress?: any;
+  readonly defaultValue?: string;
+  readonly output: React.Dispatch<React.SetStateAction<string>>;
+  readonly allowOutput: boolean;
   unit?: any;
   readonly?: boolean;
-  keyboardType: KeyboardTypeOptions;
+  readonly keyboardType: KeyboardTypeOptions;
 }
 
 export const InputText = (props: InputTextProps) => {

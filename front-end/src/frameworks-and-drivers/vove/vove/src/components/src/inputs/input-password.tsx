@@ -4,9 +4,9 @@ import {TextInput} from "react-native-paper";
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 
 export interface InputPasswordProps {
-  allowOutput: boolean;
-  title: string;
-  output?: React.Dispatch<React.SetStateAction<string>>
+  readonly allowOutput: boolean;
+  readonly title: string;
+  readonly output?: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const InputPassword = (props: InputPasswordProps) => {
