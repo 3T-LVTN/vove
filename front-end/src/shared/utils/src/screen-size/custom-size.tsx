@@ -1,5 +1,5 @@
-import { ScreenSize } from "./screen-size";
+import { ScreenSize } from './screen-size';
 
 export function customSize(size: number) {
-  return size / 375 * ScreenSize.width ;
+  return (size / 375) * ScreenSize.width;
 }

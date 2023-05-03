@@ -1,9 +1,8 @@
-import React from "react";
-import { Image } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import {ScreenSize} from "@front-end/shared/utils";
-import Home from "../screens/home/home";
-
+import React from 'react';
+import { Image } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreenSize } from '@front-end/shared/utils';
+import Home from '../screens/home/home';
 
 const Stack = createStackNavigator();
 

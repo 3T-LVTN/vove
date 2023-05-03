@@ -11,9 +11,13 @@ import {
   Linking,
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import {Login} from "../screens/login/login";
-import {MainStack} from "../navigation/main.navigator";
-import {Lato_400Regular, Lato_700Bold, useFonts} from "@expo-google-fonts/lato";
+import { Login } from '../screens/login/login';
+import { MainStack } from '../navigation/main.navigator';
+import {
+  Lato_400Regular,
+  Lato_700Bold,
+  useFonts,
+} from '@expo-google-fonts/lato';
 
 export function App() {
   const [fontsLoaded] = useFonts({

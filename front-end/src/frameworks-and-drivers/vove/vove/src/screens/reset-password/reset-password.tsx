@@ -1,4 +1,3 @@
-
 // import React, { useState } from "react";
 // import { View, StyleSheet, Text, ScrollView, Alert } from "react-native";
 // import { Color, ScreenSize, TextStyle, ButtonType } from '@front-end/shared/utils'
@@ -92,8 +91,8 @@
 //     alignItems: 'center',
 //   },
 // });
-import React from "react";
-import {Button, StyleSheet, View, Text} from "react-native";
+import React from 'react';
+import { Button, StyleSheet, View, Text } from 'react-native';
 
 export interface ResetPasswordProps {
   navigation: any;
@@ -105,21 +104,19 @@ export function ResetPassword(props: ResetPasswordProps) {
       <Text>Reset password</Text>
       <Button
         title="Confirm"
-        onPress={() => props.navigation.navigate("ResetPasswordSucceed")}
+        onPress={() => props.navigation.navigate('ResetPasswordSucceed')}
       />
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
   center: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
 });
 
-export default ResetPassword
-;
+export default ResetPassword;

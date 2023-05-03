@@ -1,20 +1,21 @@
-import * as React from "react";
-import { TextInput } from "react-native-paper";
-import { Text } from "react-native";
-import { Color, TextStyle, ScreenSize } from "@front-end/shared/utils";
+import * as React from 'react';
+import { TextInput } from 'react-native-paper';
+import { Text } from 'react-native';
+import { Color, TextStyle, ScreenSize } from '@front-end/shared/utils';
 
 export interface InputInformationProps {
   readonly title: string;
   readonly information: string;
 }
 
-
 export const InputInformation = (props: InputInformationProps) => {
-  const { title, information} = props;
+  const { title, information } = props;
   return (
     <TextInput
       label={
-        <Text style={{ ...TextStyle.bodyLarge, color: Color.dark_100 }}>{title}</Text>
+        <Text style={{ ...TextStyle.bodyLarge, color: Color.dark_100 }}>
+          {title}
+        </Text>
       }
       mode="flat"
       value={information}
