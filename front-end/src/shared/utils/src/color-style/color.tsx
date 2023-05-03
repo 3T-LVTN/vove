@@ -1,9 +1,10 @@
 export class Color {
-  static primary_100 = '#3BC9DB';
-  static primary_80 = 'rgba(59, 201, 219, 0.8)';
-  static primary_60 = 'rgba(59, 201, 219, 0.6)';
-  static primary_40 = 'rgba(59, 201, 219, 0.4)';
-  static primary_20 = 'rgba(59, 201, 219, 0.4)';
+  static primary_100 = '#15AABF';
+  static primary_80 = '#22B8CF';
+  static primary_60 = '#3BC9DB';
+  static primary_40 = '#1098AD';
+  static primary_30 = '#0C8599';
+  static primary_20 = '#0B7285';
 
   static light_100 = '#E3FAFC';
   static light_80 = '#C5F6FA';
