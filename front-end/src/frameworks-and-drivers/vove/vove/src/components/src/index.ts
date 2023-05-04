@@ -5,3 +5,4 @@ export * from './inputs/input-date';
 export * from './inputs/input-information';
 export * from './buttons/button-small';
 export * from './bars/step-bar';
+export * from './inputs/input-otp'

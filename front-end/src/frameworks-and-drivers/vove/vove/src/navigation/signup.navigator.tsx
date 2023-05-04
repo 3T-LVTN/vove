@@ -39,7 +39,7 @@ const Stack = createStackNavigator();
 export const SignUpStack = () => {
   return (
     <Stack.Navigator initialRouteName="SignUp">
-      <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="Signup" component={Signup}/>
       <Stack.Screen name="InsertOtpSignup" component={InsertOtpSignup} />
       <Stack.Screen name="SetNewPassword" component={SetNewPassword} />
       <Stack.Screen

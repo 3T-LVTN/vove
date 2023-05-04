@@ -3,8 +3,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
 import * as process from "process";
-import {UserRepository} from "@front-end/application/repositories/user";
-import {User} from "@front-end/domain/entities/user";
 
 export const firebaseConfig = {
   apiKey: process.env["NX_FIREBASE_API_KEY"],

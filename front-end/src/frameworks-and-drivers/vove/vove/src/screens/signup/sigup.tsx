@@ -40,14 +40,14 @@ export function Signup(props: SigupProps) {
         'https://staymana.s3.ap-southeast-1.amazonaws.com/sample-avatar.jpg',
       email: email,
     };
-    userController.getUser(userCheckData.tel).then((res: User) => {
-      if (res) Alert.alert('Account existed');
-      else {
-        Cache.set('Sign up', data);
-        Cache.merge('Sign up', userCheckData);
+    // userController.getUser(userCheckData.tel).then((res: User) => {
+      // if (res) Alert.alert('Account existed');
+      // else {
+      //   Cache.set('Sign up', data);
+      //   Cache.merge('Sign up', userCheckData);
         props.navigation.navigate("InsertOtpSignup", {phoneNumber: '+84' + phoneNumber});
-      }
-    })
+      // }
+    // })
   };
 
   return (
