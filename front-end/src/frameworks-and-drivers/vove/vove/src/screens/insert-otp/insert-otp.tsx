@@ -1,30 +1,83 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { InputText } from '../../components/src/inputs/input-text';
+import React, { useState, useRef, useEffect } from "react";
+import { View, StyleSheet, Image, ScrollView, Alert } from "react-native";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import firebase from "firebase/compat";
+import {ButtonFullWidth, InputOtp, StepBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import {firebaseConfig} from "@front-end/frameworks-and-drivers/firebase-auth";
+import {Color, ScreenSize} from "@front-end/shared/utils";
 
 export interface InsertOtpProps {
   readonly navigation: any;
+  readonly route: any;
 }
 
 export function InsertOtp(props: InsertOtpProps) {
+  const {navigation, route} = props
+  const [showButton, setShowButton] = useState(true)
+
+  const { phoneNumber } = route.params
+  const [OTP, setOTP] = useState('')
+  const [verifyId, setVerifyId] = useState('')
+  const recaptchaVerifier: any = useRef()
+
+  // const sendVerifyCode = () => {
+  //   const provider = new firebase.auth.PhoneAuthProvider()
+  //   provider
+  //     .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+  //     .then(setVerifyId)
+  // }
+
+  const confirmCode = () => {
+    const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
+    firebase.auth().signInWithCredential(credential)
+      .then(() => {
+        setOTP('')
+        setShowButton(true)
+        Alert.alert('Valid OTP')
+      })
+      .catch(() => {
+        Alert.alert('Please try again')
+        navigation.goBack()
+      })
+  }
+  //
+  // useEffect(() => {
+  //   sendVerifyCode()
+  // }, [])
+
   return (
-    <View style={styles.center}>
-      <Text>insert otp</Text>
-      <InputText title={'OTP'} placeholder={'insert otp'}></InputText>
-      <Button
-        title="Reset password"
-        onPress={() => props.navigation.navigate('ResetPassword')}
-      />
+    <View style={styles.container}>
+      <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig}/>
+      <StepBar step={2}></StepBar>
+      <ScrollView>
+        <View style={{...styles.container, paddingTop: ScreenSize.height * 0.05}}>
+          <Image
+            source={require("../../images/forget-password.png")}
+            style={{width: ScreenSize.width * 0.67, height: ScreenSize.width * 0.4}}
+          ></Image>
+          <View style={{padding: ScreenSize.height * 0.04}}></View>
+
+          <InputOtp OTPInput={setOTP} onPress={() => {Alert.alert('OK')}}></InputOtp>
+          {/*{OTP.length == 6 ? confirmCode() : null}*/}
+
+        </View>
+      </ScrollView>
+      <View style={{paddingBottom: ScreenSize.height * 0.1}}>
+        {
+          showButton ?
+            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("ResetPassword")}></ButtonFullWidth>
+            : null
+        }
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: Color.white_100,
     alignItems: 'center',
-    textAlign: 'center',
   },
 });
 
