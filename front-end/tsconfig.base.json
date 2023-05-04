@@ -34,9 +34,28 @@
       "@front-end/domain/entities/user": [
         "src/domain/entities/user/src/index.ts"
       ],
+      "@front-end/frameworks-and-drivers/app-sync/axios": [
+        "src/frameworks-and-drivers/app-sync/axios/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/app-sync/cache": [
+        "src/frameworks-and-drivers/app-sync/cache/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/app-sync/user": [
+        "src/frameworks-and-drivers/app-sync/user/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/firebase-auth": [
+        "src/frameworks-and-drivers/firebase-auth/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/vove/vove/src/components": [
+        "src/frameworks-and-drivers/vove/vove/src/components/src/index.ts"
+      ],
       "@front-end/interface-adapters/controllers/user": [
         "src/interface-adapters/controllers/user/src/index.ts"
       ],
+      "@front-end/interface-adapters/view-models/user": [
+        "src/interface-adapters/view-models/user/src/index.ts"
+      ],
+      "@front-end/shared/ui": ["src/shared/ui/src/index.ts"],
       "@front-end/shared/utils": ["src/shared/utils/src/index.ts"]
     }
   },
