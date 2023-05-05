@@ -47,13 +47,13 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
 
   return (
     <View style={styles.container}>
-      <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig}/>
+      {/*<FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig}/>*/}
       <StepBar step={2}></StepBar>
       <ScrollView>
         <View style={{...styles.container, paddingTop: ScreenSize.height * 0.05}}>
           <Image
-            source={require("../../../images/forget-password.png")}
-            style={{width: ScreenSize.width * 0.67, height: ScreenSize.width * 0.4}}
+            source={require("../../../images/otp.png")}
+            style={{width: ScreenSize.width * 0.34, height: ScreenSize.width * 0.29}}
           ></Image>
           <View style={{padding: ScreenSize.height * 0.04}}></View>
 
