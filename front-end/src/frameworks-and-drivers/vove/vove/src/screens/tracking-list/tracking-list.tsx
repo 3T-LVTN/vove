@@ -1,14 +1,14 @@
 import React from "react";
 import {Button, StyleSheet, Text, View} from "react-native";
 
-export interface UserProfileProps {
+export interface TrackingListProps {
   navigation: any;
 }
 
-export function UserProfile(props: UserProfileProps) {
+export function TrackingList(props: TrackingListProps) {
   return (
     <View style={styles.center}>
-      <Text>User profile</Text>
+      <Text>tracking list</Text>
     </View>
   );
 }
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default TrackingList;

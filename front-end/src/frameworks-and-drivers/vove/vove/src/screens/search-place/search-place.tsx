@@ -1,14 +1,14 @@
 import React from "react";
 import {Button, StyleSheet, Text, View} from "react-native";
 
-export interface UserProfileProps {
+export interface SearchPlaceProps {
   navigation: any;
 }
 
-export function UserProfile(props: UserProfileProps) {
+export function SearchPlace(props: SearchPlaceProps) {
   return (
     <View style={styles.center}>
-      <Text>User profile</Text>
+      <Text>Search place</Text>
     </View>
   );
 }
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default SearchPlace;

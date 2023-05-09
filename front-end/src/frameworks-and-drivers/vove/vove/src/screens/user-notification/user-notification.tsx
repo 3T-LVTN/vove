@@ -1,14 +1,13 @@
 import React from "react";
-import {Button, StyleSheet, Text, View} from "react-native";
-
-export interface UserProfileProps {
+import {StyleSheet, Text, View} from "react-native";
+export interface UserNotificationProps {
   navigation: any;
 }
 
-export function UserProfile(props: UserProfileProps) {
+export function UserNotification(props: UserNotificationProps) {
   return (
     <View style={styles.center}>
-      <Text>User profile</Text>
+      <Text>User noti</Text>
     </View>
   );
 }
@@ -23,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default UserNotification;

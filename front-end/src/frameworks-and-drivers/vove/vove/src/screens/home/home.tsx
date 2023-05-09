@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import NormalMap from "../../components/src/map/normal-map";
 
 export interface HomeProps {
   navigation: any;
@@ -8,7 +9,7 @@ export interface HomeProps {
 export function Home(props: HomeProps) {
   return (
     <View style={styles.center}>
-      <Text>Home</Text>
+      <NormalMap></NormalMap>
     </View>
   );
 }
