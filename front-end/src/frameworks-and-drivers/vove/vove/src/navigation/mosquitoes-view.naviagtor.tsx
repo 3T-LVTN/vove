@@ -4,6 +4,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenSize} from '@front-end/shared/utils';
 import Home from "../screens/home/home";
 import SignupSucceed from "../screens/signup-succeed/signup-succeed";
+import PlaceDetail from "../screens/place-detail/place-detail";
+import TrackingSummary from "../screens/tracking-summary/tracking-summary";
+import TrackingList from "../screens/tracking-list/tracking-list";
+import NewTrackingPlace from "../screens/new-tracking-place/new-tracking-place";
+import EditTrackingPlace from "../screens/edit-tracking-place/edit-tracking-place";
+import SearchPlace from "../screens/search-place/search-place";
 
 const Stack = createStackNavigator();
 
@@ -12,8 +18,8 @@ const backButtonImg = () => {
     <Image
       source={require("../images/back-button.png")}
       style={{
-        height: ScreenSize.width * 0.05,
-        width: ScreenSize.width * 0.05,
+        height: ScreenSize.width * 0.1,
+        width: ScreenSize.width * 0.1,
         marginLeft: ScreenSize.width * 0.06,
       }}
     />
@@ -38,9 +44,14 @@ const HeaderStyle = {
 
 export const MosquitoesViewStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerBackImage: backButtonImg}} initialRouteName="MosquitoesHeatmap">
-      <Stack.Screen name="MosquitoesHeatmap" component={Home} />
-      <Stack.Screen name="MosquitoesHeatmap2" component={SignupSucceed}/>
+    <Stack.Navigator screenOptions={HeaderStyle} initialRouteName="MosquitoesHeatmap">
+      <Stack.Screen name="MosquitoesHeatmap" component={Home} options={{ headerShown: false }}/>
+      <Stack.Screen name="SearchPlace" component={SearchPlace} options={{ headerShown: false }}/>
+      <Stack.Screen name="PlaceDetail" component={PlaceDetail}/>
+      <Stack.Screen name="TrackingSummary" component={TrackingSummary}/>
+      <Stack.Screen name="TrackingList" component={TrackingList}/>
+      <Stack.Screen name="NewTrackingPlace" component={NewTrackingPlace}/>
+      <Stack.Screen name="EditTrackingPlace" component={EditTrackingPlace}/>
     </Stack.Navigator>
   );
 };

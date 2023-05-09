@@ -9,6 +9,10 @@ export function SearchPlace(props: SearchPlaceProps) {
   return (
     <View style={styles.center}>
       <Text>Search place</Text>
+      <Button
+        title="Confirm"
+        onPress={() => props.navigation.goBack()}
+      />
     </View>
   );
 }

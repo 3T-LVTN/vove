@@ -9,6 +9,10 @@ export function InquiryList(props: InquiryListProps) {
   return (
     <View style={styles.center}>
       <Text>Inquiry list</Text>
+      <Button
+        title="Inquiry 001"
+        onPress={() => props.navigation.navigate("InquiryDetail")}
+      />
     </View>
   );
 }

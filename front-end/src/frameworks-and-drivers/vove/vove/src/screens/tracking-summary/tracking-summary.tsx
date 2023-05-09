@@ -9,6 +9,10 @@ export function TrackingSummary(props: TrackingSummaryProps) {
   return (
     <View style={styles.center}>
       <Text>Tracking summary</Text>
+      <Button
+        title="Show all tracking places"
+        onPress={() => props.navigation.navigate("TrackingList")}
+      />
     </View>
   );
 }

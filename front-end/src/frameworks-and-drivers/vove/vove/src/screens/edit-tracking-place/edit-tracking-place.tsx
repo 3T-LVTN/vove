@@ -9,6 +9,10 @@ export function EditTrackingPlace(props: EditTrackingPlaceProps) {
   return (
     <View style={styles.center}>
       <Text>Edit tracking place</Text>
+      <Button
+        title="Comfirm"
+        onPress={() => props.navigation.goBack()}
+      />
     </View>
   );
 }

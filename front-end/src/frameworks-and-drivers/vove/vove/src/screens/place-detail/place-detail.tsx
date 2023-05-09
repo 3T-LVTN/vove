@@ -9,6 +9,10 @@ export function PlaceDetail(props: PlaceDetailProps) {
   return (
     <View style={styles.center}>
       <Text>Place detail</Text>
+      <Button
+        title="Change place"
+        onPress={() => props.navigation.navigate("SearchPlace")}
+      />
     </View>
   );
 }

@@ -9,6 +9,10 @@ export function NewTrackingPlace(props: NewTrackingPlaceProps) {
   return (
     <View style={styles.center}>
       <Text>New tracking place</Text>
+      <Button
+        title="Comfirm"
+        onPress={() => props.navigation.goBack()}
+      />
     </View>
   );
 }

@@ -4,6 +4,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {ScreenSize} from "@front-end/shared/utils";
 import Home from "../screens/home/home";
 import {MosquitoesViewStack} from "./mosquitoes-view.naviagtor";
+import UserNotification from "../screens/user-notification/user-notification";
+import InquiryList from "../screens/inquiry-list/inquiry-list";
+import {InquiryStack} from "./inquiry.navigator";
+import UserProfile from "../screens/user-profile/user-profile";
 
 
 const size = ScreenSize.width * 0.1;
@@ -45,7 +49,7 @@ export const UserNavBar = () => {
       />
       <Tab.Screen
         name="UserNotification"
-        component={Home}
+        component={UserNotification}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -58,8 +62,8 @@ export const UserNavBar = () => {
         }}
       />
       <Tab.Screen
-        name="UserInquiry"
-        component={Home}
+        name="InquiryStack"
+        component={InquiryStack}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -73,7 +77,7 @@ export const UserNavBar = () => {
       />
       <Tab.Screen
         name="UserProfile"
-        component={Home}
+        component={UserProfile}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
