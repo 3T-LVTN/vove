@@ -1,11 +1,9 @@
 import React from "react";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {ScreenSize} from "@front-end/shared/utils";
-import Home from "../screens/home/home";
 import {MosquitoesViewStack} from "./mosquitoes-view.naviagtor";
 import UserNotification from "../screens/user-notification/user-notification";
-import InquiryList from "../screens/inquiry-list/inquiry-list";
 import {InquiryStack} from "./inquiry.navigator";
 import UserProfile from "../screens/user-profile/user-profile";
 
@@ -26,34 +24,20 @@ export const UserNavBar = () => {
       initialRouteName="UserHome"
       activeColor="#15AABF"
       inactiveColor="#979797"
-      screenOptions={{ tabBarLabel: selectedLabel }}
+      screenOptions={{tabBarLabel: selectedLabel}}
       barStyle={{
         backgroundColor: "white",
-        height: ScreenSize.height * 0.15,
-        paddingVertical: ScreenSize.height * 0.04,
+        height: ScreenSize.height * 0.12,
+        paddingVertical: ScreenSize.height * 0.03,
       }}
     >
       <Tab.Screen
         name="UserHome"
         component={MosquitoesViewStack}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="home-outline"
-              color={color}
-              size={size}
-              style={styles}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="UserNotification"
-        component={UserNotification}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="bell-outline"
               color={color}
               size={size}
               style={styles}
@@ -65,7 +49,7 @@ export const UserNavBar = () => {
         name="InquiryStack"
         component={InquiryStack}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="comment-question-outline"
               color={color}
@@ -76,10 +60,25 @@ export const UserNavBar = () => {
         }}
       />
       <Tab.Screen
+        name="UserNotification"
+        component={UserNotification}
+        options={{
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="bell-outline"
+              color={color}
+              size={size}
+              style={styles}
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
         name="UserProfile"
         component={UserProfile}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="account-outline"
               color={color}
