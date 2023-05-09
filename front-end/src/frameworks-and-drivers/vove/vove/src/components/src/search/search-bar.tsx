@@ -24,13 +24,13 @@ export const VoveSearchBar = (props: SearchBarProps) => {
         placeholder={placeholder}
         placeholderTextColor={Color.grey_100}
         value={text}
-        theme={{mode: "adaptive", colors: {primary: Color.primary_100, text: Color.grey_100}, roundness: 25}}
+        theme={{mode: "adaptive", colors: {primary: Color.primary_100, text: Color.grey_100}, roundness: 10}}
         onChangeText={(text) => handleInput(text)}
         inputStyle={TextStyle.bodyLarge}
-        style={{
-          borderColor: Color.primary_100,
-          borderWidth: 1,
-        }}
+        // style={{
+        //   borderColor: Color.primary_100,
+        //   borderWidth: 1.5,
+        // }}
       >
       </Searchbar>
     </View>
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   search: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 0.9 * ScreenSize.width,
+    width: "95%",
     paddingVertical: (13 / 812) * ScreenSize.height,
+    alignSelf: "center"
   },
 });
