@@ -14,32 +14,6 @@ import { ForgetPasswordStack } from './forget-password.navigator';
 
 export function MainStack() {
   const Stack = createStackNavigator();
-
-  // const backButtonImg = () => {
-  //   return (
-  //     <Image
-  //       source={require("../images/backButton.png")}
-  //       style={{
-  //         height: ScreenSize.width * 0.1,
-  //         width: ScreenSize.width * 0.1,
-  //         marginLeft: ScreenSize.width * 0.06,
-  //       }}
-  //     />
-  //   );
-  // };
-  //
-  // const HeaderStyle = {
-  //   headerBackImage: backButtonImg,
-  //   headerStyle: {
-  //     backgroundColor: "white",
-  //     height: ScreenSize.height * 0.156,
-  //   },
-  //   headerTitleStyle: {fontSize: ScreenSize.width * 0.06},
-  //   headerTintColor: "black",
-  //   headerBackTitleVisible: false,
-  //   title: "Quên mật khẩu",
-  // };
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
