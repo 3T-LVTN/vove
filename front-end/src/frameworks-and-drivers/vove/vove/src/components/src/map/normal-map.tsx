@@ -9,8 +9,8 @@ export const normalMap = () => {
       provider={PROVIDER_GOOGLE} // remove if not using Google Maps
       style={styles.map}
       region={{
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 10.7644912,
+        longitude: 106.702996,
         latitudeDelta: 0.015,
         longitudeDelta: 0.0121
       }}
@@ -21,11 +21,10 @@ export const normalMap = () => {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
-    justifyContent: "flex-end",
-    alignItems: "center"
+    height: "95%",
+    width: "95%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   map: {
     ...StyleSheet.absoluteFillObject

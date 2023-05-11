@@ -11,6 +11,18 @@ export class Color {
   static light_60 = '#99E9F2';
   static light_40 = '#66D9E8';
 
+  static yellow_100 = '#FFD43B';
+  static yellow_80 = '#FCC419';
+  static yellow_60 = '#FAB005';
+  static yellow_40 = '#F59F00';
+  static yellow_20 = '#F08C00';
+
+  static orange_100 = '#FFA94D';
+  static orange_80 = '#FF922B';
+  static orange_60 = '#FD7E14';
+  static orange_40 = '#F76707';
+  static orange_20 = '#E8590C';
+
   static dark_100 = '#2E3034';
   static dark_80 = 'rgba(46, 48, 52, 0.8)';
   static dark_60 = 'rgba(46, 48, 52, 0.6)';

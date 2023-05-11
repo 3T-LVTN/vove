@@ -6,3 +6,6 @@ export * from './inputs/input-information';
 export * from './buttons/button-small';
 export * from './bars/step-bar';
 export * from './inputs/input-otp'
+export * from './buttons/button-half-width'
+export * from './map/normal-map'
+export * from './search/search-bar'
