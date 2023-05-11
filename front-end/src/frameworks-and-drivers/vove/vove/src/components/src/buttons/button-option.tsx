@@ -6,7 +6,7 @@ import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 export interface ButtonOptionProps {
   readonly iconName: any;
   readonly content: string;
-  readonly onPress: any;
+  readonly onPress?: any;
 }
 
 export const ButtonOption = (props: ButtonOptionProps) => {

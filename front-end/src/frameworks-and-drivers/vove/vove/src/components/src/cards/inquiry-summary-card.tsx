@@ -12,7 +12,7 @@ export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
   const { title, timeStamp, status, navigation } = props;
 
   return (
-    <Pressable onPress={() => navigation.navigate("InquiryDetail")}>
+    <Pressable onPress={() => navigation.navigate("InquiryDetail")} style={{width: "100%"}}>
       <View style={styles.container}>
         <View style={styles.line}>
           <Text style={{...TextStyle.bodySmall, color: Color.dark_80}}>
@@ -33,13 +33,12 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     paddingHorizontal: customSize(15),
-    paddingVertical: customSize(8),
-    height: (95 / 375) * ScreenSize.width,
+    paddingVertical: customSize(10),
+    height: (110 / 375) * ScreenSize.width,
     backgroundColor: Color.white_100,
     borderWidth: 1,
     borderColor: Color.primary_100,
     marginTop: (12 / 375) * ScreenSize.width,
-    width: ScreenSize.width *0.9,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

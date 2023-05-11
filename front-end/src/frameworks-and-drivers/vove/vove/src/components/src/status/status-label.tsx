@@ -8,16 +8,16 @@ export const StatusLabel = (props: StatusLabelProps) => {
   const {status} = props;
   const STATUS_DATA = [
     {
-      color: Color.grey_60,
-      text: "Closed",
-    },
-    {
       color: Color.primary_100,
       text: "Opening",
     },
     {
-      color: Color.yellow_60,
-      text: "Waiting"
+      color: Color.yellow_20,
+      text: "Waiting",
+    },
+    {
+      color: Color.grey_100,
+      text: "Closed"
     }
   ];
   return (
@@ -33,7 +33,7 @@ export const StatusLabel = (props: StatusLabelProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 25,
+    borderRadius: 10,
     paddingHorizontal: 5,
     backgroundColor: Color.white_100,
     borderWidth: 1,
