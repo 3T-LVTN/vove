@@ -5,12 +5,12 @@ import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
 import {SearchBar} from "react-native-screens";
 import {white} from "react-native-paper/lib/typescript/styles/colors";
 
-export interface SearchBarProps {
+export interface VoveSearchBarProps {
   readonly placeholder: string;
   readonly onPress?: any;
 }
 
-export const VoveSearchBar = (props: SearchBarProps) => {
+export const VoveSearchBar = (props: VoveSearchBarProps) => {
   const { placeholder, onPress, } = props;
   const [text, setText] = React.useState('');
   const [filledFlag, setFilledFlag] = React.useState(false);
@@ -46,3 +46,5 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
 });
+
+export default VoveSearchBar;
