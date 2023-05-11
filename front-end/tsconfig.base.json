@@ -52,6 +52,9 @@
       "@front-end/interface-adapters/controllers/user": [
         "src/interface-adapters/controllers/user/src/index.ts"
       ],
+      "@front-end/interface-adapters/view-models/inquiry": [
+        "src/interface-adapters/view-models/inquiry/src/index.ts"
+      ],
       "@front-end/interface-adapters/view-models/user": [
         "src/interface-adapters/view-models/user/src/index.ts"
       ],

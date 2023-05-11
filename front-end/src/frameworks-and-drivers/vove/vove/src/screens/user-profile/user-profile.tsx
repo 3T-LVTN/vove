@@ -32,7 +32,11 @@ import {Alert, Image, Pressable, ScrollView, StyleSheet, Switch, Text, View} fro
 import * as ImagePicker from "expo-image-picker"
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {firebase} from "@front-end/frameworks-and-drivers/firebase-auth";
-import {ButtonFullWidth, InputInformation} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import {
+  ButtonFullWidth,
+  InputInformation,
+  InputSwitch
+} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 
 export function UserProfile(props: UserProfileProps) {
   const {navigation} = props;
@@ -144,13 +148,7 @@ export function UserProfile(props: UserProfileProps) {
 
           <View style={{paddingTop: ScreenSize.height * 0.02, paddingBottom: ScreenSize.height *0.01, flexDirection: "row", justifyContent: "space-between", width: (310 / 375) * ScreenSize.width}}>
             <Text style={TextStyle.h3}>Allow Notification</Text>
-            <Switch
-              trackColor={{false: Color.grey_60, true: Color.primary_60}}
-              thumbColor={notificationEnabled ? Color.primary_100 : Color.grey_100}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={notificationEnabled}
-            />
+            <InputSwitch defaultValue={true}></InputSwitch>
           </View>
           <ButtonFullWidth content={"Update Information"} onPress={() => {navigation.navigate("Login")}} type={ButtonType.OUTLINE}/>
           <View style={{paddingTop: ScreenSize.height * 0.015}}/>
