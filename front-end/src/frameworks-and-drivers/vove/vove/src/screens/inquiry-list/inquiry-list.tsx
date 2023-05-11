@@ -64,14 +64,14 @@ export function InquiryList(props: InquiryListProps) {
           />
         </View>
       </View>
-      <View style={{marginTop: customSize(2), marginBottom: customSize(2)}}>
+      <View style={{marginTop: customSize(3)}}>
         {/*<Text style={{...TextStyle.h3, color: Color.primary_100}}>Inquiry List</Text>*/}
         <View style={{flexDirection: "row", marginTop: customSize(12)}}>
           <Pressable onPress={() => setSelected(0)}>
             <View
               style={{
                 ...styles.buttonGroup,
-                width: customSize(67),
+                width: customSize(72),
                 backgroundColor: buttonColor(0),
                 borderTopLeftRadius: 4,
                 borderBottomLeftRadius: 4,
@@ -152,32 +152,6 @@ export function InquiryList(props: InquiryListProps) {
           }
         </View>
       </View>
-      {/*<View style={styles.center}>*/}
-      {/*<Text>Inquiry list</Text>*/}
-      {/*<Button*/}
-      {/*  title="Inquiry 001"*/}
-      {/*  onPress={() => props.navigation.navigate("InquiryDetail")}*/}
-      {/*/>*/}
-      {/*<Button*/}
-      {/*  title="New inquiry"*/}
-      {/*  onPress={() => props.navigation.navigate("NewInquiry")}*/}
-      {/*/>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 2"} timeStamp={"2022"} status={InquiryStatusType.OPENING}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 3"} timeStamp={"2022"} status={InquiryStatusType.WAITING}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 4"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-
-      {/*</View>*/}
     </ScrollView>
   );
 }

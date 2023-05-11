@@ -8,23 +8,23 @@ export const StatusLabel = (props: StatusLabelProps) => {
   const {status} = props;
   const STATUS_DATA = [
     {
-      color: Color.primary_100,
+      color: Color.primary_60,
       text: "Opening",
     },
     {
-      color: Color.yellow_20,
+      color: Color.yellow_80,
       text: "Waiting",
     },
     {
-      color: Color.grey_100,
+      color: Color.grey_80,
       text: "Closed"
     }
   ];
   return (
     <View
-      style={{...styles.container, borderColor: STATUS_DATA[status].color}}
+      style={{...styles.container, backgroundColor: STATUS_DATA[status].color}}
     >
-      <Text style={{...TextStyle.label, color: STATUS_DATA[status].color}}>
+      <Text style={{...TextStyle.label, color: "white"}}>
         {STATUS_DATA[status].text}
       </Text>
     </View>
@@ -33,10 +33,9 @@ export const StatusLabel = (props: StatusLabelProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
+    borderRadius: 8,
     paddingHorizontal: 5,
     backgroundColor: Color.white_100,
-    borderWidth: 1,
     alignSelf: "flex-start",
   },
 });

@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     paddingHorizontal: customSize(15),
-    paddingVertical: customSize(10),
-    height: (110 / 375) * ScreenSize.width,
+    paddingVertical: customSize(15),
+    height: (117 / 375) * ScreenSize.width,
     backgroundColor: Color.white_100,
     borderWidth: 1,
     borderColor: Color.primary_100,
