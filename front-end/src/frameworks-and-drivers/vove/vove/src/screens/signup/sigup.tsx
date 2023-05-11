@@ -37,7 +37,7 @@ export function Signup(props: SigupProps) {
     const data = {
       name: name,
       image:
-        'https://staymana.s3.ap-southeast-1.amazonaws.com/sample-avatar.jpg',
+        'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
       email: email,
     };
     // userController.getUser(userCheckData.tel).then((res: User) => {
@@ -86,6 +86,13 @@ export function Signup(props: SigupProps) {
               placeholder="Please enter your email"
               rightIcon={email === '' ? '' : 'check-circle-outline'}
             ></InputText>
+            {/*<InputText*/}
+            {/*  allowOutput={true}*/}
+            {/*  output={setMail}*/}
+            {/*  title="Address"*/}
+            {/*  placeholder="Please enter your adress"*/}
+            {/*  rightIcon={email === '' ? '' : 'check-circle-outline'}*/}
+            {/*></InputText>*/}
           </View>
         </View>
         <View style={{marginTop: ScreenSize.height * 0.2}}></View>
