@@ -51,7 +51,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-cache/
 
 
 apps/vove-e2e/artifacts
