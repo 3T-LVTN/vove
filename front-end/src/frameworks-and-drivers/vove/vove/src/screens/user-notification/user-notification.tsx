@@ -91,7 +91,7 @@ export function UserNotification(props: UserNotificationProps) {
             .map(nof => (
               <View>
                 <NotificationCard leftSymbol={nof.leftIcon} content={nof.content} time={nof.time} isRead={nof.isRead}/>
-                <View style={{marginTop: customSize(5)}}/>
+                <View style={{marginTop: customSize(10)}}/>
               </View>
             ))}
           <View style={{padding: ScreenSize.height * 0.01}}></View>

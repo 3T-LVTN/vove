@@ -47,9 +47,9 @@ export const MosquitoesViewStack = () => {
     <Stack.Navigator screenOptions={HeaderStyle} initialRouteName="MosquitoesHeatmap">
       <Stack.Screen name="MosquitoesHeatmap" component={Home} options={{ headerShown: false }}/>
       <Stack.Screen name="SearchPlace" component={SearchPlace} options={{ headerShown: false }}/>
-      <Stack.Screen name="PlaceDetail" component={PlaceDetail}/>
-      <Stack.Screen name="TrackingSummary" component={TrackingSummary}/>
-      <Stack.Screen name="TrackingList" component={TrackingList}/>
+      <Stack.Screen name="PlaceDetail" component={PlaceDetail} options={{ title: "E-town Central" }}/>
+      <Stack.Screen name="TrackingSummary" component={TrackingSummary} options={{ title: "Tracking Summary" }}/>
+      <Stack.Screen name="TrackingList" component={TrackingList} options={{ title: "All Tracking Places" }}/>
       <Stack.Screen name="NewTrackingPlace" component={NewTrackingPlace}/>
       <Stack.Screen name="EditTrackingPlace" component={EditTrackingPlace}/>
     </Stack.Navigator>

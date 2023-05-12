@@ -15,7 +15,7 @@ export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
   const { title, timeStamp, status, navigation, inquiryDetail } = props;
 
   return (
-    <Pressable onPress={() => {navigation.navigate("InquiryDetail", inquiryDetail); console.log("Hello", inquiryDetail)}} style={{width: "100%"}}>
+    <Pressable onPress={() => {navigation.navigate("InquiryDetail", inquiryDetail)}} style={{width: "99%", alignSelf:"center"}}>
       <View style={styles.container}>
         <View style={styles.line}>
           <Text style={{...TextStyle.bodySmall, color: Color.dark_80}}>
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: customSize(15),
     paddingVertical: customSize(15),
     height: (117 / 375) * ScreenSize.width,
-    backgroundColor: Color.white_100,
     borderWidth: 1,
-    borderColor: Color.primary_100,
+    backgroundColor: Color.white_100,
+    borderColor: Color.dark_40,
     marginTop: (12 / 375) * ScreenSize.width,
     shadowColor: "#000",
     shadowOffset: {
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
 
-    elevation: 5,
   },
   line: {
     flexDirection: "row",

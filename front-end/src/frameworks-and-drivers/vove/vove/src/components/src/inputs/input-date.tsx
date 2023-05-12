@@ -5,7 +5,7 @@ import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export interface InputDateProps {
-  readonly title: string;
+  readonly title?: string;
   readonly output: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -14,7 +14,9 @@ export const InputDate = (props: InputDateProps) => {
 
   const [date, setDate] = useState(new Date());
   const [dateShow, setDateShow] = useState(false);
-  const [dateText, setDateText] = useState(new Date());
+  const [dateText, setDateText] = useState('12/05/2023');
+
+  // TODO: fix dateChange with type conflict
   const dateChange = (selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDateShow(Platform.OS === 'ios');
@@ -22,34 +24,28 @@ export const InputDate = (props: InputDateProps) => {
 
     const tempDate = new Date(currentDate);
     const printDate =
-      tempDate.getDate() +
+      tempDate.getDate().toLocaleString() +
       '/' +
-      (tempDate.getMonth() + 1) +
+      (tempDate.getMonth() + 1).toLocaleString() +
       '/' +
-      tempDate.getFullYear();
-    setDateText(new Date(printDate));
+      tempDate.getFullYear().toLocaleString();
+    setDateText(printDate)
     props.output(selectedDate);
   };
 
   return (
     <View>
       <TextInput
-        label={
-          <Text style={{ ...TextStyle.h3, color: Color.dark_100 }}>
-            {title}
-          </Text>
-        }
-        mode="flat"
-        value={dateText.toLocaleString()}
-        activeUnderlineColor={Color.grey_100}
-        outlineColor={Color.white_100}
-        activeOutlineColor={Color.white_100}
+        mode="outlined"
         editable={false}
+        value={dateText}
+        outlineColor={Color.primary_100}
         style={{
           ...TextStyle.h3,
           fontWeight: '400',
           width: (327 / 375) * ScreenSize.width,
-          backgroundColor: 'transparent',
+          backgroundColor: Color.white_100,
+          borderRadius: 10
         }}
         right={
           <TextInput.Icon
