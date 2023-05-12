@@ -81,7 +81,6 @@ export function InquiryList(props: InquiryListProps) {
         </View>
       </View>
       <View style={{marginTop: customSize(3)}}>
-        {/*<Text style={{...TextStyle.h3, color: Color.primary_100}}>Inquiry List</Text>*/}
         <View style={{flexDirection: "row", marginTop: customSize(12)}}>
           <Pressable onPress={() => setSelected(0)}>
             <View
