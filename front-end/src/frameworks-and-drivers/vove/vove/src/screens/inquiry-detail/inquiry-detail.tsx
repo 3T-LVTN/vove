@@ -35,8 +35,8 @@ export function InquiryDetail(props: InquiryDetailProps) {
             <Text style={{...TextStyle.h3, color: Color.dark_100}}>Comments ({inquiryDetail.comments.length})</Text>
             <View style={{paddingTop: ScreenSize.height * 0.01}}/>
             {inquiryDetail.comments.map((item: any) =>
-              <View key={item.index}>
-                <View style={{...styles.center, borderColor: item.byUser ? Color.primary_100 : Color.yellow_20}}>
+              <View >
+                <View key={item.index} style={{...styles.center, borderColor: item.byUser ? Color.primary_100 : Color.yellow_20}}>
                   <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
                     <Text style={{
                       ...TextStyle.bodyLarge,

@@ -6,6 +6,7 @@ import Home from "../screens/home/home";
 import SignupSucceed from "../screens/signup-succeed/signup-succeed";
 import InquiryList from "../screens/inquiry-list/inquiry-list";
 import InquiryDetail from "../screens/inquiry-detail/inquiry-detail";
+import NewInquiry from "../screens/new-inquiry/new-inquiry";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ export const InquiryStack = () => {
     <Stack.Navigator screenOptions={HeaderStyle} initialRouteName="InquiryList">
       <Stack.Screen name="InquiryList" component={InquiryList} options={{ headerShown: false }}/>
       <Stack.Screen name="InquiryDetail" component={InquiryDetail} options={{ title: "Inquiry Detail" }}/>
+      <Stack.Screen name="NewInquiry" component={NewInquiry} options={{ title: "New Inquiry" }}/>
     </Stack.Navigator>
   );
 };
