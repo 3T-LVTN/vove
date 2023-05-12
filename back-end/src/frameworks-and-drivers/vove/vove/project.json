@@ -1,0 +1,64 @@
+{
+  "name": "vove",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src/frameworks-and-drivers/vove/vove/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/src/frameworks-and-drivers/vove/vove",
+        "main": "src/frameworks-and-drivers/vove/vove/src/main.ts",
+        "tsConfig": "src/frameworks-and-drivers/vove/vove/tsconfig.app.json",
+        "assets": ["src/frameworks-and-drivers/vove/vove/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "src/frameworks-and-drivers/vove/vove/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "vove:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "vove:build:development"
+        },
+        "production": {
+          "buildTarget": "vove:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["src/frameworks-and-drivers/vove/vove/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "src/frameworks-and-drivers/vove/vove/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

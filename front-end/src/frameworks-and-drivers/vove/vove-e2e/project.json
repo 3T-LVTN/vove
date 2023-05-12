@@ -1,0 +1,95 @@
+{
+  "name": "vove-e2e",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src/frameworks-and-drivers/vove/vove-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "build-ios": {
+      "executor": "@nx/detox:build",
+      "options": {
+        "detoxConfiguration": "ios.sim.debug"
+      },
+      "configurations": {
+        "local": {
+          "detoxConfiguration": "ios.sim.local"
+        },
+        "bare": {
+          "detoxConfiguration": "ios.sim.debug"
+        },
+        "production": {
+          "detoxConfiguration": "ios.sim.release"
+        }
+      }
+    },
+    "test-ios": {
+      "executor": "@nx/detox:test",
+      "options": {
+        "detoxConfiguration": "ios.sim.eas",
+        "buildTarget": "vove-e2e:build-ios"
+      },
+      "configurations": {
+        "local": {
+          "detoxConfiguration": "ios.sim.local",
+          "buildTarget": "vove-e2e:build-ios:local"
+        },
+        "bare": {
+          "detoxConfiguration": "ios.sim.debug",
+          "buildTarget": "vove-e2e:build-ios:bare"
+        },
+        "production": {
+          "detoxConfiguration": "ios.sim.release",
+          "buildTarget": "vove-e2e:build-ios:production"
+        }
+      }
+    },
+    "build-android": {
+      "executor": "@nx/detox:build",
+      "options": {
+        "detoxConfiguration": "android.emu.debug"
+      },
+      "configurations": {
+        "local": {
+          "detoxConfiguration": "android.emu.local"
+        },
+        "bare": {
+          "detoxConfiguration": "android.emu.debug"
+        },
+        "production": {
+          "detoxConfiguration": "android.emu.release"
+        }
+      }
+    },
+    "test-android": {
+      "executor": "@nx/detox:test",
+      "options": {
+        "detoxConfiguration": "android.emu.eas",
+        "buildTarget": "vove-e2e:build-android"
+      },
+      "configurations": {
+        "local": {
+          "detoxConfiguration": "android.emu.local",
+          "buildTarget": "vove-e2e:build-android:local"
+        },
+        "bare": {
+          "detoxConfiguration": "android.emu.debug",
+          "buildTarget": "vove-e2e:build-android:bare"
+        },
+        "production": {
+          "detoxConfiguration": "android.emu.release",
+          "buildTarget": "vove-e2e:build-android:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "src/frameworks-and-drivers/vove/vove-e2e/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["vove"]
+}

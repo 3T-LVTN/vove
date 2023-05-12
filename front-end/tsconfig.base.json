@@ -1,0 +1,69 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@front-end/application/configuration": [
+        "src/application/configuration/src/index.ts"
+      ],
+      "@front-end/application/interactors/user": [
+        "src/application/interactors/user/src/index.ts"
+      ],
+      "@front-end/application/repositories/user": [
+        "src/application/repositories/user/src/index.ts"
+      ],
+      "@front-end/application/usecases/user": [
+        "src/application/usecases/user/src/index.ts"
+      ],
+      "@front-end/application/utilities": [
+        "src/application/utilities/src/index.ts"
+      ],
+      "@front-end/domain/dtos/user": ["src/domain/dtos/user/src/index.ts"],
+      "@front-end/domain/entities/user": [
+        "src/domain/entities/user/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/app-sync/axios": [
+        "src/frameworks-and-drivers/app-sync/axios/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/app-sync/cache": [
+        "src/frameworks-and-drivers/app-sync/cache/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/app-sync/user": [
+        "src/frameworks-and-drivers/app-sync/user/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/firebase-auth": [
+        "src/frameworks-and-drivers/firebase-auth/src/index.ts"
+      ],
+      "@front-end/frameworks-and-drivers/vove/vove/src/components": [
+        "src/frameworks-and-drivers/vove/vove/src/components/src/index.ts"
+      ],
+      "@front-end/interface-adapters/controllers/user": [
+        "src/interface-adapters/controllers/user/src/index.ts"
+      ],
+      "@front-end/interface-adapters/view-models/inquiry": [
+        "src/interface-adapters/view-models/inquiry/src/index.ts"
+      ],
+      "@front-end/interface-adapters/view-models/tracking-places": [
+        "src/interface-adapters/view-models/tracking-places/src/index.ts"
+      ],
+      "@front-end/interface-adapters/view-models/user": [
+        "src/interface-adapters/view-models/user/src/index.ts"
+      ],
+      "@front-end/shared/ui": ["src/shared/ui/src/index.ts"],
+      "@front-end/shared/utils": ["src/shared/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

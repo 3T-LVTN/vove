@@ -1,0 +1,44 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@back-end/application/configuration": [
+        "src/application/configuration/src/index.ts"
+      ],
+      "@back-end/application/interactors/user": [
+        "src/application/interactors/user/src/index.ts"
+      ],
+      "@back-end/application/repositories/user": [
+        "src/application/repositories/user/src/index.ts"
+      ],
+      "@back-end/application/usecases/user": [
+        "src/application/usecases/user/src/index.ts"
+      ],
+      "@back-end/application/utilities": [
+        "src/application/utilities/src/index.ts"
+      ],
+      "@back-end/domain/dtos/user": ["src/domain/dtos/user/src/index.ts"],
+      "@back-end/domain/entities/user": [
+        "src/domain/entities/user/src/index.ts"
+      ],
+      "@back-end/interface-adapters/controllers/user": [
+        "src/interface-adapters/controllers/user/src/index.ts"
+      ],
+      "@back-end/shared": ["src/shared/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
