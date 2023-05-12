@@ -1,7 +1,11 @@
 import React from "react";
 import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
-import {InputInformation} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import {ButtonType, Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
+import {
+  ButtonFullWidth, ButtonHalfWidth,
+  ButtonSmall,
+  InputInformation
+} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 
 export interface InquiryDetailProps {
   navigation: any;
@@ -26,34 +30,42 @@ export function InquiryDetail(props: InquiryDetailProps) {
           <InputInformation title="Message" information={inquiryDetail.content} width="100%"></InputInformation>
         </View>
         <View style={{paddingTop: ScreenSize.height * 0.02}}/>
-        <Text style={{...TextStyle.h3, color: Color.dark_100}}>Comments</Text>
-        <View style={{paddingTop: ScreenSize.height * 0.01}}/>
-        {inquiryDetail.comments.map((item: any) =>
+        {inquiryDetail.comments.length !== 0 ? (
           <View>
-            <View style={{...styles.center, borderColor: item.byUser ? Color.primary_100 : Color.yellow_20}}>
-              <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
-                <Text style={{
-                  ...TextStyle.bodyLarge,
-                  alignSelf: "flex-start",
-                  paddingHorizontal: 12,
-                  color: item.byUser ? Color.primary_100 : Color.yellow_20
-                }}>{item.byUser ? "Me" : "Admin"}</Text>
-                <Text style={{
-                  ...TextStyle.bodySmall,
-                  alignSelf: "flex-start",
-                  paddingHorizontal: 12,
-                  color: item.byUser ? Color.primary_100 : Color.yellow_20
-                }}>{item.timestamp}</Text>
+            <Text style={{...TextStyle.h3, color: Color.dark_100}}>Comments ({inquiryDetail.comments.length})</Text>
+            <View style={{paddingTop: ScreenSize.height * 0.01}}/>
+            {inquiryDetail.comments.map((item: any) =>
+              <View key={item.index}>
+                <View style={{...styles.center, borderColor: item.byUser ? Color.primary_100 : Color.yellow_20}}>
+                  <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                    <Text style={{
+                      ...TextStyle.bodyLarge,
+                      alignSelf: "flex-start",
+                      paddingHorizontal: 12,
+                      color: item.byUser ? Color.primary_100 : Color.yellow_20
+                    }}>{item.byUser ? "Me" : "Admin"}</Text>
+                    <Text style={{
+                      ...TextStyle.bodySmall,
+                      alignSelf: "flex-start",
+                      paddingHorizontal: 12,
+                      color: item.byUser ? Color.primary_100 : Color.yellow_20
+                    }}>{item.timestamp}</Text>
 
+                  </View>
+                  <InputInformation title="Message" information={item.content} width="100%"></InputInformation>
+
+                </View>
+                <View style={{paddingTop: ScreenSize.height * 0.015}}/>
               </View>
-              <InputInformation title="Message" information={item.content} width="100%"></InputInformation>
-
-            </View>
-            <View style={{paddingTop: ScreenSize.height * 0.015}}/>
+            )}
           </View>
-        )}
+        ) : null}
         <View style={{paddingTop: ScreenSize.height * 0.1}}/>
       </ScrollView>
+      <View style={{flexDirection: "row", justifyContent: "space-evenly", paddingTop: 10}}>
+        <ButtonHalfWidth type={inquiryDetail.status !== InquiryStatusType.CLOSED ? ButtonType.DEFAULT : ButtonType.DISABLE} content={"New Comment"} onPress={()=>{console.log('')}}/>
+        <ButtonHalfWidth type={inquiryDetail.status !== InquiryStatusType.CLOSED ? ButtonType.RED : ButtonType.DISABLE} content={"Close Inquiry"} onPress={()=>{console.log('')}}/>
+      </View>
 
     </View>
   );

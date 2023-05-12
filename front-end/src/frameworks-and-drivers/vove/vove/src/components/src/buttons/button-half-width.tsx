@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Pressable } from "react-native";
+import {Pressable, StyleSheet, Text} from "react-native";
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 
 export interface ButtonHalfWidthProps {
@@ -8,14 +8,16 @@ export interface ButtonHalfWidthProps {
   readonly onPress: any;
 }
 
-export const ButtonHalfWidth = (props : ButtonHalfWidthProps) => {
-  const { type, content, onPress } = props;
+export const ButtonHalfWidth = (props: ButtonHalfWidthProps) => {
+  const {type, content, onPress} = props;
   const buttonColor =
     type == ButtonType.OUTLINE
       ? Color.white_100
       : type == ButtonType.RED
         ? Color.red_100
-        : Color.primary_100;
+        : type == ButtonType.DISABLE
+          ? Color.grey_40
+          : Color.primary_100;
   const textColor =
     type == ButtonType.OUTLINE ? Color.primary_100 : Color.white_100;
   return (
@@ -27,7 +29,7 @@ export const ButtonHalfWidth = (props : ButtonHalfWidthProps) => {
       }}
       onPress={onPress}
     >
-      <Text style={{ ...TextStyle.h3, color: textColor }}>{content}</Text>
+      <Text style={{...TextStyle.h3, color: textColor}}>{content}</Text>
     </Pressable>
   );
 };

@@ -40,7 +40,7 @@ const mockInquiries: InquiryViewModel[] = [
     title: "Add support for multiple languages",
     status: InquiryStatusType.CLOSED,
     address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
-    content: "",
+    content: "I am writing to inquire about your epidemic forecast service. I am interested in using your service to help me better understand the likelihood and severity of potential disease outbreaks in my area. Can you provide me with more information about the data sources you use and the accuracy of your forecasts? Additionally, can you tell me more about the range of diseases that your service covers and the methods you use for analyzing and predicting outbreaks?",
     comments: []
   },
   {
