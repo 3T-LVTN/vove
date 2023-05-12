@@ -12,7 +12,6 @@ export interface InquiryDetailProps {
 }
 
 export function InquiryDetail(props: InquiryDetailProps) {
-  console.log(props.route.params);
   const inquiryDetail = props.route.params;
   const inquiryStatus: string = inquiryDetail.status === InquiryStatusType.CLOSED ? "CLOSED" : inquiryDetail.status === InquiryStatusType.OPENING ? "OPENING" : "WAITING";
   return (
@@ -28,6 +27,7 @@ export function InquiryDetail(props: InquiryDetailProps) {
           <InputInformation title="Status" information={inquiryStatus} width="100%"></InputInformation>
           <InputInformation title="Addess" information={inquiryDetail.address} width="100%"></InputInformation>
           <InputInformation title="Message" information={inquiryDetail.content} width="100%"></InputInformation>
+          <View style={{paddingTop: ScreenSize.height * 0.008}}/>
         </View>
         <View style={{paddingTop: ScreenSize.height * 0.02}}/>
         {inquiryDetail.comments.length !== 0 ? (
