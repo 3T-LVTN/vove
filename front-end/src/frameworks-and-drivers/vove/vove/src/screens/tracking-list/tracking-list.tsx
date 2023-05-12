@@ -10,7 +10,7 @@ const trackingSummaryList: TrackingPlacesViewModel[] = [
     id: "1",
     placeName: "Ngoc's house",
     address: "Lô D, chung cư Lạc Long Quân, Quận 11",
-    status: TrackingPlaceStatusType.HIGH_RISK,
+    status: TrackingPlaceStatusType.EPIDEMIC,
     notificationAllowed: true
   },
   {
