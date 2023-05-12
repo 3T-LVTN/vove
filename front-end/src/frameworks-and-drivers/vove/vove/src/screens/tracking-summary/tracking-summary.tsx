@@ -13,7 +13,7 @@ const trackingSummaryList: TrackingPlacesViewModel[] = [
     id: "1",
     placeName: "Ngoc's house",
     address: "Lô D, chung cư Lạc Long Quân, Quận 11",
-    status: TrackingPlaceStatusType.HIGH_RISK,
+    status: TrackingPlaceStatusType.EPIDEMIC,
     notificationAllowed: true
   },
   {
@@ -25,6 +25,13 @@ const trackingSummaryList: TrackingPlacesViewModel[] = [
   }
 ]
 
+const myArea: TrackingPlacesViewModel = {
+  id: "3",
+  placeName: "My Area",
+  address: "24/5R Tân Xuân, Hóc Môn",
+  status: TrackingPlaceStatusType.LOW_RISK,
+  notificationAllowed: true
+}
 
 
 export interface TrackingSummaryProps {
@@ -41,12 +48,12 @@ export function TrackingSummary(props: TrackingSummaryProps) {
         <View style={{paddingTop: ScreenSize.height * 0.02}}/>
 
         <Text style={{...TextStyle.h3, color: Color.primary_100, alignSelf: "flex-start"}}>My Place</Text>
-        <TrackingSummaryCard placeName={"My area"} address={"24/5R Tân Xuân, Hóc Môn"} status={TrackingPlaceStatusType.LOW_RISK} notificationAllowed={true} navigation={props.navigation}/>
+        <TrackingSummaryCard placeName={myArea.placeName} address={myArea.address} status={myArea.status} notificationAllowed={myArea.notificationAllowed} navigation={props.navigation} placeDetail={myArea}/>
         <View style={{paddingTop: ScreenSize.height * 0.02}}/>
 
         <Text style={{...TextStyle.h3, color: Color.primary_100, alignSelf: "flex-start"}}>Other saved places</Text>
         {trackingSummaryList.map((trackingPlace) =>
-          <TrackingSummaryCard placeName={trackingPlace.placeName} address={trackingPlace.address} status={trackingPlace.status} notificationAllowed={trackingPlace.notificationAllowed} navigation={props.navigation}/>
+          <TrackingSummaryCard placeName={trackingPlace.placeName} address={trackingPlace.address} status={trackingPlace.status} notificationAllowed={trackingPlace.notificationAllowed} navigation={props.navigation} placeDetail={trackingPlace}/>
         )}
       </View>
       <ButtonFullWidth content={"All Saved Places"} onPress={() => props.navigation.navigate("TrackingList")}/>
