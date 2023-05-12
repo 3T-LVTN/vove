@@ -42,7 +42,7 @@ export const InquiryStack = () => {
   return (
     <Stack.Navigator screenOptions={HeaderStyle} initialRouteName="InquiryList">
       <Stack.Screen name="InquiryList" component={InquiryList} options={{ headerShown: false }}/>
-      <Stack.Screen name="InquiryDetail" component={InquiryDetail}/>
+      <Stack.Screen name="InquiryDetail" component={InquiryDetail} options={{ title: "Inquiry Detail" }}/>
     </Stack.Navigator>
   );
 };
