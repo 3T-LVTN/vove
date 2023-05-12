@@ -28,7 +28,7 @@ export interface UserProfileProps {
 
 
 import React, {useState} from "react";
-import {Alert, Image, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
+import {Alert, Image, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as ImagePicker from "expo-image-picker"
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {firebase} from "@front-end/frameworks-and-drivers/firebase-auth";
@@ -139,20 +139,30 @@ export function UserProfile(props: UserProfileProps) {
             }
             <View style={{paddingTop: ScreenSize.height * 0.05}}/>
           </View>
-            <InputInformation title="Username" information={name}></InputInformation>
-            <InputInformation title="Phone number" information={phone}></InputInformation>
-            <InputInformation title="Email" information={email}></InputInformation>
-            <InputInformation title="Address" information="Not entered"></InputInformation>
+          <InputInformation title="Username" information={name}></InputInformation>
+          <InputInformation title="Phone number" information={phone}></InputInformation>
+          <InputInformation title="Email" information={email}></InputInformation>
+          <InputInformation title="Address" information="Not entered"></InputInformation>
 
           {/*Cache.rm('ACCESS_TOKEN')*/}
 
-          <View style={{paddingTop: ScreenSize.height * 0.02, paddingBottom: ScreenSize.height *0.01, flexDirection: "row", justifyContent: "space-between", width: (310 / 375) * ScreenSize.width}}>
+          <View style={{
+            paddingTop: ScreenSize.height * 0.02,
+            paddingBottom: ScreenSize.height * 0.01,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: (310 / 375) * ScreenSize.width
+          }}>
             <Text style={TextStyle.h3}>Allow Notification</Text>
             <InputSwitch defaultValue={true}></InputSwitch>
           </View>
-          <ButtonFullWidth content={"Update Information"} onPress={() => {navigation.navigate("Login")}} type={ButtonType.OUTLINE}/>
+          <ButtonFullWidth content={"Update Information"} onPress={() => {
+            navigation.navigate("Login")
+          }} type={ButtonType.OUTLINE}/>
           <View style={{paddingTop: ScreenSize.height * 0.015}}/>
-          <ButtonFullWidth content={"Log Out"} onPress={() => {navigation.navigate("Login")}} type={ButtonType.RED}/>
+          <ButtonFullWidth content={"Log Out"} onPress={() => {
+            navigation.navigate("Login")
+          }} type={ButtonType.RED}/>
           <View style={{paddingTop: ScreenSize.height * 0.3}}/>
         </View>
       </ScrollView>

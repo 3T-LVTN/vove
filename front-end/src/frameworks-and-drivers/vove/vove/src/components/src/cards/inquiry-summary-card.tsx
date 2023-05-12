@@ -1,18 +1,21 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import {ButtonType, Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {StatusLabel} from "../status/status-label";
+import {InquiryViewModel} from "@front-end/interface-adapters/view-models/inquiry";
+import inquiryDetail from "../../../screens/inquiry-detail/inquiry-detail";
 
 export interface InquirySummaryCardProps {
   readonly title: string;
   readonly timeStamp: string;
   readonly status: InquiryStatusType;
   readonly navigation: any;
+  readonly inquiryDetail: InquiryViewModel;
 }
 export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
-  const { title, timeStamp, status, navigation } = props;
+  const { title, timeStamp, status, navigation, inquiryDetail } = props;
 
   return (
-    <Pressable onPress={() => navigation.navigate("InquiryDetail")} style={{width: "100%"}}>
+    <Pressable onPress={() => {navigation.navigate("InquiryDetail", inquiryDetail); console.log("Hello", inquiryDetail)}} style={{width: "100%"}}>
       <View style={styles.container}>
         <View style={styles.line}>
           <Text style={{...TextStyle.bodySmall, color: Color.dark_80}}>
@@ -33,8 +36,8 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     paddingHorizontal: customSize(15),
-    paddingVertical: customSize(10),
-    height: (110 / 375) * ScreenSize.width,
+    paddingVertical: customSize(15),
+    height: (117 / 375) * ScreenSize.width,
     backgroundColor: Color.white_100,
     borderWidth: 1,
     borderColor: Color.primary_100,

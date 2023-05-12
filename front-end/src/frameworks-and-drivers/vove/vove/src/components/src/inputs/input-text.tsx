@@ -14,6 +14,7 @@ export interface InputTextProps {
   unit?: any;
   readonly?: boolean;
   readonly keyboardType?: KeyboardTypeOptions;
+  readonly multiline?: boolean
 }
 
 export const InputText = (props: InputTextProps) => {
@@ -56,6 +57,7 @@ export const InputText = (props: InputTextProps) => {
       }}
       editable={!props.readonly}
       keyboardType={props.keyboardType}
+      multiline={props.multiline === true}
       style={{
         ...TextStyle.h3,
         fontWeight: '400',

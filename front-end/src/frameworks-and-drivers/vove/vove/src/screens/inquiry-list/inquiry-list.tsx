@@ -10,31 +10,47 @@ const mockInquiries: InquiryViewModel[] = [
     id: "1",
     timestamp: "03/05/2023 15:15",
     title: "The predict results at my living area is incorrect",
-    status: InquiryStatusType.OPENING
+    status: InquiryStatusType.OPENING,
+    address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    content: "I am writing to inquire about your epidemic forecast service. I am interested in using your service to help me better understand the likelihood and severity of potential disease outbreaks in my area. Can you provide me with more information about the data sources you use and the accuracy of your forecasts? Additionally, can you tell me more about the range of diseases that your service covers and the methods you use for analyzing and predicting outbreaks?",
+    comments: [{byUser: false, content: "I will take a look", timestamp: "05/05/2023 15:00"}, {byUser: true, content: "Please help me", timestamp: "06/05/2023 15:00"}]
+
   },
   {
     id: "2",
     timestamp: "03/04/2023 15:15",
     title: "I can't find my place on your map",
-    status: InquiryStatusType.OPENING
+    status: InquiryStatusType.OPENING,
+    address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    content: "",
+    comments: []
   },
   {
     id: "3",
     timestamp: "03/03/2023 15:15",
     title: "Add travel advisories for disease outbreaks",
-    status: InquiryStatusType.WAITING
+    status: InquiryStatusType.WAITING,
+    address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    content: "",
+    comments: []
   },
   {
     id: "4",
     timestamp: "03/02/2023 15:15",
     title: "Add support for multiple languages",
-    status: InquiryStatusType.CLOSED
+    status: InquiryStatusType.CLOSED,
+    address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    content: "I am writing to inquire about your epidemic forecast service. I am interested in using your service to help me better understand the likelihood and severity of potential disease outbreaks in my area. Can you provide me with more information about the data sources you use and the accuracy of your forecasts? Additionally, can you tell me more about the range of diseases that your service covers and the methods you use for analyzing and predicting outbreaks?",
+    comments: []
   },
   {
     id: "5",
     timestamp: "03/01/2023 15:15",
     title: "Can you let us choose the theme color",
-    status: InquiryStatusType.WAITING
+    status: InquiryStatusType.WAITING,
+    address: "Xã Tân Xuân, Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    content: "",
+    comments: []
   }
 ]
 
@@ -64,14 +80,14 @@ export function InquiryList(props: InquiryListProps) {
           />
         </View>
       </View>
-      <View style={{marginTop: customSize(2), marginBottom: customSize(2)}}>
+      <View style={{marginTop: customSize(3)}}>
         {/*<Text style={{...TextStyle.h3, color: Color.primary_100}}>Inquiry List</Text>*/}
         <View style={{flexDirection: "row", marginTop: customSize(12)}}>
           <Pressable onPress={() => setSelected(0)}>
             <View
               style={{
                 ...styles.buttonGroup,
-                width: customSize(67),
+                width: customSize(72),
                 backgroundColor: buttonColor(0),
                 borderTopLeftRadius: 4,
                 borderBottomLeftRadius: 4,
@@ -134,50 +150,24 @@ export function InquiryList(props: InquiryListProps) {
         <View style={{marginBottom: customSize(24)}}>
           {selected === 0
             ? mockInquiries.map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation}
-                                                              title={item.title} timeStamp={item.timestamp}/>)
+                                                              title={item.title} timeStamp={item.timestamp} inquiryDetail={item}/>)
             : selected === 1
               ? mockInquiries
                 .filter((item) => item.status === InquiryStatusType.OPENING)
                 .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                   timeStamp={item.timestamp}/>)
+                                                   timeStamp={item.timestamp} inquiryDetail={item} />)
               : selected === 2
                 ? mockInquiries
                   .filter((item) => item.status === InquiryStatusType.WAITING)
                   .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                     timeStamp={item.timestamp}/>)
+                                                     timeStamp={item.timestamp} inquiryDetail={item}/>)
                 : mockInquiries
                   .filter((item) => item.status === InquiryStatusType.CLOSED)
                   .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                     timeStamp={item.timestamp}/>)
+                                                     timeStamp={item.timestamp} inquiryDetail={item}/>)
           }
         </View>
       </View>
-      {/*<View style={styles.center}>*/}
-      {/*<Text>Inquiry list</Text>*/}
-      {/*<Button*/}
-      {/*  title="Inquiry 001"*/}
-      {/*  onPress={() => props.navigation.navigate("InquiryDetail")}*/}
-      {/*/>*/}
-      {/*<Button*/}
-      {/*  title="New inquiry"*/}
-      {/*  onPress={() => props.navigation.navigate("NewInquiry")}*/}
-      {/*/>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 2"} timeStamp={"2022"} status={InquiryStatusType.OPENING}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 3"} timeStamp={"2022"} status={InquiryStatusType.WAITING}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 4"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-      {/*  <InquirySummaryCard title={"Inquiry 1"} timeStamp={"2022"} status={InquiryStatusType.CLOSED}*/}
-      {/*                      navigation={navigation}></InquirySummaryCard>*/}
-
-      {/*</View>*/}
     </ScrollView>
   );
 }
