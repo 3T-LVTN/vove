@@ -1,6 +1,7 @@
 import {Color, customSize, ScreenSize, TextStyle, TrackingPlaceStatusType} from "@front-end/shared/utils";
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import {InputSwitch} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import {ButtonIcon} from "../buttons/button-icon";
+import {InputSwitch} from "../inputs/input-switch";
 
 export interface TrackingPlaceStatusProps {
   readonly placeName: string;
@@ -8,13 +9,14 @@ export interface TrackingPlaceStatusProps {
   readonly status: TrackingPlaceStatusType;
   readonly notificationAllowed: any;
   readonly navigation: any;
+  readonly editable?: boolean;
 }
 
 export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
-  const {navigation, placeName, address, status, notificationAllowed} = props
+  const {editable,navigation, placeName, address, status, notificationAllowed} = props
   return (
     <Pressable onPress={() => {navigation.navigate("PlaceDetail")}} style={{width: "100%"}}>
-      <View style={styles.container}>
+      <View style={{...styles.container, alignItems: "center", justifyContent: "space-between"}}>
         <View style={status === TrackingPlaceStatusType.GOOD ? styles.statusCircleGood : status === TrackingPlaceStatusType.LOW_RISK ? styles.statusCircleLowRisk : status === TrackingPlaceStatusType.HIGH_RISK ? styles.statusCircleHighRisk : styles.statusCircleEpidemic}></View>
         <View style={{width: "60%", paddingLeft: 8}}>
           <Text style={{...TextStyle.h3, color: Color.dark_80}}>
@@ -25,7 +27,10 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
           </Text>
         </View>
         <View style={{ height: customSize(14) }} />
-        <View style={styles.line}>
+        <View style={{height: "100%", alignItems: "flex-end", justifyContent: "center"}}>
+          {editable ? (
+            <ButtonIcon onPress={() => console.log('')} iconName={'cog-outline'} customSize={0.7} />
+          ) : null}
           <InputSwitch defaultValue={notificationAllowed}></InputSwitch>
         </View>
       </View>

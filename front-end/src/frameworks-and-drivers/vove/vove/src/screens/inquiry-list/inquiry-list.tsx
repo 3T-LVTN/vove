@@ -69,7 +69,7 @@ export function InquiryList(props: InquiryListProps) {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View>
         <Text style={{...TextStyle.h3, color: Color.primary_100}}>Inquiry List</Text>
         <View style={styles.func}>
@@ -146,7 +146,7 @@ export function InquiryList(props: InquiryListProps) {
             </View>
           </Pressable>
         </View>
-        <View style={{marginBottom: customSize(24)}}>
+        <ScrollView style={{marginBottom: customSize(24)}}>
           {selected === 0
             ? mockInquiries.map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation}
                                                               title={item.title} timeStamp={item.timestamp} inquiryDetail={item}/>)
@@ -165,9 +165,10 @@ export function InquiryList(props: InquiryListProps) {
                   .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
                                                      timeStamp={item.timestamp} inquiryDetail={item}/>)
           }
-        </View>
+          <View style={{paddingTop: ScreenSize.height * 0.17}}/>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
