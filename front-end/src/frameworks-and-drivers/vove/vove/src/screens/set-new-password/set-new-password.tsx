@@ -3,24 +3,43 @@ import {Alert, ScrollView, StyleSheet, Text, View} from "react-native";
 import {ButtonFullWidth, InputPassword, StepBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
+import {NativeStackScreenProps} from "react-native-screens/native-stack";
+import {SignupStackPropsData} from "../../navigation/signup.navigator";
+import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
+import {UserInteractor} from "@front-end/application/interactors/user";
+import {UserController} from "@front-end/interface-adapters/controllers/user";
+import {User} from "@front-end/domain/entities/user";
 
-
-export interface SetNewPasswordProps {
-  readonly navigation: any;
-}
+export type SetNewPasswordProps = NativeStackScreenProps<SignupStackPropsData, "SetNewPassword">
 
 export function SetNewPassword(props: SetNewPasswordProps) {
+  const userRepository = new UserApi();
+  const userUseCase = new UserInteractor(userRepository);
+  const userController = new UserController(userUseCase);
+
   const {navigation} = props
   const [pass1, setPass1] = useState('')
   const [pass2, setPass2] = useState('')
 
   const handleSubmit = () => {
-    if (pass1 == pass2 && pass1 != '') {
+    if (pass1 === pass2 && pass1 !== '') {
       const data = {
         password: pass1,
       }
-      Cache.merge('Sign up', data)
-      // Cache.get('DangKy').then(res => POST.signUp(JSON.parse(res)))
+      Cache.merge('SignUp', data)
+      Cache.get('SignUp')
+        .then(res => JSON.parse(res ?? ""))
+        .then(res => {
+          if (res !== null)
+          userController.register({
+            phoneNumber: res.phoneNumber,
+            password: res.password,
+            name: res.name,
+            email: res.email,
+            photoUrl: res.image,
+          } as User)
+          else Alert.alert('Something went wrong. Try again!')
+        })
       navigation.navigate("SignupSucceed")
     } else Alert.alert('Passwords are different. Try again!')
   }
