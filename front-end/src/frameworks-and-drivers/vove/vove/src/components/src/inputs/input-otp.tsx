@@ -4,12 +4,11 @@ import OTPTextView from "react-native-otp-textinput";
 import { Color, TextStyle, ScreenSize } from "@front-end/shared/utils";
 
 export interface InputOtpProps {
-  readonly onPress : any;
-  readonly OTPInput: any;
+  readonly onPress : () => void;
+  readonly OTPInput: (OTP: string) => void;
 }
 
-export const InputOtp = (props: InputOtpProps) => {
-  const { onPress } = props
+export const InputOtp = ({ onPress, OTPInput }: InputOtpProps) => {
 
   return (
     <SafeAreaView>
@@ -24,7 +23,7 @@ export const InputOtp = (props: InputOtpProps) => {
 
       <OTPTextView
         inputCount={6}
-        handleTextChange={(OTP: any) => props.OTPInput(OTP)}
+        handleTextChange={(OTP: string) => OTPInput(OTP)}
         tintColor={Color.primary_40}
         offTintColor={Color.lightgrey_60}
         textInputStyle={{

@@ -2,7 +2,6 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import {ButtonType, Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {StatusLabel} from "../status/status-label";
 import {InquiryViewModel} from "@front-end/interface-adapters/view-models/inquiry";
-import inquiryDetail from "../../../screens/inquiry-detail/inquiry-detail";
 
 export interface InquirySummaryCardProps {
   readonly title: string;
