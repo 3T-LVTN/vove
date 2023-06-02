@@ -13,7 +13,7 @@ export interface InquiryDetailProps {
 
 export function InquiryDetail(props: InquiryDetailProps) {
   const inquiryDetail = props.route.params;
-  const inquiryStatus: string = inquiryDetail.status === InquiryStatusType.CLOSED ? "CLOSED" : inquiryDetail.status === InquiryStatusType.OPENING ? "OPENING" : "WAITING";
+  const inquiryStatus: string = inquiryDetail.status === 2 ? "CLOSED" : inquiryDetail.status === 1 ? "OPENING" : "WAITING";
   return (
     <View style={styles.container}>
       <View>

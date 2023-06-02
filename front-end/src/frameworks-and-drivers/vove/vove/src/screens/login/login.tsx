@@ -37,8 +37,7 @@ export function Login(props: LoginProps) {
     try {
         const phone = '+84' + phoneNumber.substring(1);
         const res = await postLogin(phone, password);
-        AsyncStorage.setItem('userToken', JSON.stringify(res))
-        // console.log(await AsyncStorage.getItem('test'))
+        AsyncStorage.setItem('userToken', JSON.stringify(res.data.accessToken))
         props.navigation.navigate('UserStack')
     } catch (err: any) {
         err.response.status == 400 ?

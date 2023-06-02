@@ -27,7 +27,7 @@ export interface UserProfileProps {
 // export default UserProfile;
 
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Alert, Image, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as ImagePicker from "expo-image-picker"
 import {ButtonType, Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
@@ -37,6 +37,7 @@ import {
   InputInformation,
   InputSwitch
 } from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function UserProfile(props: UserProfileProps) {
   const {navigation} = props;
@@ -44,10 +45,11 @@ export function UserProfile(props: UserProfileProps) {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
 
   const [userId, setId] = useState('');
-  const [name, setName] = useState('Nguyen Mai Thy');
+
+  const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png');
-  const [phone, setPhone] = useState('0394143031');
-  const [email, setEmail] = useState('cloudythy@gmail.com');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('Not entered');
   // Cache.get('USER_INFO').then((res) => {
   //   setId(JSON.parse(res)._id)
   //   setName(JSON.parse(res).name);
@@ -102,6 +104,18 @@ export function UserProfile(props: UserProfileProps) {
     })
   }
 
+  useEffect(() => {
+    async function loadInfo() {
+      const realName = await AsyncStorage.getItem('name')
+      const realPhone = await AsyncStorage.getItem('phone')
+      const realAddress = await AsyncStorage.getItem('address')
+      setName(realName)
+      setPhone('0' + realPhone?.substring(3))
+      if (realAddress) setAddress(realAddress)
+    }
+    loadInfo()
+  },);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -141,8 +155,7 @@ export function UserProfile(props: UserProfileProps) {
           </View>
           <InputInformation title="Username" information={name}></InputInformation>
           <InputInformation title="Phone number" information={phone}></InputInformation>
-          <InputInformation title="Email" information={email}></InputInformation>
-          <InputInformation title="Address" information="Not entered"></InputInformation>
+          <InputInformation title="Address" information={address}></InputInformation>
 
           {/*Cache.rm('ACCESS_TOKEN')*/}
 

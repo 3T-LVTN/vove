@@ -1,14 +1,19 @@
-import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Alert, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {ButtonFullWidth, VoveSearchBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 import NormalMap from "../../components/src/map/normal-map";
+import { fetchData } from '../../services/profile';
 
 export interface HomeProps {
   navigation: any;
 }
 
 export function Home(props: HomeProps) {
+  useEffect(() => {
+    fetchData()
+  },);
+
   return (<ScrollView style={{backgroundColor: Color.white_100}}>
     <View style={styles.container}>
       <View style={{alignItems: "flex-start", width: ScreenSize.width * 0.9}}>

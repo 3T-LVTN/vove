@@ -1,10 +1,20 @@
 import React from "react";
-import {ScrollView, StyleSheet, Text, View} from "react-native";
+import {Alert, ScrollView, StyleSheet, Text, View} from "react-native";
 import {ButtonType, Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {ButtonHalfWidth, InputText} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { postCreateInquiry } from "../../services/profile";
 
 export interface NewInquiryProps {
   navigation: any;
+}
+
+async function handleSend(title: string, message: string) {
+  try {
+    await postCreateInquiry(title, message, await AsyncStorage.getItem);
+  } catch (err: any) {
+      Alert.alert('Empty input')
+  }
 }
 
 export function NewInquiry(props: NewInquiryProps) {
@@ -45,7 +55,7 @@ export function NewInquiry(props: NewInquiryProps) {
       </ScrollView>
       <View style={{flexDirection: "row", justifyContent: "space-evenly", paddingTop: 10}}>
         <ButtonHalfWidth type={ButtonType.DISABLE} content={"Cancel"} onPress={()=>{console.log('')}}/>
-        <ButtonHalfWidth type={ButtonType.DEFAULT} content={"Send Inquiry"} onPress={()=>{console.log('')}}/>
+        <ButtonHalfWidth type={ButtonType.DEFAULT} content={"Send Inquiry"} onPress={() => handleSend(title, message)}/>
       </View>
     </View>
   );

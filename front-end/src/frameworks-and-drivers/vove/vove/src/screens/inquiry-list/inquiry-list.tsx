@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import {InquirySummaryCard} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 import {Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import {InquiryViewModel} from "@front-end/interface-adapters/view-models/inquiry";
 import {ButtonOption} from "../../components/src/buttons/button-option";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const mockInquiries: InquiryViewModel[] = [
   {
@@ -61,12 +62,22 @@ export interface InquiryListProps {
 export function InquiryList(props: InquiryListProps) {
   const {navigation} = props;
   const [selected, setSelected] = useState(0);
+  const [inqList, setInqList] = useState([])
+
   const buttonColor = (index: number) => {
     return index == selected ? Color.primary_100 : Color.white_100;
   };
   const textColor = (index: number) => {
     return index == selected ? Color.white_100 : Color.primary_100;
   };
+
+  useEffect(() => {
+    async function loadInquiries() {
+      const inquiries = JSON.parse(await AsyncStorage.getItem('inquiries'))
+      setInqList(inquiries)
+    }
+    loadInquiries()
+  },);
 
   return (
     <View style={styles.container}>
@@ -148,22 +159,22 @@ export function InquiryList(props: InquiryListProps) {
         </View>
         <ScrollView style={{marginBottom: customSize(24)}}>
           {selected === 0
-            ? mockInquiries.map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation}
-                                                              title={item.title} timeStamp={item.timestamp} inquiryDetail={item}/>)
+            ? inqList.map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation}
+                                                              title={item.title} timeStamp={item.time} inquiryDetail={item}/>)
             : selected === 1
-              ? mockInquiries
-                .filter((item) => item.status === InquiryStatusType.OPENING)
+              ? inqList
+                .filter((item) => item.status === 1)
                 .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                   timeStamp={item.timestamp} inquiryDetail={item} />)
+                                                   timeStamp={item.time} inquiryDetail={item} />)
               : selected === 2
-                ? mockInquiries
-                  .filter((item) => item.status === InquiryStatusType.WAITING)
+                ? inqList
+                  .filter((item) => item.status === 0)
                   .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                     timeStamp={item.timestamp} inquiryDetail={item}/>)
-                : mockInquiries
-                  .filter((item) => item.status === InquiryStatusType.CLOSED)
+                                                     timeStamp={item.time} inquiryDetail={item}/>)
+                : inqList
+                  .filter((item) => item.status === 2)
                   .map((item) => <InquirySummaryCard key={item.id} status={item.status} navigation={navigation} title={item.title}
-                                                     timeStamp={item.timestamp} inquiryDetail={item}/>)
+                                                     timeStamp={item.time} inquiryDetail={item}/>)
           }
           <View style={{paddingTop: ScreenSize.height * 0.17}}/>
         </ScrollView>
