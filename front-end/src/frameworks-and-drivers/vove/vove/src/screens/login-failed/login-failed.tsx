@@ -7,10 +7,10 @@ import {
   TextStyle,
 } from '@front-end/shared/utils';
 import { ButtonFullWidth } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
+import {NativeStackScreenProps} from "react-native-screens/native-stack";
+import {MainStackPropsData} from "../../navigation/main.navigator";
 
-export interface LoginFailedProps {
-  readonly navigation: any;
-}
+export type LoginFailedProps = NativeStackScreenProps<MainStackPropsData, 'LoginFailed'>;
 
 export function LoginFailed(props: LoginFailedProps) {
   return (
