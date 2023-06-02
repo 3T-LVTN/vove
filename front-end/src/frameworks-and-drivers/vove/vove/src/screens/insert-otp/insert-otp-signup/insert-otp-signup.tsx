@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect, useMemo} from "react";
 import { View, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import firebase from "firebase/compat";
 import {ButtonFullWidth, InputOtp, StepBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 import {firebaseConfig} from "@front-end/frameworks-and-drivers/firebase-auth";
 import {Color, ScreenSize} from "@front-end/shared/utils";
+import {NativeStackScreenProps} from "react-native-screens/native-stack";
+import {SignupStackPropsData} from "../../../navigation/signup.navigator";
 
-export interface InsertOtpSignupProps {
-  readonly navigation: any;
-  readonly route: any;
-}
+export type InsertOtpSignupProps = NativeStackScreenProps<SignupStackPropsData, "InsertOtpSignup">
 
 export function InsertOtpSignup(props: InsertOtpSignupProps) {
   const {navigation, route} = props
@@ -20,12 +19,12 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
   const [verifyId, setVerifyId] = useState('')
   const recaptchaVerifier: any = useRef()
 
-  // const sendVerifyCode = () => {
-  //   const provider = new firebase.auth.PhoneAuthProvider()
-  //   provider
-  //     .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
-  //     .then(setVerifyId)
-  // }
+  const sendVerifyCode = () => {
+    const provider = new firebase.auth.PhoneAuthProvider()
+    provider
+      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+      .then(setVerifyId)
+  }
 
   const confirmCode = () => {
     const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
@@ -40,10 +39,16 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
         navigation.goBack()
       })
   }
-  //
-  // useEffect(() => {
-  //   sendVerifyCode()
-  // }, [])
+
+  useEffect(() => {
+    sendVerifyCode()
+  }, [])
+
+  useMemo(() => {
+    if (OTP.length === 6) {
+      confirmCode()
+    }
+  }, [OTP])
 
   return (
     <View style={styles.container}>
@@ -57,9 +62,7 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
           ></Image>
           <View style={{padding: ScreenSize.height * 0.04}}></View>
 
-          <InputOtp OTPInput={setOTP} onPress={() => {Alert.alert('OK')}}></InputOtp>
-          {/*{OTP.length == 6 ? confirmCode() : null}*/}
-
+          <InputOtp OTPInput={setOTP} onPress={sendVerifyCode}></InputOtp>
         </View>
       </ScrollView>
       <View style={{paddingBottom: ScreenSize.height * 0.1}}>

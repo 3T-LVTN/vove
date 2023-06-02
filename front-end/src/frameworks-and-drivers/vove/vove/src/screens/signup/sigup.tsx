@@ -8,12 +8,12 @@ import {UserController} from "@front-end/interface-adapters/controllers/user";
 import {UserInteractor} from "@front-end/application/interactors/user";
 import {UserRepository} from "@front-end/application/repositories/user";
 import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
+import {SignupStackPropsData} from "../../navigation/signup.navigator";
+import {NativeStackScreenProps} from "react-native-screens/native-stack";
 
-export interface SigupProps {
-  readonly navigation: any;
-}
+export type SignupProps = NativeStackScreenProps<SignupStackPropsData, 'Signup'>;
 
-export function Signup(props: SigupProps) {
+export function Signup(props: SignupProps) {
   const [name, setName] = useState('');
   const [phoneNumber, setTel] = useState('');
   const [email, setMail] = useState('');
@@ -38,16 +38,17 @@ export function Signup(props: SigupProps) {
       name: name,
       image:
         'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
-      email: email,
+      email: email
     };
-    // userController.getUser(userCheckData.tel).then((res: User) => {
-      // if (res) Alert.alert('Account existed');
-      // else {
-      //   Cache.set('Sign up', data);
-      //   Cache.merge('Sign up', userCheckData);
+    userController.verifyPhoneNumber(userCheckData.tel).then((res) => {
+      if (res)
+        Alert.alert('Account existed');
+      else {
+        Cache.set('SignUp', data);
+        Cache.merge('SignUp', userCheckData);
         props.navigation.navigate("InsertOtpSignup", {phoneNumber: '+84' + phoneNumber});
-      // }
-    // })
+      }
+    })
   };
 
   return (

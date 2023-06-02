@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { Image, ScrollView, View, Text, Pressable, Alert } from 'react-native';
-import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
+import React, {useState} from 'react';
+import {Image, ScrollView, View, Text, Pressable, Alert} from 'react-native';
+import {Color, ScreenSize, TextStyle} from '@front-end/shared/utils';
 import AnimatedSplash from 'react-native-animated-splash-screen';
 import {
   ButtonFullWidth,
   InputPassword,
   InputText,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
+import {NativeStackScreenProps} from "react-native-screens/native-stack";
+import {MainStackPropsData} from "../../navigation/main.navigator";
+import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
+import {UserInteractor} from "@front-end/application/interactors/user";
+import {UserController} from "@front-end/interface-adapters/controllers/user";
 
-export interface LoginProps {
-  readonly navigation: any;
-}
+export type LoginProps = NativeStackScreenProps<MainStackPropsData, 'Login'>;
 
 export function Login(props: LoginProps) {
   const [loading, setLoading] = useState(false);
@@ -18,8 +21,33 @@ export function Login(props: LoginProps) {
     setLoading(true);
   }, 2000);
 
-  const [username, setUsername] = React.useState('');
+  const userRepository = new UserApi();
+  const userUseCase = new UserInteractor(userRepository);
+  const userController = new UserController(userUseCase);
+
+  const [phoneNumber, setPhoneNumber] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const validatePhoneNumber = () => {
+    return phoneNumber.length === 10;
+  }
+
+  const validatePassword = () => {
+    return password.length >= 8;
+  }
+
+  const login = () => {
+    userController.login(phoneNumber, password)
+      .then((res) => {
+        if (res !== null)
+          props.navigation.navigate('UserStack', {
+            userId: res.id!,
+          });
+      })
+      .catch((err) => {
+        props.navigation.navigate('LoginFailed');
+      })
+  }
 
   return (
     <AnimatedSplash
@@ -29,14 +57,14 @@ export function Login(props: LoginProps) {
       logoHeight={ScreenSize.width * 0.7}
       logoWidth={ScreenSize.height * 0.7}
     >
-      <ScrollView style={{ backgroundColor: Color.white_100 }}>
+      <ScrollView style={{backgroundColor: Color.white_100}}>
         <View
           style={{
             alignItems: 'center',
             paddingVertical: ScreenSize.height * 0.15,
           }}
         >
-          <View style={{ alignItems: 'center' }}>
+          <View style={{alignItems: 'center'}}>
             <Image
               source={require('../../images/login.png')}
               style={{
@@ -49,8 +77,8 @@ export function Login(props: LoginProps) {
             title={'Phone number'}
             placeholder={'Please enter your phone number'}
             allowOutput={true}
-            output={setUsername}
-            rightIcon={username === '' ? '' : 'check-circle-outline'}
+            output={setPhoneNumber}
+            rightIcon={validatePhoneNumber() ? 'check-circle-outline' : ''}
             keyboardType="numeric"
           ></InputText>
           <InputPassword
@@ -66,16 +94,16 @@ export function Login(props: LoginProps) {
               width: (327 / 375) * ScreenSize.width,
             }}
           >
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <Text style={{ ...TextStyle.h3, color: Color.grey_100 }}>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Text style={{...TextStyle.h3, color: Color.grey_100}}>
                 Remember me{' '}
               </Text>
             </View>
-            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <View style={{flex: 1, alignItems: 'flex-end'}}>
               <Pressable
                 onPress={() => props.navigation.navigate('ForgetPasswordStack')}
               >
-                <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
+                <Text style={{...TextStyle.h3, color: Color.primary_100}}>
                   Forgot password?
                 </Text>
               </Pressable>
@@ -85,13 +113,10 @@ export function Login(props: LoginProps) {
           <ButtonFullWidth
             content="Log In"
             onPress={() => {
-              if (username === '' || password === '')
-                Alert.alert('Please enter all information!');
+              if (validatePhoneNumber() && validatePassword())
+                login();
               else
-                props.navigation.navigate('UserStack', {
-                  username: username,
-                  password: password,
-                });
+                Alert.alert('Please enter all information!');
             }}
           ></ButtonFullWidth>
 
@@ -101,11 +126,11 @@ export function Login(props: LoginProps) {
               flexDirection: 'row',
             }}
           >
-            <Text style={{ ...TextStyle.h3, color: Color.grey_100 }}>
+            <Text style={{...TextStyle.h3, color: Color.grey_100}}>
               No account?{' '}
             </Text>
             <Pressable onPress={() => props.navigation.navigate('SignupStack')}>
-              <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
+              <Text style={{...TextStyle.h3, color: Color.primary_100}}>
                 Create one!
               </Text>
             </Pressable>
