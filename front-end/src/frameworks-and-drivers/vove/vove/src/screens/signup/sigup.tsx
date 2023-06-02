@@ -11,9 +11,13 @@ import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
 import {SignupStackPropsData} from "../../navigation/signup.navigator";
 import {NativeStackScreenProps} from "react-native-screens/native-stack";
 
-export type SignupProps = NativeStackScreenProps<SignupStackPropsData, 'Signup'>;
+export interface SignupProps {
+  readonly navigation: any;
+  readonly route: any;
+}
 
 export function Signup(props: SignupProps) {
+  const { navigation, route } = props
   const [name, setName] = useState('');
   const [phoneNumber, setTel] = useState('');
   const [email, setMail] = useState('');
@@ -23,7 +27,6 @@ export function Signup(props: SignupProps) {
   const userController = new UserController(userUseCase);
 
   const handleSubmit = () => {
-    Cache.rm('Sign up');
     if (
       name === '' ||
       phoneNumber === ''
@@ -31,24 +34,8 @@ export function Signup(props: SignupProps) {
       Alert.alert('Please fill all information');
       return;
     }
-    const userCheckData = {
-      tel: phoneNumber,
-    };
-    const data = {
-      name: name,
-      image:
-        'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
-      email: email
-    };
-    userController.verifyPhoneNumber(userCheckData.tel).then((res) => {
-      if (res)
-        Alert.alert('Account existed');
-      else {
-        Cache.set('SignUp', data);
-        Cache.merge('SignUp', userCheckData);
-        props.navigation.navigate("InsertOtpSignup", {phoneNumber: '+84' + phoneNumber});
-      }
-    })
+    const phone = '+84' + phoneNumber.substring(1);
+    navigation.navigate("InsertOtpSignup", {phoneNumber: phone, name: name});
   };
 
   return (
@@ -79,13 +66,6 @@ export function Signup(props: SignupProps) {
               placeholder="Please enter your phone number"
               rightIcon={phoneNumber === '' ? '' : 'check-circle-outline'}
               keyboardType="numeric"
-            ></InputText>
-            <InputText
-              allowOutput={true}
-              output={setMail}
-              title="Email"
-              placeholder="Please enter your email"
-              rightIcon={email === '' ? '' : 'check-circle-outline'}
             ></InputText>
             {/*<InputText*/}
             {/*  allowOutput={true}*/}

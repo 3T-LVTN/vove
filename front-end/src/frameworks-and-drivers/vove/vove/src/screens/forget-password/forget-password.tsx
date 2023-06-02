@@ -14,17 +14,8 @@ export function ForgetPassword(props: ForgetPasswordProps) {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   const handleSubmit = () => {
-    Cache.rm('Reset Password')
-    const data = {
-      tel: phoneNumber,
-    }
-    // POST.checkExist(data).then(res => {
-    //   if (res) {
-    //     Cache.set('Reset Password', data)
-        navigation.navigate("InsertOtp", { phoneNumber: '+84' + phoneNumber })
-    //   }
-    //   else Alert.alert('This account does not exist')
-    // })
+    const phone = '+84' + phoneNumber.substring(1);
+    navigation.navigate("InsertOtp", { phoneNumber: phone })
   }
 
   return (

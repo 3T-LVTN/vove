@@ -12,7 +12,8 @@ import {MainStackPropsData} from "../../navigation/main.navigator";
 import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
 import {UserInteractor} from "@front-end/application/interactors/user";
 import {UserController} from "@front-end/interface-adapters/controllers/user";
-
+import { postLogin } from '../../services/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export type LoginProps = NativeStackScreenProps<MainStackPropsData, 'Login'>;
 
 export function Login(props: LoginProps) {
@@ -32,22 +33,32 @@ export function Login(props: LoginProps) {
     return phoneNumber.length === 10;
   }
 
-  const validatePassword = () => {
-    return password.length >= 8;
+  async function handleLogin() {
+    try {
+        const phone = '+84' + phoneNumber.substring(1);
+        const res = await postLogin(phone, password);
+        AsyncStorage.setItem('userToken', JSON.stringify(res))
+        // console.log(await AsyncStorage.getItem('test'))
+        props.navigation.navigate('UserStack')
+    } catch (err: any) {
+        err.response.status == 400 ?
+        Alert.alert('Only VN numbers are supported!') :
+        props.navigation.navigate('LoginFailed');
+    }
   }
 
-  const login = () => {
-    userController.login(phoneNumber, password)
-      .then((res) => {
-        if (res !== null)
-          props.navigation.navigate('UserStack', {
-            userId: res.id!,
-          });
-      })
-      .catch((err) => {
-        props.navigation.navigate('LoginFailed');
-      })
-  }
+  // const login = () => {
+  //   userController.login(phoneNumber, password)
+  //     .then((res) => {
+  //       if (res !== null)
+  //         props.navigation.navigate('UserStack', {
+  //           userId: res.id!,
+  //         });
+  //     })
+  //     .catch((err) => {
+  //       props.navigation.navigate('LoginFailed');
+  //     })
+  // }
 
   return (
     <AnimatedSplash
@@ -113,8 +124,8 @@ export function Login(props: LoginProps) {
           <ButtonFullWidth
             content="Log In"
             onPress={() => {
-              if (validatePhoneNumber() && validatePassword())
-                login();
+              if (validatePhoneNumber() && password != '')
+                handleLogin();
               else
                 Alert.alert('Please enter all information!');
             }}

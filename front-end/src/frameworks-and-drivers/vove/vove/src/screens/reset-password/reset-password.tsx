@@ -1,30 +1,32 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Alert, ScrollView, StyleSheet, Text, View} from "react-native";
 import {ButtonFullWidth, InputPassword, StepBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
 import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
 import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
+import { postForgotPassword } from "../../services/auth";
 
 
 export interface ResetPasswordProps {
   readonly navigation: any;
+  readonly route: any;
 }
 
 export function ResetPassword(props: ResetPasswordProps) {
-  const {navigation} = props
+  const {navigation, route} = props
+  const { phoneNumber } = route.params
   const [pass1, setPass1] = useState('')
   const [pass2, setPass2] = useState('')
 
-  const handleSubmit = () => {
+  async function handleSubmit() {
     if (pass1 == pass2 && pass1 != '') {
-      const data = {
-        password: pass1,
-      }
-      Cache.merge('Reset password', data)
-      // Cache.get('DangKy').then(res => POST.signUp(JSON.parse(res)))
+      await postForgotPassword(phoneNumber, pass1);
       navigation.navigate("ResetPasswordSucceed")
     } else Alert.alert('Passwords are different. Try again!')
   }
 
+  //   useEffect(() => {
+  //     console.log(phoneNumber)
+  // }, [])
   return (
     <View style={styles.container}>
       <StepBar step={3}></StepBar>

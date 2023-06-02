@@ -9,38 +9,34 @@ import {UserApi} from "@front-end/frameworks-and-drivers/app-sync/user";
 import {UserInteractor} from "@front-end/application/interactors/user";
 import {UserController} from "@front-end/interface-adapters/controllers/user";
 import {User} from "@front-end/domain/entities/user";
+import { postSignUp } from "../../services/auth";
 
-export type SetNewPasswordProps = NativeStackScreenProps<SignupStackPropsData, "SetNewPassword">
+//export type SetNewPasswordProps = NativeStackScreenProps<SignupStackPropsData, "SetNewPassword">
+export interface SetNewPasswordProps {
+  readonly navigation: any;
+  readonly route: any;
+}
 
 export function SetNewPassword(props: SetNewPasswordProps) {
+  const {navigation, route} = props
   const userRepository = new UserApi();
   const userUseCase = new UserInteractor(userRepository);
   const userController = new UserController(userUseCase);
 
-  const {navigation} = props
+  const { phoneNumber, name } = route.params
   const [pass1, setPass1] = useState('')
   const [pass2, setPass2] = useState('')
 
-  const handleSubmit = () => {
+  async function handleSubmit() {
     if (pass1 === pass2 && pass1 !== '') {
-      const data = {
-        password: pass1,
-      }
-      Cache.merge('SignUp', data)
-      Cache.get('SignUp')
-        .then(res => JSON.parse(res ?? ""))
-        .then(res => {
-          if (res !== null)
-          userController.register({
-            phoneNumber: res.phoneNumber,
-            password: res.password,
-            name: res.name,
-            email: res.email,
-            photoUrl: res.image,
-          } as User)
-          else Alert.alert('Something went wrong. Try again!')
-        })
-      navigation.navigate("SignupSucceed")
+      try {
+        await postSignUp(phoneNumber, name, pass1);
+        navigation.navigate("SignupSucceed")
+      } catch (err: any) {
+        err.response.status == 400 ?
+        Alert.alert('Only VN numbers are supported!') :
+        Alert.alert('User exits');
+    }
     } else Alert.alert('Passwords are different. Try again!')
   }
 

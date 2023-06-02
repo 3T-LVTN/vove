@@ -8,47 +8,50 @@ import {Color, ScreenSize} from "@front-end/shared/utils";
 import {NativeStackScreenProps} from "react-native-screens/native-stack";
 import {SignupStackPropsData} from "../../../navigation/signup.navigator";
 
-export type InsertOtpSignupProps = NativeStackScreenProps<SignupStackPropsData, "InsertOtpSignup">
+export interface InsertOtpSignupProps {
+  readonly navigation: any;
+  readonly route: any;
+}
 
 export function InsertOtpSignup(props: InsertOtpSignupProps) {
   const {navigation, route} = props
   const [showButton, setShowButton] = useState(true)
 
-  const { phoneNumber } = route.params
+  const { phoneNumber, name } = route.params
   const [OTP, setOTP] = useState('')
   const [verifyId, setVerifyId] = useState('')
   const recaptchaVerifier: any = useRef()
 
-  const sendVerifyCode = () => {
-    const provider = new firebase.auth.PhoneAuthProvider()
-    provider
-      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
-      .then(setVerifyId)
-  }
+  // const sendVerifyCode = () => {
+  //   const provider = new firebase.auth.PhoneAuthProvider()
+  //   provider
+  //     .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+  //     .then(setVerifyId)
+  // }
 
-  const confirmCode = () => {
-    const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
-    firebase.auth().signInWithCredential(credential)
-      .then(() => {
-        setOTP('')
-        setShowButton(true)
-        Alert.alert('Valid OTP')
-      })
-      .catch(() => {
-        Alert.alert('Please try again')
-        navigation.goBack()
-      })
-  }
+  // const confirmCode = () => {
+  //   const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
+  //   firebase.auth().signInWithCredential(credential)
+  //     .then(() => {
+  //       setOTP('')
+  //       setShowButton(true)
+  //       Alert.alert('Valid OTP')
+  //     })
+  //     .catch(() => {
+  //       Alert.alert('Please try again')
+  //       navigation.goBack()
+  //     })
+  // }
 
-  useEffect(() => {
-    sendVerifyCode()
-  }, [])
+  // useEffect(() => {
+  //   console.log(name + phoneNumber)
+  // }, [])
 
-  useMemo(() => {
-    if (OTP.length === 6) {
-      confirmCode()
-    }
-  }, [OTP])
+  // useMemo(() => {
+  //   if (OTP.length === 6) {
+  //     confirmCode()
+  //   }
+  // }, [OTP])
 
   return (
     <View style={styles.container}>
@@ -62,13 +65,13 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
           ></Image>
           <View style={{padding: ScreenSize.height * 0.04}}></View>
 
-          <InputOtp OTPInput={setOTP} onPress={sendVerifyCode}></InputOtp>
+          <InputOtp OTPInput={setOTP} onPress={() => {Alert.alert('OK')}}></InputOtp>
         </View>
       </ScrollView>
       <View style={{paddingBottom: ScreenSize.height * 0.1}}>
         {
           showButton ?
-            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("SetNewPassword")}></ButtonFullWidth>
+            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("SetNewPassword", { phoneNumber: phoneNumber, name: name })}></ButtonFullWidth>
             : null
         }
       </View>

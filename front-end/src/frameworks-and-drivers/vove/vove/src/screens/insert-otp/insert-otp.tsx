@@ -42,7 +42,6 @@ export function InsertOtp(props: InsertOtpProps) {
   }
   //
   // useEffect(() => {
-  //   sendVerifyCode()
   // }, [])
 
   return (
@@ -65,7 +64,7 @@ export function InsertOtp(props: InsertOtpProps) {
       <View style={{paddingBottom: ScreenSize.height * 0.1}}>
         {
           showButton ?
-            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("ResetPassword")}></ButtonFullWidth>
+            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("ResetPassword", { phoneNumber: phoneNumber })}></ButtonFullWidth>
             : null
         }
       </View>
