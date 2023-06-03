@@ -14,7 +14,7 @@ export interface InputTextProps {
   unit?: any;
   readonly?: boolean;
   readonly keyboardType?: KeyboardTypeOptions;
-  readonly multiline?: boolean
+  readonly multiline?: boolean;
 }
 
 export const InputText = (props: InputTextProps) => {

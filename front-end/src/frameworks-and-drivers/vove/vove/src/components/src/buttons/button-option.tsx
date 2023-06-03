@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {Color, ScreenSize, TextStyle} from "@front-end/shared/utils";
+import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
 
 export interface ButtonOptionProps {
   readonly iconName: any;
@@ -29,22 +29,22 @@ export const ButtonOption = (props: ButtonOptionProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 60,
     width: (327 / 375) * ScreenSize.width,
     backgroundColor: Color.lightgrey_40,
     paddingVertical: (13 / 812) * ScreenSize.height,
   },
   content: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   iconContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: (44 / 375) * ScreenSize.width,
     width: (28 / 375) * ScreenSize.width,
     height: (28 / 375) * ScreenSize.width,

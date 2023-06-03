@@ -5,6 +5,7 @@ import {
   UseInterceptors,
   UseGuards,
   Req,
+  Get,
 } from '@nestjs/common';
 import mongooseClassSerializerInterceptor from 'src/utils/mongooseClassSerializer.interceptor';
 
@@ -38,5 +39,11 @@ export class AuthController {
   @Post('/login')
   async login(@Body() dto: LoginDto) {
     return this.authService.validateUser(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/refresh')
+  async refreshToken(@Req() req) {
+    return this.authService.refreshToken(req.user);
   }
 }

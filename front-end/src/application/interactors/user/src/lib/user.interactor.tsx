@@ -1,16 +1,15 @@
-import {User} from "@front-end/domain/entities/user";
-import {UserRepository} from "@front-end/application/repositories/user";
-import {UserUseCase} from "@front-end/application/usecases/user";
+import { User } from '@front-end/domain/entities/user';
+import { UserRepository } from '@front-end/application/repositories/user';
+import { UserUseCase } from '@front-end/application/usecases/user';
 import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
 
 export class UserInteractor implements UserUseCase {
-  constructor(private readonly UserRepository: UserRepository) {
-  }
+  constructor(private readonly UserRepository: UserRepository) {}
   async getUser(id: string): Promise<User> {
     return this.UserRepository.getUser(id)
       .then((user) => user)
       .catch((error) => {
-        throw new Error(error)
+        throw new Error(error);
       });
   }
 
@@ -19,10 +18,10 @@ export class UserInteractor implements UserUseCase {
       .then((user) => {
         Cache.set('accessToken', user.accessToken);
         Cache.set('user', user);
-        return user
+        return user;
       })
       .catch((error) => {
-        throw new Error(error)
+        throw new Error(error);
       });
   }
 
@@ -30,7 +29,7 @@ export class UserInteractor implements UserUseCase {
     return this.UserRepository.verifyPhoneNumber(phoneNumber)
       .then((res) => res)
       .catch((error) => {
-        throw new Error(error)
+        throw new Error(error);
       });
   }
 
@@ -38,7 +37,7 @@ export class UserInteractor implements UserUseCase {
     return this.UserRepository.register(user)
       .then((res) => res)
       .catch((error) => {
-        throw new Error(error)
+        throw new Error(error);
       });
   }
 }

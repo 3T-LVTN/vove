@@ -29,7 +29,7 @@ export const InputDate = (props: InputDateProps) => {
       (tempDate.getMonth() + 1).toLocaleString() +
       '/' +
       tempDate.getFullYear().toLocaleString();
-    setDateText(printDate)
+    setDateText(printDate);
     props.output(selectedDate);
   };
 
@@ -45,7 +45,7 @@ export const InputDate = (props: InputDateProps) => {
           fontWeight: '400',
           width: (327 / 375) * ScreenSize.width,
           backgroundColor: Color.white_100,
-          borderRadius: 10
+          borderRadius: 10,
         }}
         right={
           <TextInput.Icon

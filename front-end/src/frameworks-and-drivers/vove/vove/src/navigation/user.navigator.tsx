@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreenSize} from '@front-end/shared/utils';
-import {UserNavBar} from "./user-nav-bar.navigator";
+import { Image } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreenSize } from '@front-end/shared/utils';
+import { UserNavBar } from './user-nav-bar.navigator';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +37,11 @@ const Stack = createStackNavigator();
 export const UserStack = () => {
   return (
     <Stack.Navigator initialRouteName="Feed">
-      <Stack.Screen name="Feed" component={UserNavBar} options={{ headerShown: false }}/>
+      <Stack.Screen
+        name="Feed"
+        component={UserNavBar}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

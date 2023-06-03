@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateTrackingPlaceDto {  
+export class CreateTrackingPlaceDto {
   @IsNotEmpty()
   title: string;
 
@@ -11,7 +11,7 @@ export class CreateTrackingPlaceDto {
 export class UpdateTrackingPlaceDto {
   @IsNotEmpty()
   id: string;
-  
+
   @IsNotEmpty()
   title: string;
 }
@@ -20,4 +20,3 @@ export class DeleteTrackingPlaceDto {
   @IsNotEmpty()
   id: string;
 }
-

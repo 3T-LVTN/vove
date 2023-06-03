@@ -1,1 +1,1 @@
-export * from './lib/axios.config'
+export * from './lib/axios.config';

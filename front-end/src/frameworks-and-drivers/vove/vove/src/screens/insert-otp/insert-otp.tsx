@@ -1,10 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Image, ScrollView, Alert } from "react-native";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import firebase from "firebase/compat";
-import {ButtonFullWidth, InputOtp, StepBar} from "@front-end/frameworks-and-drivers/vove/vove/src/components";
-import {firebaseConfig} from "@front-end/frameworks-and-drivers/firebase-auth";
-import {Color, ScreenSize} from "@front-end/shared/utils";
+import React, { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+import firebase from 'firebase/compat';
+import {
+  ButtonFullWidth,
+  InputOtp,
+  StepBar,
+} from '@front-end/frameworks-and-drivers/vove/vove/src/components';
+import { firebaseConfig } from '@front-end/frameworks-and-drivers/firebase-auth';
+import { Color, ScreenSize } from '@front-end/shared/utils';
 
 export interface InsertOtpProps {
   readonly navigation: any;
@@ -12,13 +16,13 @@ export interface InsertOtpProps {
 }
 
 export function InsertOtp(props: InsertOtpProps) {
-  const {navigation, route} = props
-  const [showButton, setShowButton] = useState(true)
+  const { navigation, route } = props;
+  const [showButton, setShowButton] = useState(true);
 
-  const { phoneNumber } = route.params
-  const [OTP, setOTP] = useState('')
-  const [verifyId, setVerifyId] = useState('')
-  const recaptchaVerifier: any = useRef()
+  const { phoneNumber } = route.params;
+  const [OTP, setOTP] = useState('');
+  const [verifyId, setVerifyId] = useState('');
+  const recaptchaVerifier: any = useRef();
 
   // const sendVerifyCode = () => {
   //   const provider = new firebase.auth.PhoneAuthProvider()
@@ -28,18 +32,23 @@ export function InsertOtp(props: InsertOtpProps) {
   // }
 
   const confirmCode = () => {
-    const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
-    firebase.auth().signInWithCredential(credential)
+    const credential = firebase.auth.PhoneAuthProvider.credential(
+      verifyId,
+      OTP
+    );
+    firebase
+      .auth()
+      .signInWithCredential(credential)
       .then(() => {
-        setOTP('')
-        setShowButton(true)
-        Alert.alert('Valid OTP')
+        setOTP('');
+        setShowButton(true);
+        Alert.alert('Valid OTP');
       })
       .catch(() => {
-        Alert.alert('Please try again')
-        navigation.goBack()
-      })
-  }
+        Alert.alert('Please try again');
+        navigation.goBack();
+      });
+  };
   //
   // useEffect(() => {
   // }, [])
@@ -49,24 +58,36 @@ export function InsertOtp(props: InsertOtpProps) {
       {/*<FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig}/>*/}
       <StepBar step={2}></StepBar>
       <ScrollView>
-        <View style={{...styles.container, paddingTop: ScreenSize.height * 0.05}}>
+        <View
+          style={{ ...styles.container, paddingTop: ScreenSize.height * 0.05 }}
+        >
           <Image
-            source={require("../../images/otp.png")}
-            style={{width: ScreenSize.width * 0.34, height: ScreenSize.width * 0.29}}
+            source={require('../../images/otp.png')}
+            style={{
+              width: ScreenSize.width * 0.34,
+              height: ScreenSize.width * 0.29,
+            }}
           ></Image>
-          <View style={{padding: ScreenSize.height * 0.04}}></View>
+          <View style={{ padding: ScreenSize.height * 0.04 }}></View>
 
-          <InputOtp OTPInput={setOTP} onPress={() => {Alert.alert('OK')}}></InputOtp>
+          <InputOtp
+            OTPInput={setOTP}
+            onPress={() => {
+              Alert.alert('OK');
+            }}
+          ></InputOtp>
           {/*{OTP.length == 6 ? confirmCode() : null}*/}
-
         </View>
       </ScrollView>
-      <View style={{paddingBottom: ScreenSize.height * 0.1}}>
-        {
-          showButton ?
-            <ButtonFullWidth content='Next' onPress={() => navigation.navigate("ResetPassword", { phoneNumber: phoneNumber })}></ButtonFullWidth>
-            : null
-        }
+      <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
+        {showButton ? (
+          <ButtonFullWidth
+            content="Next"
+            onPress={() =>
+              navigation.navigate('ResetPassword', { phoneNumber: phoneNumber })
+            }
+          ></ButtonFullWidth>
+        ) : null}
       </View>
     </View>
   );

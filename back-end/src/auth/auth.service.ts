@@ -2,8 +2,6 @@ import {
   Injectable,
   UnauthorizedException,
   ConflictException,
-  NotFoundException,
-  ForbiddenException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -39,7 +37,7 @@ export class AuthService {
 
     await this.userModel.create({
       ...dto,
-      password: hashedPassword
+      password: hashedPassword,
     });
   }
 
@@ -57,12 +55,15 @@ export class AuthService {
     const user = await this.userModel.findOne({ phone: dto.phone });
     const payload = { phone: dto.phone };
 
-    if (
-      user && (await bcrypt.compare(dto.password, user.password))
-    ) {
+    if (user && (await bcrypt.compare(dto.password, user.password))) {
       return {
         accessToken: await this.jwtService.signAsync(payload),
       };
     } else throw new UnauthorizedException();
+  }
+
+  async refreshToken(phone: string) {
+    const payload = { phone: phone };
+    return await this.jwtService.signAsync(payload);
   }
 }

@@ -1,8 +1,7 @@
-import React from "react";
-import {StyleSheet, View} from "react-native";
-import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-import HeatMap from "./heat-map"; // remove PROVIDER_GOOGLE import if not using Google Maps
-
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import HeatMap from './heat-map'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 export const normalMap = () => {
   return (
@@ -14,25 +13,25 @@ export const normalMap = () => {
           latitude: 10.7644912,
           longitude: 106.702996,
           latitudeDelta: 0.015,
-          longitudeDelta: 0.0121
+          longitudeDelta: 0.0121,
         }}
       >
-        <HeatMap/>
+        <HeatMap />
       </MapView>
-    </View>)
-}
-
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    height: "95%",
-    width: "95%",
-    justifyContent: "center",
-    alignItems: "center",
+    height: '95%',
+    width: '95%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   map: {
-    ...StyleSheet.absoluteFillObject
-  }
+    ...StyleSheet.absoluteFillObject,
+  },
 });
 
 export default normalMap;

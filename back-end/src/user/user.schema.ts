@@ -22,7 +22,7 @@ class Comment {
   isAdmin: boolean;
 
   @Prop()
-  message: string
+  message: string;
 
   @Prop()
   time: Date;
@@ -65,7 +65,7 @@ export class User {
 
   @Prop()
   inquiries: [Inquiry];
-  
+
   @Prop({ required: true })
   @Exclude()
   password: string;
