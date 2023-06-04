@@ -16,11 +16,6 @@ import {
   UpdateTrackingPlaceDto,
   DeleteTrackingPlaceDto,
 } from './dto/trackingplace.dto';
-import {
-  CloseInquiryDto,
-  CreateInquiryDto,
-  CommentInquiryDto,
-} from './dto/inquiry.dto';
 import { JwtAuthGuard } from 'src/auth/jwt.strategy';
 
 @UseGuards(JwtAuthGuard)
@@ -52,20 +47,5 @@ export class UserController {
   @Post('/delete-trackingplace')
   async deleteTrackingPlace(@Body() dto: DeleteTrackingPlaceDto, @Req() req) {
     return this.userService.deleteTrackingPlace(dto, req.user);
-  }
-
-  @Post('/create-inquiry')
-  async createInquiry(@Body() dto: CreateInquiryDto, @Req() req) {
-    return this.userService.createInquiry(dto, req.user);
-  }
-
-  @Post('/close-inquiry')
-  async closeInquiry(@Body() dto: CloseInquiryDto, @Req() req) {
-    return this.userService.closeInquiry(dto, req.user);
-  }
-
-  @Post('/comment-inquiry')
-  async commentInquiry(@Body() dto: CommentInquiryDto, @Req() req) {
-    return this.userService.commentInquiry(dto, req.user);
   }
 }

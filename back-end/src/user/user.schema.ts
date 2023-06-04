@@ -26,39 +26,6 @@ class TrackingPlace {
 }
 
 @Schema()
-class Comment {
-  @Prop()
-  isAdmin: boolean;
-
-  @Prop()
-  message: string;
-
-  @Prop()
-  time: Date;
-}
-
-@Schema()
-class Inquiry {
-  @Prop()
-  id: string;
-
-  @Prop()
-  status: number;
-
-  @Prop()
-  title: string;
-
-  @Prop()
-  time: Date;
-
-  @Prop()
-  message: string;
-
-  @Prop()
-  comments: [Comment];
-}
-
-@Schema()
 export class User {
   @Prop({ unique: true })
   phone: string;
@@ -74,9 +41,6 @@ export class User {
 
   @Prop()
   trackingPlaces: [TrackingPlace];
-
-  @Prop()
-  inquiries: [Inquiry];
 
   @Prop({ required: true })
   @Exclude()
