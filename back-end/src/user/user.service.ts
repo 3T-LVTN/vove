@@ -35,6 +35,12 @@ export class UserService {
       lng: dto.lng || null,
     };
 
+    const trackingPlace = {
+      title: 'Nhà của tôi',
+      address: address,
+      id: uuidv4(),
+    };
+
     await this.userModel.findOneAndUpdate(
       { phone: phone },
       {
@@ -43,6 +49,7 @@ export class UserService {
         avatar: dto.avatar
           ? dto.avatar
           : 'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
+        $push: { trackingPlaces: dto.lat && dto.lng ? trackingPlace : null },
       },
     );
   }
