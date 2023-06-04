@@ -16,7 +16,7 @@ export const normalMap = () => {
           longitudeDelta: 0.0121,
         }}
       >
-        <HeatMap />
+        <HeatMap></HeatMap>
       </MapView>
     </View>
   );

@@ -21,3 +21,9 @@ export const postSignUp = (phone: string, name: string, password: string) => {
     password: password,
   });
 };
+
+export const getToken = (token: any) => {
+  return axios.get('auth/refresh', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

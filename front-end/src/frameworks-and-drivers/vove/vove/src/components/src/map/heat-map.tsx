@@ -76,7 +76,7 @@ const HeatMap = () => {
   return (
     !isLoadingHeatMap && (
       <Heatmap points={heatmapData} radius={100} opacity={0.2} />
-    )
+    ) || null
   );
 };
 

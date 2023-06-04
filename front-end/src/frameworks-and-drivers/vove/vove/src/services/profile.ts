@@ -8,12 +8,12 @@ export async function fetchData() {
     const res = await getProfile(JSON.parse(token!));
     AsyncStorage.setItem('phone', res.data[0].phone);
     AsyncStorage.setItem('name', res.data[0].name);
-    if (res.data[0].address)
-      AsyncStorage.setItem('address', res.data[0].address);
+    if (res.data[0].address) AsyncStorage.setItem('address', res.data[0].address);
+    else AsyncStorage.removeItem('address');
     AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
     AsyncStorage.setItem('inquiries', JSON.stringify(res.data[0].inquiries));
   } catch (err) {
-    Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng khởi động lại ứng dụng');
+    Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
   }
 }
 

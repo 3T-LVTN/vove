@@ -5,6 +5,15 @@ import { Exclude } from 'class-transformer';
 export type UserDocument = HydratedDocument<User>;
 
 @Schema()
+class Location {
+  @Prop()
+  lat: number;
+
+  @Prop()
+  lng: number;
+}
+
+@Schema()
 class TrackingPlace {
   @Prop()
   id: string;
@@ -13,7 +22,7 @@ class TrackingPlace {
   title: string;
 
   @Prop()
-  address: string;
+  address: Location;
 }
 
 @Schema()
@@ -55,10 +64,13 @@ export class User {
   phone: string;
 
   @Prop()
+  avatar: string;
+
+  @Prop()
   name: string;
 
   @Prop()
-  address: string;
+  address: Location;
 
   @Prop()
   trackingPlaces: [TrackingPlace];

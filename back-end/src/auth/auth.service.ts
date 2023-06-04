@@ -38,6 +38,8 @@ export class AuthService {
     await this.userModel.create({
       ...dto,
       password: hashedPassword,
+      avatar:
+        'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
     });
   }
 

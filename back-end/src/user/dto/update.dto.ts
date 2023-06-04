@@ -1,9 +1,18 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateProfileDto {
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
-  address: string;
+  @IsOptional()
+  lat: number;
+
+  @IsNotEmpty()
+  @IsOptional()
+  lng: number;
+
+  @IsNotEmpty()
+  @IsOptional()
+  avatar: string;
 }

@@ -30,16 +30,32 @@ export class UserService {
   }
 
   async updateProfile(dto: UpdateProfileDto, phone: string) {
+    const address = {
+      lat: dto.lat || null,
+      lng: dto.lng || null,
+    };
+
     await this.userModel.findOneAndUpdate(
       { phone: phone },
-      { address: dto.address, name: dto.name },
+      {
+        address: dto.lat && dto.lng ? address : null,
+        name: dto.name,
+        avatar: dto.avatar
+          ? dto.avatar
+          : 'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
+      },
     );
   }
 
   async createTrackingPlace(dto: CreateTrackingPlaceDto, phone: string) {
+    const address = {
+      lat: dto.lat,
+      lng: dto.lng,
+    };
+
     const trackingPlace = {
       title: dto.title,
-      address: dto.address,
+      address: address,
       id: uuidv4(),
     };
 

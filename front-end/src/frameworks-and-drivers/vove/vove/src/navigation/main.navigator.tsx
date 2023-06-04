@@ -4,9 +4,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SignUpStack } from './signup.navigator';
-import { UserStack } from './user.navigator';
 import { ForgetPasswordStack } from './forget-password.navigator';
-import { ActionFailed, Login } from '../screens';
+import { ActionFailed, Login, MapPick } from '../screens';
+import { UserNavBar } from './user-nav-bar.navigator';
 
 export function MainStack() {
   const Stack = createStackNavigator();
@@ -27,11 +27,15 @@ export function MainStack() {
         />
         <Stack.Screen
           name="UserStack"
-          component={UserStack}
+          component={UserNavBar}
         />
         <Stack.Screen
           name="ActionFailed"
           component={ActionFailed}
+        />
+        <Stack.Screen
+          name="MapPick"
+          component={MapPick}
         />
       </Stack.Navigator>
     </NavigationContainer>

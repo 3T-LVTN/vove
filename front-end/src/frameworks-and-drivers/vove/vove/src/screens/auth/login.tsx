@@ -10,14 +10,13 @@ import {
   InputText,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postLogin, fetchData } from '../../services';
+import { postLogin, fetchData, getToken } from '../../services';
 
 export function Login(props: any) {
   const [loading, setLoading] = useState(false);
   setTimeout(() => {
     setLoading(true);
   }, 1000);
-
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
 
@@ -30,7 +29,7 @@ export function Login(props: any) {
       const phone = '+84' + phoneNumber.substring(1)
       const res = await postLogin(phone, password)
       AsyncStorage.setItem('userToken', JSON.stringify(res.data.accessToken))
-      fetchData()
+      await fetchData()
       props.navigation.navigate('UserStack')
     } catch (err: any) {
         props.navigation.navigate('ActionFailed', {
@@ -42,14 +41,16 @@ export function Login(props: any) {
 
   useEffect(() => {
     async function checkLoginStatus() {
-        const isLoggedIn = await AsyncStorage.getItem('userToken')
-        if (isLoggedIn) {
+        const oldToken = await AsyncStorage.getItem('userToken')
+        if (oldToken) {
+            const refreshToken = await getToken(JSON.parse(oldToken!))
+            AsyncStorage.setItem('userToken', JSON.stringify(refreshToken.data))
             fetchData()
             props.navigation.navigate('UserStack')
         }
     }
     checkLoginStatus()
-  })
+  }, [])
 
   return (
     <AnimatedSplash
@@ -76,20 +77,18 @@ export function Login(props: any) {
             ></Image>
           </View>
           <InputText
-            title={'Phone number'}
-            placeholder={'Please enter your phone number'}
-            allowOutput={true}
-            defaultValue={phoneNumber}
+            title={'Số điện thoại'}
+            placeholder={'Vui lòng nhập số điện thoại'}
+            text={phoneNumber}
             output={setPhoneNumber}
             rightIcon={validatePhoneNumber() ? 'check-circle-outline' : ''}
             keyboardType="numeric"
-          ></InputText>
+          />
           <InputPassword
-            title="Password"
-            allowOutput={true}
-
+            title="Mật khẩu"
+            text={password}
             output={setPassword}
-          ></InputPassword>
+          />
           <View
             style={{
               flexDirection: 'row',
@@ -104,14 +103,14 @@ export function Login(props: any) {
                 onPress={() => props.navigation.navigate('ForgetPasswordStack')}
               >
                 <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-                  Forgot password?
+                  Quên mật khẩu?
                 </Text>
               </Pressable>
             </View>
           </View>
 
           <ButtonFullWidth
-            content="Log In"
+            content="Đăng nhập"
             onPress={() => {
               !validatePhoneNumber() ? props.navigation.navigate('ActionFailed', {
                 title: 'Đăng nhập thất bại',
@@ -132,11 +131,11 @@ export function Login(props: any) {
             }}
           >
             <Text style={{ ...TextStyle.h3, color: Color.grey_100 }}>
-              No account?{' '}
+              Chưa có tài khoản?{' '}
             </Text>
             <Pressable onPress={() => props.navigation.navigate('SignupStack')}>
               <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-                Create one!
+                Đăng ký
               </Text>
             </Pressable>
           </View>

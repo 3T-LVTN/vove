@@ -5,7 +5,7 @@ import { ScreenSize } from '@front-end/shared/utils';
 import { MosquitoesViewStack } from './mosquitoes-view.naviagtor';
 import UserNotification from '../screens/user-notification/user-notification';
 import { InquiryStack } from './inquiry.navigator';
-import UserProfile from '../screens/user-profile/user-profile';
+import { UserProfile } from '../screens';
 
 const size = ScreenSize.width * 0.1;
 const selectedLabel = '_____';

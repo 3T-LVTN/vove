@@ -20,9 +20,6 @@ export interface HomeProps {
 }
 
 export function Home(props: HomeProps) {
-  // useEffect(() => {
-  //   fetchData();
-  // });
 
   return (
     <ScrollView style={{ backgroundColor: Color.white_100 }}>
