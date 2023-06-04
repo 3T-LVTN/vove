@@ -23,11 +23,15 @@ import {
   InputText,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchData, postUpdateProfile } from '../../services';
+import { fetchData, getLocationName, postUpdateProfile } from '../../services';
 import { TextInput } from 'react-native-paper';
 
-export function UserProfile(props: any) {
-  const { navigation } = props;
+export function UserProfile({route, navigation}: any) {
+  const [addressName, setAddressName] = useState('Chưa xác định');
+  const [location, setLocation] = useState({
+    lat: null,
+    lng: null
+  })
   const [isUpdating, setUpdatingStatus] = useState(false)
 
   const [userId, setId] = useState('');
@@ -37,7 +41,7 @@ export function UserProfile(props: any) {
     'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png'
   );
   const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('Chưa xác định');
+  
 
   const [newImg, setNewImg] = useState({ uri: '' });
 
@@ -89,8 +93,9 @@ export function UserProfile(props: any) {
   async function handleSubmit() {
     setUpdatingStatus(!isUpdating)
     try {
-      const token = await AsyncStorage.getItem('userToken');
-      const res = await postUpdateProfile(name, avatar, JSON.parse(token!));
+      const token = await AsyncStorage.getItem('userToken')
+      await postUpdateProfile(name, avatar, JSON.parse(token!), route.params?.address.lat, route.params?.address.lng)
+      await fetchData()
     } catch (err) {
       Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
     }
@@ -105,14 +110,30 @@ export function UserProfile(props: any) {
     async function loadInfo() {
       const realName = await AsyncStorage.getItem('name')
       const realPhone = await AsyncStorage.getItem('phone')
-      const realAddress = await AsyncStorage.getItem('addressLat')
+      const realAddress = await AsyncStorage.getItem('address')
 
       setName(realName!)
       setPhone('0' + realPhone?.substring(3))
-      if (realAddress) setAddress(realAddress)
+      if (realAddress) {
+        const lat = JSON.parse(realAddress).lat
+        const lng = JSON.parse(realAddress).lng
+        setLocation({ lat: lat, lng: lng })
+        const res = await getLocationName(lat, lng)
+        setAddressName(res.data.display_name)
+      }
     }
     loadInfo();
   }, []);
+
+  // Phải làm cách này do truyền function callBack cho navigate nó báo warning
+  // không consistent, cách giải quyết thông thường là dùng global state như Redux
+  // mà project này không có nên mới chơi trò params này
+  useEffect(() => {
+    if (route.params?.pickedAddress) {
+      setAddressName(route.params.pickedAddress)
+      setLocation(route.params.address)
+    }
+  }, [route.params?.pickedAddress]);
 
   return (
     <View style={styles.container}>
@@ -178,7 +199,7 @@ export function UserProfile(props: any) {
                 Địa chỉ
               </Text>
             }
-            value={address}
+            value={addressName}
             underlineColor={Color.white_100}
             editable={false}
             style={{
@@ -186,11 +207,15 @@ export function UserProfile(props: any) {
               width: (327 / 375) * ScreenSize.width,
               backgroundColor: Color.white_100,
             }}
-            right={<TextInput.Icon name={'map'} onPress={() => navigation.navigate('MapPick')}/>}
+            right={<TextInput.Icon 
+              name={'map'} 
+              onPress={() => navigation.navigate('MapPick', 
+              { originalScene: 'Profile', lat: location.lat, lng: location.lng }
+              )}/>}
             />
             : <InputInformation
             title="Địa chỉ"
-            information={address}
+            information={addressName}
             />
           }
           

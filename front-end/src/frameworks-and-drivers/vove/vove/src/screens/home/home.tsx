@@ -10,7 +10,6 @@ import {
 import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
 import {
   ButtonFullWidth,
-  VoveSearchBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import NormalMap from '../../components/src/map/normal-map';
 import { fetchData } from '../../services/profile';
@@ -34,7 +33,7 @@ export function Home(props: HomeProps) {
 
         {/*TODO: remove shadow in search bar*/}
         <View style={styles.placeContainer}>
-          <VoveSearchBar placeholder={'Search place'}></VoveSearchBar>
+          {/* //<VoveSearchBar placeholder={'Search place'}></VoveSearchBar> */}
           <View
             style={{
               flexDirection: 'row',

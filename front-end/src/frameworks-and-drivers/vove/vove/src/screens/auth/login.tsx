@@ -45,7 +45,7 @@ export function Login(props: any) {
         if (oldToken) {
             const refreshToken = await getToken(JSON.parse(oldToken!))
             AsyncStorage.setItem('userToken', JSON.stringify(refreshToken.data))
-            fetchData()
+            await fetchData()
             props.navigation.navigate('UserStack')
         }
     }

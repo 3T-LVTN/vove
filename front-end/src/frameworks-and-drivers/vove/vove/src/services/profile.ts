@@ -4,20 +4,24 @@ import { Alert } from 'react-native';
 
 export async function fetchData() {
   try {
+    AsyncStorage.removeItem('phone')
+    AsyncStorage.removeItem('name')
+    AsyncStorage.removeItem('avatar')
+    AsyncStorage.removeItem('address')
+    AsyncStorage.removeItem('trackingPlaces')
+    AsyncStorage.removeItem('inquiries')
+
     const token = await AsyncStorage.getItem('userToken');
     const res = await getProfile(JSON.parse(token!));
     AsyncStorage.setItem('phone', res.data[0].phone);
     AsyncStorage.setItem('name', res.data[0].name);
-    if (res.data[0].address) {
-      AsyncStorage.setItem('addressLat', JSON.stringify(res.data[0].address.lat));
-      AsyncStorage.setItem('addressLng', JSON.stringify(res.data[0].address.lng));
-    }
-    else {
-      AsyncStorage.removeItem('addressLat');
-      AsyncStorage.removeItem('addressLng');
-    }
-    AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
-    AsyncStorage.setItem('inquiries', JSON.stringify(res.data[0].inquiries));
+    AsyncStorage.setItem('avatar', res.data[0].avatar);
+    if (res.data[0].address)
+      AsyncStorage.setItem('address', JSON.stringify(res.data[0].address));
+    if (res.data[0].trackingPlaces)
+      AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
+    if (res.data[0].inquiries)
+      AsyncStorage.setItem('inquiries', JSON.stringify(res.data[0].inquiries));
   } catch (err) {
     Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
   }
