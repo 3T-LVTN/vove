@@ -8,8 +8,14 @@ export async function fetchData() {
     const res = await getProfile(JSON.parse(token!));
     AsyncStorage.setItem('phone', res.data[0].phone);
     AsyncStorage.setItem('name', res.data[0].name);
-    if (res.data[0].address) AsyncStorage.setItem('address', res.data[0].address);
-    else AsyncStorage.removeItem('address');
+    if (res.data[0].address) {
+      AsyncStorage.setItem('addressLat', JSON.stringify(res.data[0].address.lat));
+      AsyncStorage.setItem('addressLng', JSON.stringify(res.data[0].address.lng));
+    }
+    else {
+      AsyncStorage.removeItem('addressLat');
+      AsyncStorage.removeItem('addressLng');
+    }
     AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
     AsyncStorage.setItem('inquiries', JSON.stringify(res.data[0].inquiries));
   } catch (err) {
@@ -25,14 +31,18 @@ export const getProfile = (token: any) => {
 
 export const postUpdateProfile = (
   name: string,
-  address: string,
-  token: any
+  avatar: string,
+  token: any,
+  lat?: number,
+  lng?: number,
 ) => {
   return axios.post(
     'profile',
     {
       name: name,
-      address: address,
+      lat: lat,
+      lng: lng,
+      avatar: avatar,
     },
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -42,14 +52,16 @@ export const postUpdateProfile = (
 
 export const postCreateTrackingplace = (
   title: string,
-  address: string,
+  lat: number,
+  lng: number,
   token: any
 ) => {
   return axios.post(
     '/profile/create-trackingplace',
     {
       title: title,
-      address: address,
+      lat: lat,
+      lng: lng
     },
     {
       headers: { Authorization: `Bearer ${token}` },

@@ -90,7 +90,7 @@ export function UserProfile(props: any) {
     setUpdatingStatus(!isUpdating)
     try {
       const token = await AsyncStorage.getItem('userToken');
-      const res = await postUpdateProfile(name, address, JSON.parse(token!));
+      const res = await postUpdateProfile(name, avatar, JSON.parse(token!));
     } catch (err) {
       Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
     }
@@ -105,7 +105,7 @@ export function UserProfile(props: any) {
     async function loadInfo() {
       const realName = await AsyncStorage.getItem('name')
       const realPhone = await AsyncStorage.getItem('phone')
-      const realAddress = await AsyncStorage.getItem('address')
+      const realAddress = await AsyncStorage.getItem('addressLat')
 
       setName(realName!)
       setPhone('0' + realPhone?.substring(3))

@@ -13,6 +13,5 @@ export class UpdateProfileDto {
   lng: number;
 
   @IsNotEmpty()
-  @IsOptional()
   avatar: string;
 }

@@ -31,26 +31,19 @@ export class UserService {
 
   async updateProfile(dto: UpdateProfileDto, phone: string) {
     const address = {
-      lat: dto.lat || null,
-      lng: dto.lng || null,
-    };
-
-    const trackingPlace = {
-      title: 'Nhà của tôi',
-      address: address,
-      id: uuidv4(),
+      lat: dto.lat,
+      lng: dto.lng,
     };
 
     await this.userModel.findOneAndUpdate(
       { phone: phone },
-      {
-        address: dto.lat && dto.lng ? address : null,
-        name: dto.name,
-        avatar: dto.avatar
-          ? dto.avatar
-          : 'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png',
-        $push: { trackingPlaces: dto.lat && dto.lng ? trackingPlace : null },
-      },
+      dto.lat && dto.lng
+        ? {
+            address: address,
+            name: dto.name,
+            avatar: dto.avatar,
+          }
+        : { name: dto.name, avatar: dto.avatar },
     );
   }
 
