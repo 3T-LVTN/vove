@@ -16,11 +16,37 @@ export class UserService {
   constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
 
   async getProfile(phone: string) {
-    const info = await this.userModel.find({ phone: phone });
+    const info = await this.userModel.aggregate([
+      { $match: { phone: phone } },
+      {
+        $lookup: {
+          from: 'feedbacks',
+          pipeline: [
+            {
+              $match: {
+                author: phone,
+              },
+            },
+          ],
+          as: 'feedbacks',
+        },
+      },
+      {
+        $lookup: {
+          from: 'inquiries',
+          pipeline: [
+            {
+              $match: {
+                author: phone,
+              },
+            },
+          ],
+          as: 'inquiries',
+        },
+      },
+    ]);
+    if (info.length == 0) throw new NotFoundException();
 
-    if (!info) {
-      throw new NotFoundException('Info not found!');
-    }
     return info;
   }
 

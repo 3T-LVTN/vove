@@ -9,13 +9,11 @@ import {
 } from './dto/inquiry.dto';
 
 import { InquirieDocument } from './inquirie.schema';
-import { UserDocument } from 'src/user/user.schema';
 
 @Injectable()
 export class InquirieService {
   constructor(
     @InjectModel('Inquirie') private inquirieModel: Model<InquirieDocument>,
-    @InjectModel('User') private userModel: Model<UserDocument>,
   ) {}
 
   async createInquiry(dto: CreateInquiryDto, phone: string) {
