@@ -18,6 +18,9 @@ class Comment {
 @Schema()
 class Inquirie {
   @Prop()
+  id: string;
+
+  @Prop()
   author: string;
 
   @Prop()

@@ -1,6 +1,7 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   CreateInquiryDto,
@@ -22,20 +23,18 @@ export class InquirieService {
       time: new Date(),
       author: phone,
       status: 0,
+      id: uuidv4(),
     });
   }
 
   async closeInquiry(dto: CloseInquiryDto, phone: string) {
-    if (!dto.id.match(/^[0-9a-fA-F]{24}$/)) throw new ForbiddenException();
-
     await this.inquirieModel.findOneAndUpdate(
-      { author: phone, _id: dto.id, status: !2 },
+      { author: phone, id: dto.id, status: !2 },
       { status: 2 },
     );
   }
 
   async commentInquiry(dto: CommentInquiryDto, phone: string) {
-    if (!dto.id.match(/^[0-9a-fA-F]{24}$/)) throw new ForbiddenException();
     const comment = {
       isAdmin: false,
       message: dto.message,
@@ -43,7 +42,7 @@ export class InquirieService {
     };
 
     await this.inquirieModel.findOneAndUpdate(
-      { author: phone, _id: dto.id, status: !2 },
+      { author: phone, id: dto.id, status: !2 },
       { $push: { comments: comment } },
     );
   }
