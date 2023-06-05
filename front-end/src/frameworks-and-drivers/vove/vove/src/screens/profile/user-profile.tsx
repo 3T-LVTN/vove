@@ -96,6 +96,10 @@ export function UserProfile({route, navigation}: any) {
       const token = await AsyncStorage.getItem('userToken')
       await postUpdateProfile(name, avatar, JSON.parse(token!), route.params?.address.lat, route.params?.address.lng)
       await fetchData()
+      navigation.navigate('ActionSuccess', {
+        title: 'Cập nhật thành công',
+        message: 'Thông tin cá nhân của bạn đã được cập nhật'
+      })
     } catch (err) {
       Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
     }
@@ -208,7 +212,7 @@ export function UserProfile({route, navigation}: any) {
               backgroundColor: Color.white_100,
             }}
             right={<TextInput.Icon 
-              name={'map'} 
+              name='map'
               onPress={() => navigation.navigate('MapPick', 
               { originalScene: 'Profile', lat: location.lat, lng: location.lng }
               )}/>}

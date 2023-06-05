@@ -21,7 +21,7 @@ export const InputInformation = (props: InputInformationProps) => {
       editable={false}
       style={{
         ...TextStyle.h3,
-        width: (327 / 375) * ScreenSize.width,
+        width: (310 / 375) * ScreenSize.width,
         backgroundColor: Color.white_100,
       }}
     />

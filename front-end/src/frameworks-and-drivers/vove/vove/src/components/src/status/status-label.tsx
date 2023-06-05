@@ -1,25 +1,27 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Color, InquiryStatusType, TextStyle } from '@front-end/shared/utils';
+import { Color, TextStyle } from '@front-end/shared/utils';
 
 export interface StatusLabelProps {
-  readonly status: InquiryStatusType;
+  readonly status: number;
 }
+
 export const StatusLabel = (props: StatusLabelProps) => {
   const { status } = props;
   const STATUS_DATA = [
     {
-      color: Color.primary_60,
-      text: 'Opening',
+      color: Color.yellow_80,
+      text: 'Đang chờ',
     },
     {
-      color: Color.yellow_80,
-      text: 'Waiting',
+      color: Color.primary_60,
+      text: 'Đang mở',
     },
     {
       color: Color.grey_80,
-      text: 'Closed',
+      text: 'Đã đóng',
     },
   ];
+  
   return (
     <View
       style={{

@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SignUpStack } from './signup.navigator';
 import { ForgetPasswordStack } from './forget-password.navigator';
-import { ActionFailed, Login, MapPick } from '../screens';
+import { ActionFailed, ActionSuccess, Login, MapPick } from '../screens';
 import { UserNavBar } from './user-nav-bar.navigator';
 
 export function MainStack() {
@@ -32,6 +32,10 @@ export function MainStack() {
         <Stack.Screen
           name="ActionFailed"
           component={ActionFailed}
+        />
+        <Stack.Screen
+          name="ActionSuccess"
+          component={ActionSuccess}
         />
         <Stack.Screen
           name="MapPick"

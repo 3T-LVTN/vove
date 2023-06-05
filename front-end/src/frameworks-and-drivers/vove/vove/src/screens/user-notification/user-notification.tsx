@@ -24,7 +24,7 @@ const notificationList = [
   },
   {
     leftIcon: '',
-    content: "Epidemic occurred in Quang's house area",
+    content: "Ngày 05/06/2023 - Quận 7, Tân Bình, Tân Phú nguy hiểm, không có quận nào an toàn",
     time: new Date().getTime() - 15 * oneMin, // 15 minute
     isRead: false,
   },
@@ -37,7 +37,7 @@ const notificationList = [
   {
     leftIcon: '',
     content:
-      "Admin has closed your inquiry 'Add support for multiple languages'",
+      "Yêu cầu hỗ trợ đã đóng - 'Hỗ trợ đa ngôn ngữ'",
     time: new Date().getTime() - 16 * oneHour, // 16 hour
     isRead: false,
   },

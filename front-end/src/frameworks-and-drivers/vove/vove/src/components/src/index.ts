@@ -8,7 +8,6 @@ export * from './bars/step-bar';
 export * from './inputs/input-otp';
 export * from './buttons/button-half-width';
 export * from './map/normal-map';
-export * from './search/search-bar';
 export * from './inputs/input-switch';
 export * from './cards/small-card';
 export * from './status/status-label';

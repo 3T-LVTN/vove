@@ -10,6 +10,7 @@ export async function fetchData() {
     AsyncStorage.removeItem('address')
     AsyncStorage.removeItem('trackingPlaces')
     AsyncStorage.removeItem('inquiries')
+    AsyncStorage.removeItem('feedbacks')
 
     const token = await AsyncStorage.getItem('userToken');
     const res = await getProfile(JSON.parse(token!));
@@ -22,6 +23,8 @@ export async function fetchData() {
       AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
     if (res.data[0].inquiries)
       AsyncStorage.setItem('inquiries', JSON.stringify(res.data[0].inquiries));
+    if (res.data[0].feedbacks)
+      AsyncStorage.setItem('feedbacks', JSON.stringify(res.data[0].feedbacks));
   } catch (err) {
     Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
   }
@@ -95,48 +98,6 @@ export const postDeleteTrackingplace = (id: string, token: any) => {
     '/profile/delete-trackingplace',
     {
       id: id,
-    },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-};
-
-export const postCreateInquiry = (
-  title: string,
-  message: string,
-  token: any
-) => {
-  return axios.post(
-    '/profile/create-inquiry',
-    {
-      title: title,
-      message: message,
-    },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-};
-
-export const postCloseInquiry = (id: string, token: any) => {
-  return axios.post(
-    '/profile/close-inquiry',
-    {
-      id: id,
-    },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-};
-
-export const postCommentInquiry = (id: string, message: string, token: any) => {
-  return axios.post(
-    '/profile/comment-inquiry',
-    {
-      id: id,
-      message: message,
     },
     {
       headers: { Authorization: `Bearer ${token}` },

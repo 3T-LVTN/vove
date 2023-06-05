@@ -7,11 +7,11 @@ import UserNotification from '../screens/user-notification/user-notification';
 import { InquiryStack } from './inquiry.navigator';
 import { UserProfile } from '../screens';
 
-const size = ScreenSize.width * 0.1;
+const size = ScreenSize.width * 0.08;
 const selectedLabel = '_____';
 const styles = {
   marginRight: -ScreenSize.width * 0.025,
-  marginTop: -ScreenSize.height * 0.015,
+  marginTop: -ScreenSize.height * 0.012,
   marginLeft: -ScreenSize.width * 0.025,
 };
 
@@ -27,7 +27,7 @@ export const UserNavBar = () => {
       barStyle={{
         backgroundColor: 'white',
         height: ScreenSize.height * 0.12,
-        paddingVertical: ScreenSize.height * 0.03,
+        paddingTop: ScreenSize.height * 0.03,
       }}
     >
       <Tab.Screen
