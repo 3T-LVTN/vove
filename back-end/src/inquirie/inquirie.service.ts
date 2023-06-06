@@ -29,7 +29,7 @@ export class InquirieService {
 
   async closeInquiry(dto: CloseInquiryDto, phone: string) {
     await this.inquirieModel.findOneAndUpdate(
-      { author: phone, id: dto.id, status: !2 },
+      { author: phone, id: dto.id },
       { status: 2 },
     );
   }
@@ -42,7 +42,12 @@ export class InquirieService {
     };
 
     await this.inquirieModel.findOneAndUpdate(
-      { author: phone, id: dto.id, status: !2 },
+      {
+        $or: [
+          { author: phone, id: dto.id, status: 0 },
+          { author: phone, id: dto.id, status: 1 },
+        ],
+      },
       { $push: { comments: comment } },
     );
   }
