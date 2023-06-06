@@ -30,7 +30,7 @@ export const InputPassword = (props: InputPasswordProps) => {
           ...TextStyle.h3,
           fontWeight: '400',
           color: Color.green_100,
-          width: (327 / 375) * ScreenSize.width,
+          width: (310 / 375) * ScreenSize.width,
           backgroundColor: Color.white_100,
         }}
         secureTextEntry={passwordVisibility}

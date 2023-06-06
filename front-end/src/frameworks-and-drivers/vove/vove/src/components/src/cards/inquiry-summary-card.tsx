@@ -9,11 +9,12 @@ import { StatusLabel } from '../status/status-label';
 import { formatDate } from './time-format';
 
 export interface InquirySummaryCardProps {
+  readonly index: number;
   readonly title: string;
   readonly time: string;
   readonly status: number;
   readonly navigation: any;
-  readonly inquiry: object;
+  readonly list: any[];
 }
 
 export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
@@ -21,7 +22,7 @@ export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
   return (
     <Pressable
       onPress={() => {
-        props.navigation.navigate('InquiryDetail', props.inquiry);
+        props.navigation.navigate('InquiryDetail', { index: props.index, list: props.list });
       }}
       style={{ width: '99%', alignSelf: 'center' }}
     >

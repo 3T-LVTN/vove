@@ -33,7 +33,7 @@ export const InputText = (props: InputTextProps) => {
       style={{
         ...TextStyle.h3,
         fontWeight: '400',
-        width: (327 / 375) * ScreenSize.width,
+        width: (310 / 375) * ScreenSize.width,
         backgroundColor: 'transparent',
       }}
       right={<TextInput.Icon name={props.rightIcon}/> || null}
