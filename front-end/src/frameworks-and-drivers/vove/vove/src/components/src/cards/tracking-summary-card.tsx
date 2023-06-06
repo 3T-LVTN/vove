@@ -7,33 +7,23 @@ import {
 } from '@front-end/shared/utils';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ButtonIcon } from '../buttons/button-icon';
-import { InputSwitch } from '../inputs/input-switch';
-import { TrackingPlacesViewModel } from '@front-end/interface-adapters/view-models/tracking-places';
 
 export interface TrackingPlaceStatusProps {
   readonly placeName: string;
-  readonly address: string;
+  readonly title: string;
   readonly status: TrackingPlaceStatusType;
-  readonly notificationAllowed: any;
+  readonly lat?: number;
+  readonly lng?: number;
   readonly navigation: any;
-  readonly editable?: boolean;
-  readonly placeDetail: TrackingPlacesViewModel;
+  readonly readonly?: boolean;
 }
 
 export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
-  const {
-    placeDetail,
-    editable,
-    navigation,
-    placeName,
-    address,
-    status,
-    notificationAllowed,
-  } = props;
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate('PlaceDetail', placeDetail);
+        props.lat ? props.navigation.navigate('PlaceDetail', { title: props.title, placeName: props.placeName, lat: props.lat, lng: props.lng, status: props.status})
+        : props.navigation.navigate('UserProfile')
       }}
       style={{ width: '100%' }}
     >
@@ -46,21 +36,21 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
       >
         <View
           style={
-            status === TrackingPlaceStatusType.GOOD
+            props.status === TrackingPlaceStatusType.GOOD
               ? styles.statusCircleGood
-              : status === TrackingPlaceStatusType.LOW_RISK
+              : props.status === TrackingPlaceStatusType.LOW_RISK
               ? styles.statusCircleLowRisk
-              : status === TrackingPlaceStatusType.HIGH_RISK
+              : props.status === TrackingPlaceStatusType.HIGH_RISK
               ? styles.statusCircleHighRisk
               : styles.statusCircleEpidemic
           }
         ></View>
         <View style={{ width: '60%', paddingLeft: 8 }}>
           <Text style={{ ...TextStyle.h3, color: Color.dark_80 }}>
-            {placeName}
+            {props.title}
           </Text>
           <Text style={{ ...TextStyle.bodySmall, color: Color.dark_80 }}>
-            {address}
+            {props.placeName}
           </Text>
         </View>
         <View style={{ height: customSize(14) }} />
@@ -71,14 +61,19 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
             justifyContent: 'center',
           }}
         >
-          {editable ? (
-            <ButtonIcon
-              onPress={() => console.log('')}
-              iconName={'cog-outline'}
-              customSize={0.7}
-            />
-          ) : null}
-          <InputSwitch defaultValue={notificationAllowed}></InputSwitch>
+          {props.readonly ? null : <><ButtonIcon
+          onPress={() => console.log('')}
+          iconName={'cog-outline'}
+          customSize={0.7}
+          />
+           <View style={{ paddingTop: ScreenSize.height * 0.01 }} />
+          <ButtonIcon
+          onPress={() => console.log('')}
+          iconName={'delete'}
+          customSize={0.7}
+          /></>
+          }
+          
         </View>
       </View>
     </Pressable>

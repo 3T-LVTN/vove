@@ -7,12 +7,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
+import { Color, ScreenSize, TextStyle, customSize } from '@front-end/shared/utils';
 import {
   ButtonFullWidth,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import NormalMap from '../../components/src/map/normal-map';
-import { fetchData } from '../../services/profile';
 
 export interface HomeProps {
   navigation: any;
@@ -21,16 +20,14 @@ export interface HomeProps {
 export function Home(props: HomeProps) {
 
   return (
+    <View style={styles.screen}>
+       <View style={{ paddingTop: ScreenSize.height * 0.04 }}>
+       <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
+          Dự đoán phân bố muỗi TP.HCM
+        </Text>
+       </View>
     <ScrollView style={{ backgroundColor: Color.white_100 }}>
       <View style={styles.container}>
-        <View
-          style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}
-        >
-          <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-            HCMC Mosquito Distribution
-          </Text>
-        </View>
-
         {/*TODO: remove shadow in search bar*/}
         <View style={styles.placeContainer}>
           {/* //<VoveSearchBar placeholder={'Search place'}></VoveSearchBar> */}
@@ -84,7 +81,7 @@ export function Home(props: HomeProps) {
           style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}
         >
           <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-            HCMC Overview
+            Tổng quan
           </Text>
         </View>
         <View style={styles.hcmcSummaryContainer}>
@@ -92,7 +89,7 @@ export function Home(props: HomeProps) {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={{ ...TextStyle.bodyLarge, color: Color.primary_20 }}>
-              Normal
+              Tốt
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.primary_20 }}>
               19
@@ -102,7 +99,7 @@ export function Home(props: HomeProps) {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={{ ...TextStyle.bodyLarge, color: Color.yellow_20 }}>
-              Low risk
+              Thấp
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.yellow_20 }}>
               1
@@ -112,7 +109,7 @@ export function Home(props: HomeProps) {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={{ ...TextStyle.bodyLarge, color: Color.orange_20 }}>
-              High risk
+              Vừa
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.orange_20 }}>
               1
@@ -122,7 +119,7 @@ export function Home(props: HomeProps) {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={{ ...TextStyle.bodyLarge, color: Color.red_100 }}>
-              Epidemic
+              Cao
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.red_100 }}>
               1
@@ -130,16 +127,27 @@ export function Home(props: HomeProps) {
           </View>
         </View>
         <View style={{ height: ScreenSize.width * 0.03 }}></View>
-        <ButtonFullWidth
-          content="My Tracking List"
-          onPress={() => props.navigation.navigate('TrackingSummary')}
-        />
       </View>
     </ScrollView>
+
+        <View style={{ paddingBottom: ScreenSize.height * 0.04 }}>
+        <ButtonFullWidth
+            content="Danh sách theo dõi"
+            onPress={() => props.navigation.navigate('TrackingList')}
+          />
+        </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    position: 'relative',
+    paddingHorizontal: (24 / 375) * ScreenSize.width,
+    paddingTop: customSize(12),
+    backgroundColor: Color.white_100,
+    height: '100%',
+  },
   container: {
     flex: 1,
     backgroundColor: Color.white_100,

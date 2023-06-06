@@ -18,19 +18,14 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { PlaceStatusLabel } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 
 export interface PlaceDetailProps {
-  navigation: any;
+  readonly title: string;
+  readonly placeName: string;
+  readonly lat: number;
+  readonly lng: number;
+  readonly status: TrackingPlaceStatusType;
 }
 
 export function PlaceDetail(props: PlaceDetailProps) {
-  const placeDetail = props.route.params;
-  const placeStatus: string =
-    placeDetail.status === TrackingPlaceStatusType.GOOD
-      ? 'GOOD'
-      : placeDetail.status === TrackingPlaceStatusType.LOW_RISK
-      ? 'LOW RISK'
-      : placeDetail.status === TrackingPlaceStatusType.HIGH_RISK
-      ? 'HIGH RISK'
-      : 'EPIDEMIC';
   return (
     <ScrollView
       style={{ height: ScreenSize.height, backgroundColor: 'white' }}
@@ -49,9 +44,9 @@ export function PlaceDetail(props: PlaceDetailProps) {
           backgroundColor={Color.grey_60}
           padding={5}
         />
-        <Text style={TextStyle.h2}>{placeDetail.placeName}</Text>
-        <Text style={TextStyle.bodyLarge}>{placeDetail.address}</Text>
-        <PlaceStatusLabel status={placeDetail.status} />
+        <Text style={TextStyle.h2}>{props.title}</Text>
+        <Text style={TextStyle.bodyLarge}>{props.placeName}</Text>
+        {/* <PlaceStatusLabel status={props.status} /> */}
         <View style={styles.containerWithBorder}>
           <Text
             style={{
@@ -60,7 +55,7 @@ export function PlaceDetail(props: PlaceDetailProps) {
               alignSelf: 'flex-start',
             }}
           >
-            How correct is this prediction?
+            Bạn cảm thấy thế nào về dự đoán này?
           </Text>
           <View
             style={{
@@ -71,13 +66,13 @@ export function PlaceDetail(props: PlaceDetailProps) {
             }}
           >
             <Pressable style={styles.optionExact}>
-              <Text style={{ ...TextStyle.h3, color: 'white' }}>Exactly</Text>
+              <Text style={{ ...TextStyle.h3, color: 'white' }}>Chính xác</Text>
             </Pressable>
             <Pressable style={styles.optionNormal}>
-              <Text style={{ ...TextStyle.h3, color: 'white' }}>Normal</Text>
+              <Text style={{ ...TextStyle.h3, color: 'white' }}>Tạm ổn</Text>
             </Pressable>
             <Pressable style={styles.optionFalse}>
-              <Text style={{ ...TextStyle.h3, color: 'white' }}>False</Text>
+              <Text style={{ ...TextStyle.h3, color: 'white' }}>Sai</Text>
             </Pressable>
           </View>
         </View>
@@ -85,7 +80,7 @@ export function PlaceDetail(props: PlaceDetailProps) {
           style={{ width: '100%', paddingVertical: ScreenSize.height * 0.02 }}
         >
           <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-            What should you do
+            Những điều bạn nên làm
           </Text>
           <View style={styles.containerWithBorder}>
             <Image source={require('../../images/advices.png')} />
