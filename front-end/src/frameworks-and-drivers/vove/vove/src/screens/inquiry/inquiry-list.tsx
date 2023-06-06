@@ -39,7 +39,7 @@ export function InquiryList({route, navigation}: any) {
           <ButtonOption
             iconName="message-draw"
             content="Tạo yêu cầu mới"
-            onPress={() => navigation.navigate('NewInquiry')}
+            onPress={() => navigation.navigate('NewInquiry', inqList)}
           />
         </View>
       </View>

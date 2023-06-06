@@ -4,32 +4,39 @@ import {
   ButtonType,
   Color,
   customSize,
-  InquiryStatusType,
   ScreenSize,
   TextStyle,
 } from '@front-end/shared/utils';
 import {
-  ButtonHalfWidth,
-  InputText,
+  ButtonHalfWidth, InputText
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postCreateInquiry } from '../../services/profile';
+import { fetchData, postCreateInquiry } from '../../services';
 
-export interface NewInquiryProps {
-  navigation: any;
-}
+export function NewInquiry(props: any) {
+  const list = props.route.params
+  const [title, setTitle] = React.useState('')
+  const [message, setMessage] = React.useState('')
 
-async function handleSend(title: string, message: string) {
-  try {
-    await postCreateInquiry(title, message, await AsyncStorage.getItem);
-  } catch (err: any) {
-    Alert.alert('Empty input');
+  async function handleSend(title: string, message: string) {
+    try {
+      const token = await AsyncStorage.getItem('userToken')
+      await postCreateInquiry(title, message, JSON.parse(token!))
+      await fetchData()
+      const inquiries = await AsyncStorage.getItem('inquiries')
+      props.navigation.navigate('InquiryList', 
+      { 
+        update: true,
+        updateList: JSON.parse(inquiries!)
+      })
+      props.navigation.navigate('ActionSuccess', {
+        title: 'Tạo yêu cầu thành công',
+        message: ''
+      })
+    } catch (err: any) {
+      Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
+    }
   }
-}
-
-export function NewInquiry(props: NewInquiryProps) {
-  const [title, setTitle] = React.useState('');
-  const [message, setMessage] = React.useState('');
 
   return (
     <View style={styles.container}>
@@ -46,12 +53,21 @@ export function NewInquiry(props: NewInquiryProps) {
               alignSelf: 'flex-start',
             }}
           >
-            Title
+            Tiêu đề
           </Text>
           <View style={{ paddingTop: ScreenSize.width * 0.02 }} />
           <View
             style={{ ...styles.contentInput, height: ScreenSize.height * 0.06 }}
-          ></View>
+          >
+                      <InputText 
+            title={''}
+            placeholder='Nhập tiêu đề'
+            text={title}
+            output={setTitle}
+            multiline={true}
+            marginTop={-ScreenSize.height * 0.02}
+          />
+          </View>
           <View style={{ paddingTop: ScreenSize.width * 0.02 }} />
           <Text
             style={{
@@ -60,48 +76,40 @@ export function NewInquiry(props: NewInquiryProps) {
               alignSelf: 'flex-start',
             }}
           >
-            Message
+            Nội dung
           </Text>
           <View style={{ paddingTop: ScreenSize.width * 0.02 }} />
           <View
-            style={{ ...styles.contentInput, height: ScreenSize.height * 0.5 }}
-          ></View>
-          {/*<InputText*/}
-          {/*  title={'Title'}*/}
-          {/*  placeholder={'Enter inquiry title'}*/}
-          {/*  allowOutput={true}*/}
-          {/*  output={setTitle}*/}
-          {/*  rightIcon={title === '' ? '' : 'check-circle-outline'}*/}
-          {/*  multiline={true}*/}
-          {/*></InputText>*/}
-
-          {/*<InputText*/}
-          {/*  title={'Message'}*/}
-          {/*  placeholder={'Enter inquiry message'}*/}
-          {/*  allowOutput={true}*/}
-          {/*  output={setMessage}*/}
-          {/*  rightIcon={message === '' ? '' : 'check-circle-outline'}*/}
-          {/*  multiline={true}*/}
-          {/*></InputText>*/}
+            style={{ ...styles.contentInput, height: ScreenSize.height * 0.4 }}
+          >
+            <InputText 
+            title={''}
+            placeholder='Nhập nội dung'
+            text={message}
+            output={setMessage}
+            multiline={true}
+            marginTop={-ScreenSize.height * 0.02}
+          />
+          </View>
         </View>
       </ScrollView>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          paddingTop: 10,
+          paddingBottom: ScreenSize.height * 0.04,
         }}
       >
         <ButtonHalfWidth
           type={ButtonType.DISABLE}
-          content={'Cancel'}
+          content={'Hủy'}
           onPress={() => {
-            console.log('');
+            props.navigation.goBack();
           }}
         />
         <ButtonHalfWidth
           type={ButtonType.DEFAULT}
-          content={'Send Inquiry'}
+          content='Gửi yêu cầu'
           onPress={() => handleSend(title, message)}
         />
       </View>

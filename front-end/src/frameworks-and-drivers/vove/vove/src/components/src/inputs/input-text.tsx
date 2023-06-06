@@ -11,6 +11,7 @@ interface InputTextProps {
   readonly rightIcon?: any
   readonly keyboardType?: KeyboardTypeOptions
   readonly multiline?: boolean
+  readonly marginTop?: number
 }
 
 export const InputText = (props: InputTextProps) => {
@@ -30,11 +31,14 @@ export const InputText = (props: InputTextProps) => {
       onChangeText={handleChange}
       keyboardType={props.keyboardType}
       multiline={props.multiline}
+      underlineColor={props.multiline? Color.white_100 : Color.grey_100}
       style={{
         ...TextStyle.h3,
         fontWeight: '400',
         width: (310 / 375) * ScreenSize.width,
         backgroundColor: 'transparent',
+        position: props.multiline? 'absolute' : undefined,
+        marginTop: props.multiline? props.marginTop : undefined,
       }}
       right={<TextInput.Icon name={props.rightIcon}/> || null}
     />
