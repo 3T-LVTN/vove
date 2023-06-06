@@ -3,9 +3,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScreenSize } from '@front-end/shared/utils';
 import { MosquitoesViewStack } from './mosquitoes-view.naviagtor';
-import UserNotification from '../screens/user-notification/user-notification';
 import { InquiryStack } from './inquiry.navigator';
-import { UserProfile } from '../screens';
+import { UserProfile, UserNotification } from '../screens';
 
 const size = ScreenSize.width * 0.08;
 const selectedLabel = '_____';

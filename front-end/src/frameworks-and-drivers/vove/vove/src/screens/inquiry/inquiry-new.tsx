@@ -14,7 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchData, postCreateInquiry } from '../../services';
 
 export function NewInquiry(props: any) {
-  const list = props.route.params
   const [title, setTitle] = React.useState('')
   const [message, setMessage] = React.useState('')
 

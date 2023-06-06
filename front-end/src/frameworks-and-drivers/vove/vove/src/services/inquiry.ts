@@ -17,11 +17,12 @@ export const postCreateInquiry = (
     );
   };
   
-export const postCloseInquiry = (id: string, token: any) => {
+export const postCloseInquiry = (id: string, title: string, token: any) => {
     return axios.post(
         '/inquiry/close',
         {
         id: id,
+        title: title
         },
         {
         headers: { Authorization: `Bearer ${token}` },

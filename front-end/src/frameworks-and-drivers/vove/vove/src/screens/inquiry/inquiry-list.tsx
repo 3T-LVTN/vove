@@ -26,6 +26,7 @@ export function InquiryList({route, navigation}: any) {
   useEffect(() => {
     if (route.params?.update) {
       setInqList(route.params.updateList)
+      route.params.update = null
     }
   }, [route.params?.update]);
 
@@ -39,7 +40,7 @@ export function InquiryList({route, navigation}: any) {
           <ButtonOption
             iconName="message-draw"
             content="Tạo yêu cầu mới"
-            onPress={() => navigation.navigate('NewInquiry', inqList)}
+            onPress={() => navigation.navigate('NewInquiry')}
           />
         </View>
       </View>

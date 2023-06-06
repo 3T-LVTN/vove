@@ -15,6 +15,7 @@ import {
 import { formatDate } from '../../components/src/cards/time-format';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchData, postCloseInquiry, postCommentInquiry } from '../../services';
+import { refreshNof } from '../../services/nof';
 
 export function InquiryDetail(props: any) {
   const inquiry = props.route.params
@@ -25,7 +26,7 @@ export function InquiryDetail(props: any) {
     if (inquiry.status == 2) return
     try {
       const token = await AsyncStorage.getItem('userToken')
-      await postCloseInquiry(inquiry.id, JSON.parse(token!))
+      await postCloseInquiry(inquiry.id, inquiry.title, JSON.parse(token!))
       await fetchData()
       const inquiries = await AsyncStorage.getItem('inquiries')
       inquiry.status = 2

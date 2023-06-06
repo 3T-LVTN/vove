@@ -5,4 +5,5 @@ export * from './inquiry/inquiry-detail';
 export * from './inquiry/inquiry-list';
 export * from './inquiry/inquiry-new';
 export * from './map/map-pick';
+export * from './nof/user-notification';
 export * from './profile/user-profile';
