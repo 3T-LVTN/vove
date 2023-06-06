@@ -11,6 +11,9 @@ export class CreateInquiryDto {
 export class CloseInquiryDto {
   @IsNotEmpty()
   id: string;
+
+  @IsNotEmpty()
+  title: string;
 }
 
 export class CommentInquiryDto {
