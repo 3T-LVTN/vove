@@ -9,20 +9,16 @@ import { StatusLabel } from '../status/status-label';
 import { formatDate } from './time-format';
 
 export interface InquirySummaryCardProps {
-  readonly index: number;
-  readonly title: string;
-  readonly time: string;
-  readonly status: number;
   readonly navigation: any;
-  readonly list: any[];
+  readonly inquiry: any;
 }
 
 export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
-  const vnTime = formatDate(props.time)
+  const vnTime = formatDate(props.inquiry.time)
   return (
     <Pressable
       onPress={() => {
-        props.navigation.navigate('InquiryDetail', { index: props.index, list: props.list });
+        props.navigation.navigate('InquiryDetail', props.inquiry);
       }}
       style={{ width: '99%', alignSelf: 'center' }}
     >
@@ -31,11 +27,11 @@ export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
           <Text style={{ ...TextStyle.bodySmall, color: Color.dark_80 }}>
             {vnTime}
           </Text>
-          <StatusLabel status={props.status} />
+          <StatusLabel status={props.inquiry.status} />
         </View>
         <View style={{ height: customSize(14) }} />
         <View style={styles.line}>
-          <Text style={TextStyle.h3}>{props.title}</Text>
+          <Text style={TextStyle.h3}>{props.inquiry.title}</Text>
         </View>
       </View>
     </Pressable>

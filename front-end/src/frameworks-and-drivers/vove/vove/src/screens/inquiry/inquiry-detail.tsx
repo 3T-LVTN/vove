@@ -14,23 +14,25 @@ import {
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import { formatDate } from '../../components/src/cards/time-format';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postCloseInquiry, postCommentInquiry } from '../../services';
+import { fetchData, postCloseInquiry, postCommentInquiry } from '../../services';
 
 export function InquiryDetail(props: any) {
-  const { index, list } = props.route.params
-  const vnTime = formatDate(list[index].time)
+  const inquiry = props.route.params
+  const vnTime = formatDate(inquiry.time)
   const [newCmtText, setNewCmtText] = useState('')
 
   async function handleClose() {
-    if (list[index].status == 2) return
+    if (inquiry.status == 2) return
     try {
       const token = await AsyncStorage.getItem('userToken')
-      await postCloseInquiry(list[index].id, JSON.parse(token!))
-      list[index].status = 2
+      await postCloseInquiry(inquiry.id, JSON.parse(token!))
+      await fetchData()
+      const inquiries = await AsyncStorage.getItem('inquiries')
+      inquiry.status = 2
       props.navigation.navigate('InquiryList', 
       { 
         update: true,
-        updateList: list
+        updateList: JSON.parse(inquiries!)
       })
       props.navigation.navigate('ActionSuccess', {
         title: 'Đóng yêu cầu thành công',
@@ -42,20 +44,22 @@ export function InquiryDetail(props: any) {
   }
 
   async function handleComment() {
-    if (list[index].status == 2 || newCmtText == '') return
+    if (inquiry.status == 2 || newCmtText == '') return
     try {
       const token = await AsyncStorage.getItem('userToken')
-      await postCommentInquiry(list[index].id, newCmtText, JSON.parse(token!))
+      await postCommentInquiry(inquiry.id, newCmtText, JSON.parse(token!))
+      await fetchData()
+      const inquiries = await AsyncStorage.getItem('inquiries')
       const newCmt = {
         isAdmin: false,
         message: newCmtText,
         time: new Date().toISOString()
       } 
-      list[index].comments.push(newCmt)
+      inquiry.comments.push(newCmt)
       props.navigation.navigate('InquiryList', 
       { 
         update: true,
-        updateList: list
+        updateList: JSON.parse(inquiries!)
       })
       props.navigation.navigate('ActionSuccess', {
         title: 'Gửi bình luận thành công',
@@ -70,7 +74,7 @@ export function InquiryDetail(props: any) {
     <View style={styles.container}>
 
       <View>
-        <Text style={{ ...TextStyle.h2 }}>{list[index].title}</Text>
+        <Text style={{ ...TextStyle.h2 }}>{inquiry.title}</Text>
       </View>
       <View style={{ paddingTop: ScreenSize.height * 0.02 }} />
       <ScrollView style={{ paddingTop: 12, backgroundColor: Color.white_100 }}>
@@ -82,11 +86,11 @@ export function InquiryDetail(props: any) {
             ></InputInformation>
             <InputInformation
               title="Trạng thái"
-              information={list[index].status == 0 ? 'ĐANG CHỜ' : list[index].status == 1 ? 'ĐANG MỞ' : 'ĐÃ ĐÓNG'}
+              information={inquiry.status == 0 ? 'ĐANG CHỜ' : inquiry.status == 1 ? 'ĐANG MỞ' : 'ĐÃ ĐÓNG'}
             ></InputInformation>
             <InputInformation
               title="Nội dung"
-              information={list[index].message}
+              information={inquiry.message}
             ></InputInformation>
           </View>
           
@@ -96,10 +100,10 @@ export function InquiryDetail(props: any) {
         <View style={{ paddingTop: ScreenSize.height * 0.02 }} />
         <View style={{ paddingBottom: ScreenSize.height * 0.02 }}>
             <Text style={{ ...TextStyle.h3, color: Color.dark_100 }}>
-              Bình luận ({list[index].comments.length})
+              Bình luận ({inquiry.comments.length})
             </Text>
         </View>
-        { list[index].comments.map((item: any, index: number) => (
+        { inquiry.comments.map((item: any, index: number) => (
               <View key={index}>
                 <View
                   style={{
@@ -150,7 +154,7 @@ export function InquiryDetail(props: any) {
                 </View>
             ))}
 
-              { list[index].status == 2 ? null : <><View style={{...styles.center, borderColor: Color.yellow_20 }}>
+              { inquiry.status == 2 ? null : <><View style={{...styles.center, borderColor: Color.yellow_20 }}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -183,7 +187,7 @@ export function InquiryDetail(props: any) {
       >
         <ButtonHalfWidth
           type={
-            list[index].status != 2
+            inquiry.status != 2
               ? ButtonType.DEFAULT
               : ButtonType.DISABLE
           }
@@ -192,7 +196,7 @@ export function InquiryDetail(props: any) {
         />
         <ButtonHalfWidth
           type={
-            list[index].status != 2
+            inquiry.status != 2
               ? ButtonType.RED
               : ButtonType.DISABLE
           }

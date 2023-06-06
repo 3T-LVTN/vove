@@ -59,12 +59,8 @@ export function InquiryList({route, navigation}: any) {
               .map((item, index) => (
               <InquirySummaryCard
                 key={index}
-                index={index}
-                status={item.status}
                 navigation={navigation}
-                title={item.title}
-                time={item.time}
-                list={inqList}
+                inquiry={item}
               />
             ))
           }
