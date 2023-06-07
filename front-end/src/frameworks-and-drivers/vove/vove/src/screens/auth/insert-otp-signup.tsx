@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import firebase from 'firebase/compat';
@@ -7,19 +7,18 @@ import {
   InputOtp,
   StepBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
-import { firebaseConfig } from '@front-end/frameworks-and-drivers/firebase-auth';
 import { Color, ScreenSize } from '@front-end/shared/utils';
 
-export interface InsertOtpProps {
+export interface InsertOtpSignupProps {
   readonly navigation: any;
   readonly route: any;
 }
 
-export function InsertOtp(props: InsertOtpProps) {
+export function InsertOtpSignup(props: InsertOtpSignupProps) {
   const { navigation, route } = props;
   const [showButton, setShowButton] = useState(true);
 
-  const { phoneNumber } = route.params;
+  const { phoneNumber, name } = route.params;
   const [OTP, setOTP] = useState('');
   const [verifyId, setVerifyId] = useState('');
   const recaptchaVerifier: any = useRef();
@@ -31,27 +30,29 @@ export function InsertOtp(props: InsertOtpProps) {
   //     .then(setVerifyId)
   // }
 
-  const confirmCode = () => {
-    const credential = firebase.auth.PhoneAuthProvider.credential(
-      verifyId,
-      OTP
-    );
-    firebase
-      .auth()
-      .signInWithCredential(credential)
-      .then(() => {
-        setOTP('');
-        setShowButton(true);
-        Alert.alert('Valid OTP');
-      })
-      .catch(() => {
-        Alert.alert('Please try again');
-        navigation.goBack();
-      });
-  };
-  //
+  // const confirmCode = () => {
+  //   const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
+  //   firebase.auth().signInWithCredential(credential)
+  //     .then(() => {
+  //       setOTP('')
+  //       setShowButton(true)
+  //       Alert.alert('Valid OTP')
+  //     })
+  //     .catch(() => {
+  //       Alert.alert('Please try again')
+  //       navigation.goBack()
+  //     })
+  // }
+
   // useEffect(() => {
+  //   console.log(name + phoneNumber)
   // }, [])
+
+  // useMemo(() => {
+  //   if (OTP.length === 6) {
+  //     confirmCode()
+  //   }
+  // }, [OTP])
 
   return (
     <View style={styles.container}>
@@ -76,7 +77,6 @@ export function InsertOtp(props: InsertOtpProps) {
               Alert.alert('OK');
             }}
           ></InputOtp>
-          {/*{OTP.length == 6 ? confirmCode() : null}*/}
         </View>
       </ScrollView>
       <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
@@ -84,7 +84,10 @@ export function InsertOtp(props: InsertOtpProps) {
           <ButtonFullWidth
             content="Next"
             onPress={() =>
-              navigation.navigate('ResetPassword', { phoneNumber: phoneNumber })
+              navigation.navigate('SetNewPassword', {
+                phoneNumber: phoneNumber,
+                name: name,
+              })
             }
           ></ButtonFullWidth>
         ) : null}
@@ -101,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InsertOtp;
+export default InsertOtpSignup;

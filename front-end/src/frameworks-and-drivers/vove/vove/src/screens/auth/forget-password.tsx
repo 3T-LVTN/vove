@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
-import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
+import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import {
   ButtonFullWidth,
   InputText,
@@ -8,18 +7,22 @@ import {
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import { Color, ScreenSize } from '@front-end/shared/utils';
 
-export interface ForgetPasswordProps {
-  readonly navigation: any;
-  readonly route: any;
-}
-
-export function ForgetPassword(props: ForgetPasswordProps) {
-  const { navigation, route } = props;
+export function ForgetPassword(props: any) {
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  const handleSubmit = () => {
-    const phone = '+84' + phoneNumber.substring(1);
-    navigation.navigate('InsertOtp', { phoneNumber: phone });
+  const validatePhoneNumber = () => {
+    return phoneNumber.length === 10
+  };
+
+  async function handleSubmit() {
+    if (!validatePhoneNumber()) props.navigation.navigate('ActionFailed', {
+      title: 'Gửi OTP thất bại',
+      message: 'Ứng dụng chỉ hỗ trợ số điện thoại VN, xin lỗi vì sự bất tiện này'
+    })
+    else {
+      const phone = '+84' + phoneNumber.substring(1);
+      props.navigation.navigate('InsertOtp', { phoneNumber: phone });
+    }
   };
 
   return (
@@ -37,18 +40,18 @@ export function ForgetPassword(props: ForgetPasswordProps) {
             }}
           ></Image>
           <InputText
-            allowOutput={true}
+            text={phoneNumber}
             output={setPhoneNumber}
-            title="Phone number"
-            placeholder="Enter your phone number"
-            rightIcon={phoneNumber == '' ? '' : 'check-circle-outline'}
+            title="Số điện thoại"
+            placeholder="Nhập số điện thoại đăng ký"
+            rightIcon={validatePhoneNumber() ? 'check-circle-outline' : ''}
             keyboardType="numeric"
           ></InputText>
         </View>
       </ScrollView>
       <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
         <ButtonFullWidth
-          content="Send OTP"
+          content="Gửi mã OTP"
           onPress={() => handleSubmit()}
         ></ButtonFullWidth>
       </View>

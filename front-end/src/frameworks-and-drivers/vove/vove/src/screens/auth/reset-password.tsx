@@ -6,30 +6,28 @@ import {
   StepBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
-import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
 import { postForgotPassword } from '../../services/auth';
 
-export interface ResetPasswordProps {
-  readonly navigation: any;
-  readonly route: any;
-}
-
-export function ResetPassword(props: ResetPasswordProps) {
-  const { navigation, route } = props;
-  const { phoneNumber } = route.params;
+export function ResetPassword(props: any) {
+  const { phoneNumber } = props.route.params;
   const [pass1, setPass1] = useState('');
   const [pass2, setPass2] = useState('');
 
   async function handleSubmit() {
     if (pass1 == pass2 && pass1 != '') {
       await postForgotPassword(phoneNumber, pass1);
-      navigation.navigate('ResetPasswordSucceed');
-    } else Alert.alert('Passwords are different. Try again!');
+      props.navigation.popToTop()
+      props.navigation.goBack()
+      props.navigation.navigate('ActionSuccess', {
+        title: 'Đặt lại mật khẩu thành công',
+        message: 'Bạn đã có thể sử dụng mật khẩu mới để đăng nhập'
+      })
+    } else props.navigation.navigate('ActionFailed', {
+      title: 'Đặt lại mật khẩu thất bại',
+      message: 'Mật khẩu bạn bỏ trống hoặc không giống nhau'
+    })
   }
 
-  //   useEffect(() => {
-  //     console.log(phoneNumber)
-  // }, [])
   return (
     <View style={styles.container}>
       <StepBar step={3}></StepBar>
@@ -41,23 +39,23 @@ export function ResetPassword(props: ResetPasswordProps) {
             alignItems: 'flex-start',
           }}
         >
-          <Text style={TextStyle.h2}>Set your password</Text>
+          <Text style={TextStyle.h2}>Đặt lại mật mới</Text>
           <View style={{ padding: ScreenSize.height * 0.01 }}></View>
           <InputPassword
-            allowOutput={true}
+            text={pass1}
             output={setPass1}
-            title="Enter your new password"
+            title="Nhập mật khẩu mới"
           ></InputPassword>
           <InputPassword
-            allowOutput={true}
+            text={pass2}
             output={setPass2}
-            title="Repeat your new password"
+            title="Nhập lại mật khẩu mới"
           ></InputPassword>
         </View>
       </ScrollView>
       <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
         <ButtonFullWidth
-          content="Confirm"
+          content="Xác nhận"
           onPress={() => handleSubmit()}
         ></ButtonFullWidth>
       </View>

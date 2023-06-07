@@ -13,10 +13,10 @@ export const InputOtp = ({ onPress, OTPInput }: InputOtpProps) => {
     <SafeAreaView>
       <View style={{ flexDirection: 'column', marginBottom: 26 }}>
         <View style={{ marginBottom: 4 }}>
-          <Text style={TextStyle.h2}>Verify your phone number</Text>
+          <Text style={TextStyle.h2}>Xác thực số điện thoại</Text>
         </View>
         <Text style={[TextStyle.h4, { color: Color.grey_100 }]}>
-          Please enter OTP code sent to your phone
+          Vui lòng nhập mã OTP được gửi tới điện thoại
         </Text>
       </View>
 
@@ -40,11 +40,11 @@ export const InputOtp = ({ onPress, OTPInput }: InputOtpProps) => {
       >
         <Text style={{ ...TextStyle.h4, color: Color.grey_100 }}>
           {' '}
-          Didn't receive code?{' '}
+          Chưa nhận được mã?{' '}
         </Text>
         <Pressable onPress={onPress}>
           <Text style={{ ...TextStyle.h4, color: Color.primary_100 }}>
-            Resend
+            Gửi lại
           </Text>
         </Pressable>
       </View>

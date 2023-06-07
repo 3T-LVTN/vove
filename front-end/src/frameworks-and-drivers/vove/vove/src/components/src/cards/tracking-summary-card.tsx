@@ -112,7 +112,7 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
           <View style={{ marginTop: -ScreenSize.width * 0.07 }} />
           <InputText
           title=''
-          placeholder={'Vui lòng nhập tên hiển thị mới'}
+          placeholder={'Nhập tên mới'}
           text={newName}
           output={setNewName}
           customWidth={ScreenSize.width * 0.5}
