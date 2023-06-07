@@ -13,19 +13,19 @@ export const PlaceStatusLabel = (props: PlaceStatusLabelProps) => {
   const STATUS_DATA = [
     {
       color: Color.primary_80,
-      text: 'Good',
+      text: 'Tốt',
     },
     {
       color: Color.yellow_80,
-      text: 'Low Risk',
+      text: 'Thấp',
     },
     {
       color: Color.orange_80,
-      text: 'High Risk',
+      text: 'Vừa',
     },
     {
       color: Color.red_80,
-      text: 'Epidemic',
+      text: 'Cao',
     },
   ];
   return (

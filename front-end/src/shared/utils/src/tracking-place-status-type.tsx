@@ -1,6 +1,6 @@
 export enum TrackingPlaceStatusType {
-  GOOD,
+  SAFE,
+  NORMAL,
   LOW_RISK,
   HIGH_RISK,
-  EPIDEMIC,
 }

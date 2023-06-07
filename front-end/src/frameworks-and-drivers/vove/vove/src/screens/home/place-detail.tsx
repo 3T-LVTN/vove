@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -12,20 +13,49 @@ import {
   customSize,
   ScreenSize,
   TextStyle,
-  TrackingPlaceStatusType,
 } from '@front-end/shared/utils';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { PlaceStatusLabel } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { postSendFeedback } from '../../services';
 
-export interface PlaceDetailProps {
-  readonly title: string;
-  readonly placeName: string;
-  readonly lat: number;
-  readonly lng: number;
-  readonly status: TrackingPlaceStatusType;
-}
+export function PlaceDetail(props: any) {
+  const { title, placeName, address, status } = props.route.params
+  const receivedAddress = {
+    lat: address.lat,
+    lng: address.lng
+  }
 
-export function PlaceDetail(props: PlaceDetailProps) {
+  function handleFormatTimeLeft(time: number) {
+    const h = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const m = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
+    const s = Math.floor((time % (1000 * 60)) / 1000)
+    return ((h < 10)? '0' :  '') + h 
+    + ((m < 10)? ':0' :  ':') + m 
+    + ((s < 10)? ':0' :  ':') + s
+  }
+
+  async function handleSendFeedback(point: number) {
+    try {
+      const token = await AsyncStorage.getItem('userToken')
+      await postSendFeedback(point, receivedAddress, JSON.parse(token!))
+      props.navigation.navigate('ActionSuccess', {
+        title: 'Gửi phản hồi thành công',
+        message: 'Bạn có thể tiếp tục gửi phản hồi vị trí này sau 24 giờ nữa'
+      })
+    } catch (err: any) {
+      if (err.response.status == 403) {
+        const currentTime = new Date().getTime()
+        const validTime = new Date(err.response.data).getTime()
+        props.navigation.navigate('ActionFailed', {
+          title: 'Gửi phản hồi thất bại',
+          message: 'Vẫn còn quá sớm so với lần phản hồi trước của bạn\nHãy quay lại sau ' + handleFormatTimeLeft(validTime - currentTime)
+        })
+      }
+      else Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
+    }
+  }
+
   return (
     <ScrollView
       style={{ height: ScreenSize.height, backgroundColor: 'white' }}
@@ -37,16 +67,16 @@ export function PlaceDetail(props: PlaceDetailProps) {
           rotation={-120}
           lineCap="round"
           size={ScreenSize.width * 0.6}
-          width={25}
-          fill={100}
+          width={35}
+          fill={25 * (status + 1)}
           arcSweepAngle={240}
-          tintColor={Color.red_100}
+          tintColor={status == 0? Color.primary_100 : status == 1? Color.yellow_40 : status == 2? Color.orange_20 : Color.red_100}
           backgroundColor={Color.grey_60}
           padding={5}
         />
-        <Text style={TextStyle.h2}>{props.title}</Text>
-        <Text style={TextStyle.bodyLarge}>{props.placeName}</Text>
-        {/* <PlaceStatusLabel status={props.status} /> */}
+        <Text style={TextStyle.h2}>{title}</Text>
+        <Text style={{...TextStyle.bodyLarge, textAlign: 'center'}}>{placeName}</Text>
+        <PlaceStatusLabel status={status} />
         <View style={styles.containerWithBorder}>
           <Text
             style={{
@@ -65,13 +95,13 @@ export function PlaceDetail(props: PlaceDetailProps) {
               paddingTop: 10,
             }}
           >
-            <Pressable style={styles.optionExact}>
+            <Pressable style={styles.optionExact} onPress={() => handleSendFeedback(2)}>
               <Text style={{ ...TextStyle.h3, color: 'white' }}>Chính xác</Text>
             </Pressable>
-            <Pressable style={styles.optionNormal}>
+            <Pressable style={styles.optionNormal} onPress={() => handleSendFeedback(1)}>
               <Text style={{ ...TextStyle.h3, color: 'white' }}>Tạm ổn</Text>
             </Pressable>
-            <Pressable style={styles.optionFalse}>
+            <Pressable style={styles.optionFalse} onPress={() => handleSendFeedback(0)}>
               <Text style={{ ...TextStyle.h3, color: 'white' }}>Sai</Text>
             </Pressable>
           </View>

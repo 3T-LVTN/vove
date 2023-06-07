@@ -12,6 +12,7 @@ interface InputTextProps {
   readonly keyboardType?: KeyboardTypeOptions
   readonly multiline?: boolean
   readonly marginTop?: number
+  readonly customWidth?: number
 }
 
 export const InputText = (props: InputTextProps) => {
@@ -35,7 +36,7 @@ export const InputText = (props: InputTextProps) => {
       style={{
         ...TextStyle.h3,
         fontWeight: '400',
-        width: (310 / 375) * ScreenSize.width,
+        width: props.customWidth? props.customWidth : (310 / 375) * ScreenSize.width,
         backgroundColor: 'transparent',
         position: props.multiline? 'absolute' : undefined,
         marginTop: props.multiline? props.marginTop : undefined,

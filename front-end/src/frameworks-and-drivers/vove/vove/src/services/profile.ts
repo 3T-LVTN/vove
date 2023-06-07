@@ -8,6 +8,7 @@ export async function fetchData() {
     AsyncStorage.removeItem('name')
     AsyncStorage.removeItem('avatar')
     AsyncStorage.removeItem('address')
+    AsyncStorage.removeItem('addressName')
     AsyncStorage.removeItem('trackingPlaces')
     AsyncStorage.removeItem('inquiries')
     AsyncStorage.removeItem('feedbacks')
@@ -19,6 +20,8 @@ export async function fetchData() {
     AsyncStorage.setItem('avatar', res.data[0].avatar);
     if (res.data[0].address)
       AsyncStorage.setItem('address', JSON.stringify(res.data[0].address));
+    if (res.data[0].addressName)
+      AsyncStorage.setItem('addressName', res.data[0].addressName);
     if (res.data[0].trackingPlaces)
       AsyncStorage.setItem('trackingPlaces', JSON.stringify(res.data[0].trackingPlaces));
     if (res.data[0].inquiries)
@@ -40,15 +43,18 @@ export const postUpdateProfile = (
   name: string,
   avatar: string,
   token: any,
-  lat?: number,
-  lng?: number,
+  address?: {
+    lat: number,
+    lng: number
+  },
+  addressName?: string
 ) => {
   return axios.post(
     'profile',
     {
       name: name,
-      lat: lat,
-      lng: lng,
+      address: address,
+      addressName: addressName,
       avatar: avatar,
     },
     {
@@ -59,16 +65,19 @@ export const postUpdateProfile = (
 
 export const postCreateTrackingplace = (
   title: string,
-  lat: number,
-  lng: number,
+  address: {
+    lat: number,
+    lng: number
+  },
+  addressName: string,
   token: any
 ) => {
   return axios.post(
     '/profile/create-trackingplace',
     {
       title: title,
-      lat: lat,
-      lng: lng
+      address: address,
+      addressName: addressName
     },
     {
       headers: { Authorization: `Bearer ${token}` },

@@ -23,7 +23,7 @@ import {
   InputText,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchData, getLocationName, postUpdateProfile } from '../../services';
+import { fetchData, postUpdateProfile } from '../../services';
 import { TextInput } from 'react-native-paper';
 
 export function UserProfile({route, navigation}: any) {
@@ -94,7 +94,7 @@ export function UserProfile({route, navigation}: any) {
     setUpdatingStatus(!isUpdating)
     try {
       const token = await AsyncStorage.getItem('userToken')
-      await postUpdateProfile(name, avatar, JSON.parse(token!), route.params?.address.lat, route.params?.address.lng)
+      await postUpdateProfile(name, avatar, JSON.parse(token!), route.params?.address, route.params?.pickedAddress)
       await fetchData()
       navigation.navigate('ActionSuccess', {
         title: 'Cập nhật thành công',
@@ -107,6 +107,7 @@ export function UserProfile({route, navigation}: any) {
 
   async function handleLogout() {
     AsyncStorage.removeItem('userToken')
+    AsyncStorage.removeItem('addressName')
     navigation.navigate('Login')
   }
 
@@ -115,15 +116,13 @@ export function UserProfile({route, navigation}: any) {
       const realName = await AsyncStorage.getItem('name')
       const realPhone = await AsyncStorage.getItem('phone')
       const realAddress = await AsyncStorage.getItem('address')
+      const realAddressName = await AsyncStorage.getItem('addressName')
 
       setName(realName!)
       setPhone('0' + realPhone?.substring(3))
       if (realAddress) {
-        const lat = JSON.parse(realAddress).lat
-        const lng = JSON.parse(realAddress).lng
-        setLocation({ lat: lat, lng: lng })
-        const res = await getLocationName(lat, lng)
-        setAddressName(res.data.display_name)
+        setLocation(JSON.parse(realAddress))
+        setAddressName(realAddressName!)
       }
     }
     loadInfo();
@@ -225,11 +224,13 @@ export function UserProfile({route, navigation}: any) {
           
 
           { isUpdating
-            ? <ButtonFullWidth
+            ? <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
+              <ButtonFullWidth
             content={'Hoàn tất'}
             onPress={() => handleSubmit()}
             type={ButtonType.DEFAULT}
             />
+            </View>
             : <>
                 <View
                 style={{

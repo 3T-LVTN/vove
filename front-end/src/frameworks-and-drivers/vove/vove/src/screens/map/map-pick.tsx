@@ -31,7 +31,20 @@ export const MapPick = ({route, navigation}: any) => {
                     lng: region.longitude
                 }
             })
-        else console.log('Not implented')
+        else {
+          navigation.navigate('TrackingList', 
+            { 
+                pickedAddress: name,
+                address: {
+                    lat: region.latitude,
+                    lng: region.longitude
+                }
+            })
+          navigation.navigate('ActionSuccess', {
+            title: 'Thêm địa điểm thành công',
+            message: ''
+          })
+        }
   }
 
   async function handleUpdateLatLng(region: any) {

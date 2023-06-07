@@ -16,6 +16,8 @@ export const ButtonIcon = (props: ButtonIconProps) => {
       ? Color.white_100
       : type == ButtonType.DISABLE
       ? Color.grey_20
+      : type == ButtonType.RED
+      ? Color.red_100
       : Color.primary_100;
   const iconColor =
     type == ButtonType.OUTLINE ? Color.primary_100 : Color.white_100;
