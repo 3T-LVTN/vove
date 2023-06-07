@@ -43,6 +43,9 @@ export class User {
   address: Location;
 
   @Prop()
+  addressName: string;
+
+  @Prop()
   trackingPlaces: [TrackingPlace];
 
   @Prop({ required: true })

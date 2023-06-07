@@ -6,12 +6,15 @@ export class UpdateProfileDto {
 
   @IsNotEmpty()
   @IsOptional()
-  lat: number;
-
-  @IsNotEmpty()
-  @IsOptional()
-  lng: number;
+  address: {
+    lat: number;
+    lng: number;
+  };
 
   @IsNotEmpty()
   avatar: string;
+
+  @IsNotEmpty()
+  @IsOptional()
+  addressName: string;
 }

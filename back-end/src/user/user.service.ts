@@ -51,16 +51,12 @@ export class UserService {
   }
 
   async updateProfile(dto: UpdateProfileDto, phone: string) {
-    const address = {
-      lat: dto.lat,
-      lng: dto.lng,
-    };
-
     await this.userModel.findOneAndUpdate(
       { phone: phone },
-      dto.lat && dto.lng
+      dto.address
         ? {
-            address: address,
+            address: dto.address,
+            addressName: dto.addressName,
             name: dto.name,
             avatar: dto.avatar,
           }
