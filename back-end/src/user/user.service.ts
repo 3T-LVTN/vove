@@ -69,14 +69,10 @@ export class UserService {
   }
 
   async createTrackingPlace(dto: CreateTrackingPlaceDto, phone: string) {
-    const address = {
-      lat: dto.lat,
-      lng: dto.lng,
-    };
-
     const trackingPlace = {
       title: dto.title,
-      address: address,
+      address: dto.address,
+      addressName: dto.addressName,
       id: uuidv4(),
     };
 

@@ -23,6 +23,9 @@ class TrackingPlace {
 
   @Prop()
   address: Location;
+
+  @Prop()
+  addressName: string;
 }
 
 @Schema()

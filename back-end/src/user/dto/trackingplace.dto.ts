@@ -5,10 +5,13 @@ export class CreateTrackingPlaceDto {
   title: string;
 
   @IsNotEmpty()
-  lat: number;
+  address: {
+    lat: number;
+    lng: number;
+  };
 
   @IsNotEmpty()
-  lng: number;
+  addressName: string;
 }
 
 export class UpdateTrackingPlaceDto {
