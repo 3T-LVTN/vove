@@ -1,63 +1,65 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
-import firebase from 'firebase/compat';
 import {
   ButtonFullWidth,
   InputOtp,
   StepBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
+import { firebase } from '@front-end/frameworks-and-drivers/firebase-auth';
 import { Color, ScreenSize } from '@front-end/shared/utils';
 
-export interface InsertOtpSignupProps {
-  readonly navigation: any;
-  readonly route: any;
-}
-
-export function InsertOtpSignup(props: InsertOtpSignupProps) {
-  const { navigation, route } = props;
-  const [showButton, setShowButton] = useState(true);
-
-  const { phoneNumber, name } = route.params;
+export function InsertOtpSignup(props: any) {
+  const { phoneNumber, name } = props.route.params;
   const [OTP, setOTP] = useState('');
   const [verifyId, setVerifyId] = useState('');
-  const recaptchaVerifier: any = useRef();
+  const recaptchaVerifier = useRef(null)
 
-  // const sendVerifyCode = () => {
-  //   const provider = new firebase.auth.PhoneAuthProvider()
-  //   provider
-  //     .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
-  //     .then(setVerifyId)
-  // }
+  async function handleSendCode() {
+    const provider = new firebase.auth.PhoneAuthProvider()
+    provider
+      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current!)
+      .then(setVerifyId)
+      .catch(() => {
+        props.navigation.navigate('ActionFailed', {
+          title: 'Gửi mã OTP thất bại',
+          message: 'Thiết bị này đã gọi quá nhiều OTP trong thời gian ngắn\nVui lòng thử lại sau'
+        })
+      })
+  }
 
-  // const confirmCode = () => {
-  //   const credential = firebase.auth.PhoneAuthProvider.credential(verifyId, OTP)
-  //   firebase.auth().signInWithCredential(credential)
-  //     .then(() => {
-  //       setOTP('')
-  //       setShowButton(true)
-  //       Alert.alert('Valid OTP')
-  //     })
-  //     .catch(() => {
-  //       Alert.alert('Please try again')
-  //       navigation.goBack()
-  //     })
-  // }
+  async function handleSubmit() {
+    const credential = firebase.auth.PhoneAuthProvider.credential(
+      verifyId,
+      OTP
+    );
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .then(() => {
+        setOTP('')
+        props.navigation.navigate('SetNewPassword', { phoneNumber: phoneNumber, name: name })
+        props.navigation.navigate('ActionSuccess', {
+          title: 'Xác thực thành công',
+          message: 'Vui lòng tạo mật khẩu'
+        })
+      })
+      .catch(() => {
+        props.navigation.navigate('ActionFailed', {
+          title: 'Xác thực thất bại',
+          message: 'Bạn đã nhập sai mã OTP. Vui lòng thử lại'
+        })
+      });
+  };
 
-  // useEffect(() => {
-  //   console.log(name + phoneNumber)
-  // }, [])
-
-  // useMemo(() => {
-  //   if (OTP.length === 6) {
-  //     confirmCode()
-  //   }
-  // }, [OTP])
+  useEffect(() => {
+    handleSendCode()
+  }, [])
 
   return (
     <View style={styles.container}>
-      {/*<FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig}/>*/}
       <StepBar step={2}></StepBar>
+      <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebase.app().options}/>
       <ScrollView>
         <View
           style={{ ...styles.container, paddingTop: ScreenSize.height * 0.05 }}
@@ -74,23 +76,16 @@ export function InsertOtpSignup(props: InsertOtpSignupProps) {
           <InputOtp
             OTPInput={setOTP}
             onPress={() => {
-              Alert.alert('OK');
+              handleSendCode();
             }}
           ></InputOtp>
         </View>
       </ScrollView>
       <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
-        {showButton ? (
-          <ButtonFullWidth
-            content="Next"
-            onPress={() =>
-              navigation.navigate('SetNewPassword', {
-                phoneNumber: phoneNumber,
-                name: name,
-              })
-            }
-          ></ButtonFullWidth>
-        ) : null}
+        <ButtonFullWidth
+            content="Tiếp theo"
+            onPress={() => handleSubmit()}
+        ></ButtonFullWidth>
       </View>
     </View>
   );

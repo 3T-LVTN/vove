@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import {
   ButtonFullWidth,
@@ -20,6 +20,12 @@ export function InsertOtp(props: any) {
     provider
       .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current!)
       .then(setVerifyId)
+      .catch(() => {
+        props.navigation.navigate('ActionFailed', {
+          title: 'Gửi mã OTP thất bại',
+          message: 'Thiết bị này đã gọi quá nhiều OTP trong thời gian ngắn\nVui lòng thử lại sau'
+        })
+      })
   }
 
   async function handleSubmit() {

@@ -1,33 +1,15 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
   ButtonFullWidth,
   InputPassword,
   StepBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import { Color, ScreenSize, TextStyle } from '@front-end/shared/utils';
-import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
-import { NativeStackScreenProps } from 'react-native-screens/native-stack';
-import { SignupStackPropsData } from '../../navigation/signup.navigator';
-import { UserApi } from '@front-end/frameworks-and-drivers/app-sync/user';
-import { UserInteractor } from '@front-end/application/interactors/user';
-import { UserController } from '@front-end/interface-adapters/controllers/user';
-import { User } from '@front-end/domain/entities/user';
 import { postSignUp } from '../../services/auth';
 
-//export type SetNewPasswordProps = NativeStackScreenProps<SignupStackPropsData, "SetNewPassword">
-export interface SetNewPasswordProps {
-  readonly navigation: any;
-  readonly route: any;
-}
-
-export function SetNewPassword(props: SetNewPasswordProps) {
-  const { navigation, route } = props;
-  const userRepository = new UserApi();
-  const userUseCase = new UserInteractor(userRepository);
-  const userController = new UserController(userUseCase);
-
-  const { phoneNumber, name } = route.params;
+export function SetNewPassword(props: any) {
+  const { phoneNumber, name } = props.route.params;
   const [pass1, setPass1] = useState('');
   const [pass2, setPass2] = useState('');
 
@@ -35,13 +17,26 @@ export function SetNewPassword(props: SetNewPasswordProps) {
     if (pass1 === pass2 && pass1 !== '') {
       try {
         await postSignUp(phoneNumber, name, pass1);
-        navigation.navigate('SignupSucceed');
-      } catch (err: any) {
-        err.response.status == 400
-          ? Alert.alert('Only VN numbers are supported!')
-          : Alert.alert('User exits');
+        props.navigation.popToTop()
+        props.navigation.goBack()
+        props.navigation.navigate('ActionSuccess', {
+        title: 'Tạo tài khoản thành công',
+        message: 'Bạn đã có thể sử dụng tài khoản mới để đăng nhập'
+      })} catch (err: any) {
+        err.response.status == 409
+          ? props.navigation.navigate('ActionFailed', {
+            title: 'Tạo tài khoản thất bại',
+            message: 'Số điện thoại này đã được đăng ký'
+          })
+          : props.navigation.navigate('ActionFailed', {
+            title: 'Tạo tài khoản thất bại',
+            message: 'Hệ thống đã xảy ra sự cố\nVui lòng thử lại sau'
+          })
       }
-    } else Alert.alert('Passwords are different. Try again!');
+    } else props.navigation.navigate('ActionFailed', {
+      title: 'Tạo tài khoản thất bại',
+      message: 'Mật khẩu bạn bỏ trống hoặc không giống nhau'
+    })
   }
 
   return (
@@ -55,23 +50,23 @@ export function SetNewPassword(props: SetNewPasswordProps) {
             alignItems: 'flex-start',
           }}
         >
-          <Text style={TextStyle.h2}>Set your password</Text>
+          <Text style={TextStyle.h2}>Tạo mật khẩu</Text>
           <View style={{ padding: ScreenSize.height * 0.01 }}></View>
           <InputPassword
-            allowOutput={true}
+            text={pass1}
             output={setPass1}
-            title="Enter your password"
+            title="Nhập mật khẩu mới"
           ></InputPassword>
           <InputPassword
-            allowOutput={true}
+            text={pass2}
             output={setPass2}
-            title="Repeat your password"
+            title="Nhập lại mật khẩu mới"
           ></InputPassword>
         </View>
       </ScrollView>
       <View style={{ paddingBottom: ScreenSize.height * 0.1 }}>
         <ButtonFullWidth
-          content="Confirm"
+          content="Xác nhận"
           onPress={() => handleSubmit()}
         ></ButtonFullWidth>
       </View>

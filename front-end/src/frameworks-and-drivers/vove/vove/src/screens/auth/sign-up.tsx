@@ -6,37 +6,28 @@ import {
   InputText,
   StepBar,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
-import * as Cache from '@front-end/frameworks-and-drivers/app-sync/cache';
-import { User } from '@front-end/domain/entities/user';
-import { UserController } from '@front-end/interface-adapters/controllers/user';
-import { UserInteractor } from '@front-end/application/interactors/user';
-import { UserRepository } from '@front-end/application/repositories/user';
-import { UserApi } from '@front-end/frameworks-and-drivers/app-sync/user';
-import { SignupStackPropsData } from '../../navigation/signup.navigator';
-import { NativeStackScreenProps } from 'react-native-screens/native-stack';
 
-export interface SignupProps {
-  readonly navigation: any;
-  readonly route: any;
-}
-
-export function Signup(props: SignupProps) {
-  const { navigation, route } = props;
+export function Signup(props: any) {
   const [name, setName] = useState('');
   const [phoneNumber, setTel] = useState('');
-  const [email, setMail] = useState('');
 
-  const userRepository: UserRepository = new UserApi();
-  const userUseCase = new UserInteractor(userRepository);
-  const userController = new UserController(userUseCase);
+  const validatePhoneNumber = () => {
+    return phoneNumber.length === 10
+  }
 
-  const handleSubmit = () => {
-    if (name === '' || phoneNumber === '') {
-      Alert.alert('Please fill all information');
-      return;
+  async function handleSubmit() {
+    if (name === '' || phoneNumber === '') props.navigation.navigate('ActionFailed', {
+      title: 'Tạo tài khoản thất bại',
+      message: 'Bạn chưa nhập đủ thông tin'
+    })
+    else if (!validatePhoneNumber()) props.navigation.navigate('ActionFailed', {
+      title: 'Gửi OTP thất bại',
+      message: 'Ứng dụng chỉ hỗ trợ số điện thoại VN, xin lỗi vì sự bất tiện này'
+    })
+    else {
+      const phone = '+84' + phoneNumber.substring(1);
+      props.navigation.navigate('InsertOtpSignup', { phoneNumber: phone, name: name });
     }
-    const phone = '+84' + phoneNumber.substring(1);
-    navigation.navigate('InsertOtpSignup', { phoneNumber: phone, name: name });
   };
 
   return (
@@ -51,30 +42,23 @@ export function Signup(props: SignupProps) {
               alignItems: 'flex-start',
             }}
           >
-            <Text style={TextStyle.h2}>Fill in your information</Text>
+            <Text style={TextStyle.h2}>Nhập thông tin cá nhân</Text>
             <View style={{ padding: ScreenSize.height * 0.01 }}></View>
             <InputText
-              allowOutput={true}
+              text={name}
               output={setName}
-              title="Name"
-              placeholder="Please enter your name"
+              title="Tên"
+              placeholder="Nhập tên người dùng"
               rightIcon={name === '' ? '' : 'check-circle-outline'}
             ></InputText>
             <InputText
-              allowOutput={true}
+              text={phoneNumber}
               output={setTel}
-              title="Phone number"
-              placeholder="Please enter your phone number"
-              rightIcon={phoneNumber === '' ? '' : 'check-circle-outline'}
+              title="Số điện thoại"
+              placeholder="Nhập số điện thoại đăng ký"
+              rightIcon={validatePhoneNumber() ? 'check-circle-outline' : ''}
               keyboardType="numeric"
             ></InputText>
-            {/*<InputText*/}
-            {/*  allowOutput={true}*/}
-            {/*  output={setMail}*/}
-            {/*  title="Address"*/}
-            {/*  placeholder="Please enter your adress"*/}
-            {/*  rightIcon={email === '' ? '' : 'check-circle-outline'}*/}
-            {/*></InputText>*/}
           </View>
         </View>
         <View style={{ marginTop: ScreenSize.height * 0.2 }}></View>
@@ -87,7 +71,7 @@ export function Signup(props: SignupProps) {
         }}
       >
         <ButtonFullWidth
-          content="Next"
+          content="Gửi mã OTP"
           onPress={() => handleSubmit()}
         ></ButtonFullWidth>
       </View>

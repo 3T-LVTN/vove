@@ -12,7 +12,7 @@ export function ForgetPassword(props: any) {
 
   const validatePhoneNumber = () => {
     return phoneNumber.length === 10
-  };
+  }
 
   async function handleSubmit() {
     if (!validatePhoneNumber()) props.navigation.navigate('ActionFailed', {

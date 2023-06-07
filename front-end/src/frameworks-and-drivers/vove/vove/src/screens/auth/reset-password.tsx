@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
   ButtonFullWidth,
   InputPassword,
@@ -15,13 +15,19 @@ export function ResetPassword(props: any) {
 
   async function handleSubmit() {
     if (pass1 == pass2 && pass1 != '') {
-      await postForgotPassword(phoneNumber, pass1);
-      props.navigation.popToTop()
-      props.navigation.goBack()
-      props.navigation.navigate('ActionSuccess', {
+      try {
+        await postForgotPassword(phoneNumber, pass1);
+        props.navigation.popToTop()
+        props.navigation.goBack()
+        props.navigation.navigate('ActionSuccess', {
         title: 'Đặt lại mật khẩu thành công',
         message: 'Bạn đã có thể sử dụng mật khẩu mới để đăng nhập'
-      })
+      })} catch (err) {
+        props.navigation.navigate('ActionFailed', {
+          title: 'Đặt lại mật khẩu thất bại',
+          message: 'Hệ thống đã xảy ra sự cố\nVui lòng thử lại sau'
+        })
+      }
     } else props.navigation.navigate('ActionFailed', {
       title: 'Đặt lại mật khẩu thất bại',
       message: 'Mật khẩu bạn bỏ trống hoặc không giống nhau'
