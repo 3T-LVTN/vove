@@ -10,6 +10,9 @@ class Location {
 
   @Prop()
   lng: number;
+
+  @Prop()
+  _id: false;
 }
 
 @Schema()
