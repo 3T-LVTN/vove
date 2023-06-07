@@ -65,7 +65,7 @@ export function Home(props: any) {
           >
             <View
               style={{
-                height: ScreenSize.width * 0.17,
+                height: ScreenSize.width * 0.19,
                 backgroundColor: Color.light_40,
                 width: '78%',
                 borderRadius: 10,
@@ -85,7 +85,7 @@ export function Home(props: any) {
 
             <Pressable
               style={{
-                height: ScreenSize.width * 0.17,
+                height: ScreenSize.width * 0.19,
                 backgroundColor: Color.primary_100,
                 width: '20%',
                 borderRadius: 10,

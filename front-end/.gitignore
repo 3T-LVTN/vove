@@ -55,3 +55,5 @@ web-build/
 
 apps/vove-e2e/artifacts
 src/frameworks-and-drivers/vove/vove-e2e/artifacts
+
+env.ts

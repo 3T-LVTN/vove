@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Image,
   Pressable,
@@ -33,65 +34,49 @@ export function UserProfile({route, navigation}: any) {
     lng: null
   })
   const [isUpdating, setUpdatingStatus] = useState(false)
-
-  const [userId, setId] = useState('');
-
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [avatar, setAvatar] = useState(
     'https://lvtn-s3-vove-web.s3.ap-southeast-1.amazonaws.com/vove.png'
   );
-  const [phone, setPhone] = useState('');
-  
+  const [newImg, setNewImg] = useState(null as any);
+  const [isUploadingImage, setUploadingImageStatus] = useState(false)
 
-  const [newImg, setNewImg] = useState({ uri: '' });
-
-  const handlePickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
+  async function handlePickImage() {
+    let pickedImage = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
-    });
+    })
+    if (!pickedImage.canceled) setNewImg(pickedImage.assets![0].uri);
+  }
 
-    if (!result.canceled) {
-      const localSrc = { uri: result.assets[0].uri };
-      setNewImg(localSrc);
-    }
-  };
-
-  const uploadImage = async () => {
-    const response = await fetch(newImg.uri);
-    const blob = await response.blob();
-    const filename = userId + '.png';
-    var ref = firebase.storage().ref().child(filename).put(blob);
+  async function handleUploadImage() {
+    setUploadingImageStatus(true)
+    const response = await fetch(newImg)
+    const blob = await response.blob()
+    const filename = phone + '.png'
     try {
-      await ref;
-    } catch (e) {
-      console.log('Error:' + e);
+      await firebase.storage().ref().child(filename).put(blob)
+    } catch (err) {
+      navigation.navigate('ActionFailed', {
+        title: 'Tải lên hình ảnh thất bại',
+        message: 'Đã có sự cố trong lúc tải ảnh\nHãy kiểm tra lại đường truyền của bạn'
+      })
     }
-    await firebase
-      .storage()
-      .ref()
-      .child(filename)
-      .getDownloadURL()
-      .then((re) => {
-        setAvatar(re);
-        // Set Cache
-        const addToCache = { image: re };
-        // Cache.merge('USER_INFO', addToCache)
-        // Set DTB
-        const body = {
-          userId: userId,
-          image: re,
-        };
-        // POST.changeImage(body)
-        Alert.alert('Ảnh đã thay đổi!');
-        setNewImg({ uri: '' });
-      });
+    try {
+      const url = await firebase.storage().ref().child(filename).getDownloadURL()
+      setAvatar(url)
+    } catch (err) {
+      navigation.navigate('ActionFailed', {
+        title: 'Tải về hình ảnh thất bại',
+        message: 'Đã có sự cố trong lúc tải ảnh\nHãy kiểm tra lại đường truyền của bạn'
+      })
+    }
+    setNewImg(null)
+    setUploadingImageStatus(false)
   };
 
-  async function handleSubmit() {
-    setUpdatingStatus(!isUpdating)
+  async function handleUpdateProfile() {
     try {
       const token = await AsyncStorage.getItem('userToken')
       await postUpdateProfile(name, avatar, JSON.parse(token!), route.params?.address, route.params?.pickedAddress)
@@ -103,6 +88,12 @@ export function UserProfile({route, navigation}: any) {
     } catch (err) {
       Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
     }
+  }
+
+  async function handleSubmit() {
+    setUpdatingStatus(!isUpdating)
+    if (newImg != null) await handleUploadImage().then(() => handleUpdateProfile())
+    else await handleUpdateProfile()
   }
 
   async function handleLogout() {
@@ -117,6 +108,7 @@ export function UserProfile({route, navigation}: any) {
       const realPhone = await AsyncStorage.getItem('phone')
       const realAddress = await AsyncStorage.getItem('address')
       const realAddressName = await AsyncStorage.getItem('addressName')
+      const realAvatar = await AsyncStorage.getItem('avatar')
 
       setName(realName!)
       setPhone('0' + realPhone?.substring(3))
@@ -124,9 +116,10 @@ export function UserProfile({route, navigation}: any) {
         setLocation(JSON.parse(realAddress))
         setAddressName(realAddressName!)
       }
+      setAvatar(realAvatar!)
     }
-    loadInfo();
-  }, []);
+    loadInfo()
+  }, [])
 
   // Phải làm cách này do truyền function callBack cho navigate nó báo warning
   // không consistent, cách giải quyết thông thường là dùng global state như Redux
@@ -136,7 +129,7 @@ export function UserProfile({route, navigation}: any) {
       setAddressName(route.params.pickedAddress)
       setLocation(route.params.address)
     }
-  }, [route.params?.pickedAddress]);
+  }, [route.params?.pickedAddress])
 
   return (
     <View style={styles.container}>
@@ -148,7 +141,6 @@ export function UserProfile({route, navigation}: any) {
       >
         <View style={styles.center}>
           <View>
-            <Pressable>
               <Image
                 style={{
                   width: (160 / 375) * ScreenSize.width,
@@ -157,10 +149,9 @@ export function UserProfile({route, navigation}: any) {
                   marginBottom: 6,
                 }}
                 source={{
-                  uri: avatar,
+                  uri: newImg ? newImg : avatar,
                 }}
               />
-            </Pressable>
 
             {
               isUpdating
@@ -223,15 +214,21 @@ export function UserProfile({route, navigation}: any) {
           }
           
 
-          { isUpdating
-            ? <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
+          { isUploadingImage
+            ? 
+            <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
+              <ActivityIndicator size={'small'} color='black' />
+            </View>
+            : isUpdating ?
+            <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
               <ButtonFullWidth
             content={'Hoàn tất'}
             onPress={() => handleSubmit()}
             type={ButtonType.DEFAULT}
             />
             </View>
-            : <>
+            :
+            <>
                 <View
                 style={{
                   paddingTop: ScreenSize.height * 0.02,

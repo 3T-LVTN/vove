@@ -4,7 +4,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import HeatMap from './heat-map';
 import { Color, ScreenSize } from '@front-end/shared/utils';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { API_KEY } from '../../../config/config'
+import { MAP_API_KEY } from '../../../config'
 import { getLocationLatLng } from '../../../services';
 
 export const normalMap = (props: any) => {
@@ -17,7 +17,7 @@ export const normalMap = (props: any) => {
   const mapRef = useRef<any>(null)
 
   async function handleSearchLocation(placeId: string) {
-    const res = await getLocationLatLng(placeId, API_KEY)
+    const res = await getLocationLatLng(placeId, MAP_API_KEY)
     if (mapRef.current) mapRef.current.animateToRegion({
       latitude: res.data.result.geometry.location.lat,
       longitude: res.data.result.geometry.location.lng,
@@ -45,7 +45,7 @@ export const normalMap = (props: any) => {
                 onPress={item =>  handleSearchLocation(item.place_id)}
                 enablePoweredByContainer={false}
                 query={{
-                  key: API_KEY,
+                  key: MAP_API_KEY,
                   language: 'vn',
                 }}
                 textInputProps={{

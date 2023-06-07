@@ -5,7 +5,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { ButtonFullWidth } from '../../components/src';
 import { getLocationLatLng, getLocationName } from '../../services';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { API_KEY } from '../../config/config';
+import { MAP_API_KEY } from '../../config';
 
 export const MapPick = ({route, navigation}: any) => {
   const { originalScene } = route.params
@@ -59,7 +59,7 @@ export const MapPick = ({route, navigation}: any) => {
   }
 
   async function handleSearchLocation(placeId: string) {
-    const res = await getLocationLatLng(placeId, API_KEY)
+    const res = await getLocationLatLng(placeId, MAP_API_KEY)
     handleUpdateLatLng({
       latitude: res.data.result.geometry.location.lat,
       longitude: res.data.result.geometry.location.lng,
@@ -96,7 +96,7 @@ export const MapPick = ({route, navigation}: any) => {
                 onPress={item =>  handleSearchLocation(item.place_id)}
                 enablePoweredByContainer={false}
                 query={{
-                  key: API_KEY,
+                  key: MAP_API_KEY,
                   language: 'vn',
                 }}
                 textInputProps={{
