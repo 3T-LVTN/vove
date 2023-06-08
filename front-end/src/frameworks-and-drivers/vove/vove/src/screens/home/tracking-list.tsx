@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
   Color,
   customSize,
@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchData, postCreateTrackingplace, postGetPredictionSummary } from '../../services';
 
 export function TrackingList({route, navigation}: any) {
-  const { homeStatus } = route.params
+  const [homeStatus, setHomeStatus] = useState(route.params.homeStatus)
   const [selected, setSelected] = useState(0);
   const [addressName, setAddressName] = useState('');
   const [location, setLocation] = useState({
@@ -21,6 +21,7 @@ export function TrackingList({route, navigation}: any) {
     lng: null
   })
   const [trackingList, setTrackingList] = useState<any[]>([])
+  const [rateList, setRateList] = useState<number[]>([])
   const [finishedGetRate, setGetRateStatus] = useState(false)
 
   async function handleAddPlace() {
@@ -45,13 +46,6 @@ export function TrackingList({route, navigation}: any) {
 
     const trackingPlaces = await AsyncStorage.getItem('trackingPlaces')
     const parsedData = JSON.parse(trackingPlaces!)
-    // mock status
-    // if (parsedData) 
-    //   for (const item of parsedData) {
-    //     item.status = 1        
-    //   }
-    // real status - https://vove-managed.com/api/prediction/summary
-
     setTrackingList(parsedData)
   }
 
@@ -69,10 +63,14 @@ export function TrackingList({route, navigation}: any) {
     }]
     const res = await postGetPredictionSummary(requestList)
     const responseList = res.data.data
-    const newList = trackingList.map((item, index) => ({...item, status: 2 }))
-    console.log(trackingList)
-    setTrackingList(newList)
     
+    if (responseList.length !== 0) {
+      const list = [] as any
+      responseList.map((item: any) => list.push(
+        item.rate == 'SAFE' ? 0 : item.rate == 'NORMAL' ? 1
+        : item.rate == 'LOW_RISK' ? 2 : 3))
+      setRateList(list)
+    }
   }
 
   useEffect(() => {
@@ -80,7 +78,15 @@ export function TrackingList({route, navigation}: any) {
   }, []);
 
   useEffect(() => {
-    if (trackingList && !finishedGetRate) handleGetRate().then(() => setGetRateStatus(true))
+    if (rateList.length !== 0 && !finishedGetRate) setGetRateStatus(true)
+  }, [rateList])
+
+  useEffect(() => {
+    if (trackingList.length !== 0) {
+      setGetRateStatus(false)
+      handleGetRate()
+      console.log('update tracking list')
+    }
   }, [trackingList])
 
   useEffect(() => {
@@ -129,7 +135,7 @@ export function TrackingList({route, navigation}: any) {
           Địa điểm khác
         </Text>
         </View>
-      <View style={{ marginTop: customSize(10) }}>
+      {/* <View style={{ marginTop: customSize(10) }}>
         <ButtonRow list={[
           { name: "Tất cả", width: 70 },
           { name: "Tốt", width: 60 },
@@ -137,7 +143,7 @@ export function TrackingList({route, navigation}: any) {
           { name: "Vừa", width: 65 },
           { name: "Cao", width: 65 }
         ]} callBack={setSelected}/>
-      </View>
+      </View> */}
 
       <ScrollView style={{ marginBottom: customSize(24) }}>
         {
@@ -148,24 +154,27 @@ export function TrackingList({route, navigation}: any) {
           <TrackingSummaryCard
             key={index}
             id={item.id}
-            status={item.status}
+            status={rateList[index]}
             navigation={navigation}
             title={item.title}
             placeName={item.addressName}
             address={item.address}
             handleRefresh={handleRefresh}
           />
-          )) : null
+          )) : <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
+          <ActivityIndicator size={'small'} color='black' />
+        </View>
         }
-
+        { finishedGetRate ? 
+        <>
         <View style={{ paddingTop: ScreenSize.height * 0.03 }}/>
-          <ButtonOption
-            iconName="plus-circle"
-            content="Thêm địa điểm"
-            onPress={() => navigation.navigate('MapPick', 
-            { originalScene: 'TrackingList', lat: location.lat, lng: location.lng }
-            )}
-          />
+        <ButtonOption
+        iconName="plus-circle"
+        content="Thêm địa điểm"
+        onPress={() => navigation.navigate('MapPick', 
+        { originalScene: 'TrackingList', lat: location.lat, lng: location.lng }
+        )}
+      /></> : null}
       </ScrollView>
 
       <View style={styles.func}>
