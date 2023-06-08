@@ -4,6 +4,7 @@ import {HeatMapData, HeatMapPointData} from './map_data';
 import axios from 'axios';
 import {initPoint} from './init_state';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from 'react-native';
 
 type WeightedLatLng = {
   latitude: number;
@@ -55,27 +56,44 @@ const HeatMap = () => {
   };
 
   useEffect(() => {
-    getHeatMapData(initPoint)
+    if (isLoadingHeatMap) {
+      getHeatMapData(initPoint)
       .then((data) => loadHeatmapData(data))
       .catch((e) => console.log(e));
-    getCachedHeatMapData()
+      getCachedHeatMapData()
       .then((data) => loadHeatmapData(data))
       .catch((e) => console.log(e));
-  }, []);
+    }
+  }, [isLoadingHeatMap]);
 
   useEffect(() => {
     if (heatmapData.length !== 0) {
-      setIsLoadingHeatMap(false);
-      console.log('Load map done!');
+      setIsLoadingHeatMap(false)
     }
   }, [heatmapData]);
 
-  if (isLoadingHeatMap) {
-    console.log('Loading map...');
-    return null;
-  } else
-    return (
-      <Heatmap points={heatmapData} radius={50} opacity={0.9}/>
+  if (isLoadingHeatMap) return null;
+  else return (
+      <Heatmap points={heatmapData} radius={50} opacity={0.2} gradient={
+        Platform.OS === "android"
+          ? undefined
+          : {
+            colors: [
+              "rgba(102, 255, 0, 1)",
+              "rgba(147, 255, 0, 1)",
+              "rgba(193, 255, 0, 1)",
+              "rgba(238, 255, 0, 1)",
+              "rgba(244, 227, 0, 1)",
+              "rgba(249, 198, 0, 1)",
+              "rgba(255, 170, 0, 1)",
+              "rgba(255, 113, 0, 1)",
+              "rgba(255, 57, 0, 1)",
+              "rgba(255, 0, 0, 1)",
+            ],
+            startPoints: [0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.055, 0.065, 0.07, 0.08],
+            colorMapSize: 2000,
+            }
+      }/>
     );
 };
 
