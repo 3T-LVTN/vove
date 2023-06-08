@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Pressable,
   ScrollView,
@@ -42,6 +43,7 @@ export function Home(props: any) {
 
   async function handleRefresh(selfPress: boolean) {
     if (selfPress) await fetchData()
+    
     const realAddress = await AsyncStorage.getItem('address')
     const realAddressName = await AsyncStorage.getItem('addressName')
 
@@ -58,7 +60,6 @@ export function Home(props: any) {
 
   useEffect(() => {
     if (location.lat) {
-      setMapVisible(true)
       handleGetHomeStatus()
     }
   }, [location])
@@ -126,7 +127,8 @@ export function Home(props: any) {
 
           <View style={styles.mapContainer}>
             { mapVisible ?
-            <NormalMap lat={location.lat} lng={location.lng}></NormalMap> : null
+            <NormalMap lat={location.lat} lng={location.lng}></NormalMap> : 
+            <ActivityIndicator size={'small'} color='black' />
             }
           </View>
         </View>
