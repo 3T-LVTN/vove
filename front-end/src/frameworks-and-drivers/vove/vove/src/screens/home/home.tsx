@@ -12,15 +12,33 @@ import { ButtonHalfWidth,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import NormalMap from '../../components/src/map/normal-map';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchData } from '../../services';
+import { fetchData, postGetPredictionSummary } from '../../services';
 
 export function Home(props: any) {
-  const [addressName, setAddressName] = useState('');
+  const [addressName, setAddressName] = useState('')
+  const [homeStatus, setHomeStatus] = useState(0)
   const [location, setLocation] = useState({
     lat: null,
     lng: null
   })
   const [mapVisible, setMapVisible] = useState(false)
+
+  async function handleGetHomeStatus() {
+    const homeLocation = {
+      lat: location.lat,
+      lng: location.lng,
+      locationCode: location.lat + '-' + location.lng,
+      idx: 0
+    }
+    const list = [] as any
+    list.push(homeLocation)
+    const res = await postGetPredictionSummary(list)
+    const rate = res.data.data[0].rate
+    rate == "SAFE" ? setHomeStatus(0)
+    : rate == "NORMAL" ? setHomeStatus(1)
+    : rate == "LOW_RISK" ? setHomeStatus(2)
+    : setHomeStatus(3)
+  }
 
   async function handleRefresh(selfPress: boolean) {
     if (selfPress) await fetchData()
@@ -39,7 +57,10 @@ export function Home(props: any) {
   }, []);
 
   useEffect(() => {
-    if (location.lat) setMapVisible(true)
+    if (location.lat) {
+      setMapVisible(true)
+      handleGetHomeStatus()
+    }
   }, [location])
 
   useEffect(() => {
@@ -95,7 +116,7 @@ export function Home(props: any) {
               onPress={() => {
                 location ? props.navigation.navigate('PlaceDetail', 
                 { title: 'Nhà của tôi', placeName: addressName, 
-                  address: location, status: 0 })
+                  address: location, status: homeStatus })
                 : props.navigation.navigate('UserProfile')
               }}
             >
@@ -179,7 +200,7 @@ export function Home(props: any) {
         <ButtonHalfWidth
           type={ButtonType.DEFAULT}
           content='Danh sách theo dõi'
-          onPress={() => props.navigation.navigate('TrackingList')}
+          onPress={() => props.navigation.navigate('TrackingList', { homeStatus: homeStatus })}
         />
       </View>
     </View>

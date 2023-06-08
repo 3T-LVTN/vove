@@ -34,7 +34,7 @@ export async function fetchData() {
 }
 
 export const getProfile = (token: any) => {
-  return axios.get('profile', {
+  return axios.get('https://api.vove-managed.com/profile', {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
@@ -50,7 +50,7 @@ export const postUpdateProfile = (
   addressName?: string
 ) => {
   return axios.post(
-    'profile',
+    'https://api.vove-managed.com/profile',
     {
       name: name,
       address: address,
@@ -73,7 +73,7 @@ export const postCreateTrackingplace = (
   token: any
 ) => {
   return axios.post(
-    '/profile/create-trackingplace',
+    'https://api.vove-managed.com/profile/create-trackingplace',
     {
       title: title,
       address: address,
@@ -91,7 +91,7 @@ export const postUpdateTrackingplace = (
   token: any
 ) => {
   return axios.post(
-    '/profile/update-trackingplace',
+    'https://api.vove-managed.com/profile/update-trackingplace',
     {
       title: title,
       id: id,
@@ -104,7 +104,7 @@ export const postUpdateTrackingplace = (
 
 export const postDeleteTrackingplace = (id: string, token: any) => {
   return axios.post(
-    '/profile/delete-trackingplace',
+    'https://api.vove-managed.com/profile/delete-trackingplace',
     {
       id: id,
     },

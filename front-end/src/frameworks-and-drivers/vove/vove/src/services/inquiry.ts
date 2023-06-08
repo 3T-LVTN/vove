@@ -6,7 +6,7 @@ export const postCreateInquiry = (
     token: any
   ) => {
     return axios.post(
-      '/inquiry',
+      'https://api.vove-managed.com/inquiry',
       {
         title: title,
         message: message,
@@ -19,7 +19,7 @@ export const postCreateInquiry = (
   
 export const postCloseInquiry = (id: string, title: string, token: any) => {
     return axios.post(
-        '/inquiry/close',
+        'https://api.vove-managed.com/inquiry/close',
         {
         id: id,
         title: title
@@ -32,7 +32,7 @@ export const postCloseInquiry = (id: string, title: string, token: any) => {
   
 export const postCommentInquiry = (id: string, message: string, token: any) => {
     return axios.post(
-      '/inquiry/comment',
+      'https://api.vove-managed.com/inquiry/comment',
       {
         id: id,
         message: message,

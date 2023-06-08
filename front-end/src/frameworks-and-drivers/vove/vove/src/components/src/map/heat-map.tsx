@@ -75,7 +75,7 @@ const HeatMap = () => {
     return null;
   } else
     return (
-      <Heatmap points={heatmapData} radius={50} opacity={0.2}/>
+      <Heatmap points={heatmapData} radius={50} opacity={0.9}/>
     );
 };
 

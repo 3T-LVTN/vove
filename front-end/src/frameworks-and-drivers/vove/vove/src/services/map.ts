@@ -13,7 +13,8 @@ export const postGetPredictionSummary = (
     {
       lat: number,
       lng: number,
-      locationCode: string
+      locationCode: string,
+      idx: number
     }
   ]
 ) => {

@@ -15,7 +15,6 @@ import {
 import { formatDate } from '../../components/src/cards/time-format';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchData, postCloseInquiry, postCommentInquiry } from '../../services';
-import { refreshNof } from '../../services/nof';
 
 export function InquiryDetail(props: any) {
   const inquiry = props.route.params

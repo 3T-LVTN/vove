@@ -11,6 +11,7 @@ import {
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { postLogin, fetchData, getToken } from '../../services';
+import { refreshNof } from '../../services/nof';
 
 export function Login(props: any) {
   const [loading, setLoading] = useState(false);
@@ -30,6 +31,7 @@ export function Login(props: any) {
       const res = await postLogin(phone, password)
       AsyncStorage.setItem('userToken', JSON.stringify(res.data.accessToken))
       await fetchData()
+      await refreshNof()
       props.navigation.navigate('UserStack')
     } catch (err: any) {
         props.navigation.navigate('ActionFailed', {

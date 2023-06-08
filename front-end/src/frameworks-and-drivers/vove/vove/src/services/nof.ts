@@ -15,7 +15,7 @@ export async function refreshNof() {
   }
 
 export const getNof = (token: any) => {
-    return axios.get('nof', {
+    return axios.get('https://api.vove-managed.com/nof', {
       headers: { Authorization: `Bearer ${token}` },
     });
 };

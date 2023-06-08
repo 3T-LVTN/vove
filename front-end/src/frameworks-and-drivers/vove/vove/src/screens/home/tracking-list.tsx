@@ -10,9 +10,10 @@ import { ButtonOption } from '../../components/src/buttons/button-option';
 import { ButtonFullWidth, TrackingSummaryCard } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import { ButtonRow } from '../../components/src/buttons/button-row';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchData, postCreateTrackingplace } from '../../services';
+import { fetchData, postCreateTrackingplace, postGetPredictionSummary } from '../../services';
 
 export function TrackingList({route, navigation}: any) {
+  const { homeStatus } = route.params
   const [selected, setSelected] = useState(0);
   const [addressName, setAddressName] = useState('');
   const [location, setLocation] = useState({
@@ -20,6 +21,7 @@ export function TrackingList({route, navigation}: any) {
     lng: null
   })
   const [trackingList, setTrackingList] = useState<any[]>([])
+  const [finishedGetRate, setGetRateStatus] = useState(false)
 
   async function handleAddPlace() {
     try {
@@ -44,18 +46,42 @@ export function TrackingList({route, navigation}: any) {
     const trackingPlaces = await AsyncStorage.getItem('trackingPlaces')
     const parsedData = JSON.parse(trackingPlaces!)
     // mock status
-    if (parsedData) 
-      for (const item of parsedData) {
-        item.status = 1        
-      }
+    // if (parsedData) 
+    //   for (const item of parsedData) {
+    //     item.status = 1        
+    //   }
     // real status - https://vove-managed.com/api/prediction/summary
 
     setTrackingList(parsedData)
   }
 
+  async function handleGetRate() {
+    const requestList = trackingList.map((item, index) => ({ 
+      lat: item.address.lat,
+      lng: item.address.lng,
+      locationCode: item.address.lat + '-' + item.address.lng,
+      idx: index
+    })) as [{
+      lat: number,
+      lng: number,
+      locationCode: string,
+      idx: number
+    }]
+    const res = await postGetPredictionSummary(requestList)
+    const responseList = res.data.data
+    const newList = trackingList.map((item, index) => ({...item, status: 2 }))
+    console.log(trackingList)
+    setTrackingList(newList)
+    
+  }
+
   useEffect(() => {
     handleRefresh(false)
   }, []);
+
+  useEffect(() => {
+    if (trackingList && !finishedGetRate) handleGetRate().then(() => setGetRateStatus(true))
+  }, [trackingList])
 
   useEffect(() => {
     if (route.params?.pickedAddress) handleAddPlace()
@@ -77,14 +103,14 @@ export function TrackingList({route, navigation}: any) {
         {
           addressName == '' ? 
           <TrackingSummaryCard
-            status={1}
+            status={homeStatus}
             navigation={navigation}
             placeName='Bạn chưa có địa chỉ. Hãy chọn địa chỉ ở trang cá nhân'
             title="Nhà của tôi"
             readonly={true}
           /> :
           <TrackingSummaryCard
-            status={0}
+            status={homeStatus}
             navigation={navigation}
             placeName={addressName}
             title="Nhà của tôi"
@@ -115,6 +141,7 @@ export function TrackingList({route, navigation}: any) {
 
       <ScrollView style={{ marginBottom: customSize(24) }}>
         {
+          finishedGetRate ?
           trackingList
           .filter((item) => selected != 0 ? item.status == selected - 1 : item )
           .map((item, index) => (
@@ -128,7 +155,7 @@ export function TrackingList({route, navigation}: any) {
             address={item.address}
             handleRefresh={handleRefresh}
           />
-          ))
+          )) : null
         }
 
         <View style={{ paddingTop: ScreenSize.height * 0.03 }}/>

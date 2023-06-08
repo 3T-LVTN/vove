@@ -9,7 +9,7 @@ export const postSendFeedback = (
     token: any
   ) => {
     return axios.post(
-      '/feedback',
+      'https://api.vove-managed.com/feedback',
       {
         status: status,
         address: address
