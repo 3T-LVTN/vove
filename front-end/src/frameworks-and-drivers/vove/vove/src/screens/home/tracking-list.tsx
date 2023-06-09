@@ -51,7 +51,7 @@ export function TrackingList({route, navigation}: any) {
   }
 
   async function handleGetRate() {
-    const requestList = trackingList.map((item, index) => ({ 
+    const requestList = trackingList.map((item, index) => ({
       lat: item.address.lat,
       lng: item.address.lng,
       locationCode: item.address.lat + '-' + item.address.lng,
@@ -64,7 +64,7 @@ export function TrackingList({route, navigation}: any) {
     }]
     const res = await postGetPredictionSummary(requestList)
     const responseList = res.data.data
-    
+
     if (responseList.length !== 0) {
       const list = [] as any
       responseList.map((item: any) => list.push(
@@ -96,6 +96,16 @@ export function TrackingList({route, navigation}: any) {
 
   return (
     <View style={styles.container}>
+
+          <ButtonOption
+            iconName="plus-circle"
+            content="Thêm địa điểm"
+            onPress={() => navigation.navigate('MapPick',
+              {originalScene: 'TrackingList', lat: location.lat, lng: location.lng}
+            )}
+          />
+          <View style={{paddingBottom: ScreenSize.height * 0.02}}/>
+      <ScrollView>
       <View>
         <Text
           style={{
@@ -108,7 +118,7 @@ export function TrackingList({route, navigation}: any) {
         </Text>
 
         {
-          addressName == '' ? 
+          addressName == '' ?
           <TrackingSummaryCard
             status={homeStatus}
             navigation={navigation}
@@ -146,44 +156,35 @@ export function TrackingList({route, navigation}: any) {
         ]} callBack={setSelected}/>
       </View> */}
 
-      <ScrollView style={{ marginBottom: customSize(24) }}>
+      <View style={{marginBottom: customSize(24)}}>
         {
           finishedGetRate ?
-          trackingList
-          .filter((item) => selected != 0 ? item.status == selected - 1 : item )
-          .map((item, index) => (
-          <TrackingSummaryCard
-            key={index}
-            id={item.id}
-            status={rateList[index]}
-            navigation={navigation}
-            title={item.title}
-            placeName={item.addressName}
-            address={item.address}
-            handleRefresh={handleRefresh}
-          />
-          )) : <View style={{ paddingTop: ScreenSize.height * 0.1395 }}>
-          <ActivityIndicator size={'small'} color='black' />
-        </View>
+            trackingList
+              .filter((item) => selected != 0 ? item.status == selected - 1 : item)
+              .map((item, index) => (
+                <TrackingSummaryCard
+                  key={index}
+                  id={item.id}
+                  status={rateList[index]}
+                  navigation={navigation}
+                  title={item.title}
+                  placeName={item.addressName}
+                  address={item.address}
+                  handleRefresh={handleRefresh}
+                />
+              )) : <View style={{paddingTop: ScreenSize.height * 0.1395}}>
+              <ActivityIndicator size={'small'} color='black'/>
+            </View>
         }
-        { finishedGetRate ? 
-        <>
-        <View style={{ paddingTop: ScreenSize.height * 0.03 }}/>
-        <ButtonOption
-        iconName="plus-circle"
-        content="Thêm địa điểm"
-        onPress={() => navigation.navigate('MapPick', 
-        { originalScene: 'TrackingList', lat: location.lat, lng: location.lng }
-        )}
-      /></> : null}
-      </ScrollView>
 
+      </View>
+      </ScrollView>
       <View style={styles.func}>
         <ButtonFullWidth
           content="Tải lại"
           onPress={() => handleRefresh(true)}
         ></ButtonFullWidth>
-        </View>
+      </View>
     </View>
   );
 }
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   func: {
-    paddingBottom: ScreenSize.height * 0.04,
+    paddingBottom: ScreenSize.height * 0.02,
   }
 });
 

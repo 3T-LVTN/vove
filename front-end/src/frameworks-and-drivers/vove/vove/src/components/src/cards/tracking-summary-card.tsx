@@ -44,10 +44,10 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
           await postUpdateTrackingplace(newName, props.id!, JSON.parse(token!))
           props.title = newName
           setUpdatingStatus(false)
-          props.navigation.navigate('ActionSuccess', {
-            title: 'Điều chỉnh thành công',
-            message: 'Tên vị trí của bạn đã được cập nhật'
-          })
+          // props.navigation.navigate('ActionSuccess', {
+          //   title: 'Điều chỉnh thành công',
+          //   message: 'Tên vị trí của bạn đã được cập nhật'
+          // })
           props.handleRefresh(true)
         } catch (err) {
           Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
@@ -64,10 +64,10 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
         const token = await AsyncStorage.getItem('userToken')
         await postDeleteTrackingplace(props.id!, JSON.parse(token!))
         setDeletingStatus(false)
-        props.navigation.navigate('ActionSuccess', {
-          title: 'Xóa thành công',
-          message: 'Vị trí theo dõi của bạn đã được xóa'
-        })
+        // props.navigation.navigate('ActionSuccess', {
+        //   title: 'Xóa thành công',
+        //   message: 'Vị trí theo dõi của bạn đã được xóa'
+        // })
         props.handleRefresh(true)
       } catch (err) {
         Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
@@ -128,7 +128,7 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
           </Text>
           </>
           }
-          
+
         </View>
         <View style={{ height: customSize(14) }} />
         <View
@@ -153,7 +153,7 @@ export const TrackingSummaryCard = (props: TrackingPlaceStatusProps) => {
           />
           </>
           }
-          
+
         </View>
       </View>
     </Pressable>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: customSize(15),
     paddingVertical: customSize(15),
-    height: (90 / 375) * ScreenSize.width,
+    height: (100 / 375) * ScreenSize.width,
     backgroundColor: Color.white_100,
     borderWidth: 1,
     borderColor: Color.dark_40,

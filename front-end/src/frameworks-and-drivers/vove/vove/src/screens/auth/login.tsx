@@ -17,7 +17,7 @@ export function Login(props: any) {
   const [loading, setLoading] = useState(false);
   setTimeout(() => {
     setLoading(true);
-  }, 1000);
+  }, 500);
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
 

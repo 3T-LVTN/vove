@@ -22,9 +22,9 @@ export const MapPick = ({route, navigation}: any) => {
 
   function handleSubmit() {
     if (!isGettingName)
-        if (originalScene === 'Profile') 
-            navigation.navigate('UserProfile', 
-            { 
+        if (originalScene === 'Profile')
+            navigation.navigate('UserProfile',
+            {
                 pickedAddress: name,
                 address: {
                     lat: region.latitude,
@@ -32,18 +32,18 @@ export const MapPick = ({route, navigation}: any) => {
                 }
             })
         else {
-          navigation.navigate('TrackingList', 
-            { 
+          navigation.navigate('TrackingList',
+            {
                 pickedAddress: name,
                 address: {
                     lat: region.latitude,
                     lng: region.longitude
                 }
             })
-          navigation.navigate('ActionSuccess', {
-            title: 'Thêm địa điểm thành công',
-            message: ''
-          })
+          // navigation.navigate('ActionSuccess', {
+          //   title: 'Thêm địa điểm thành công',
+          //   message: ''
+          // })
         }
   }
 
@@ -80,13 +80,13 @@ export const MapPick = ({route, navigation}: any) => {
         <View style={styles.mapView}>
             <MapView
                 ref={mapRef}
-                provider={PROVIDER_GOOGLE} 
+                provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 initialRegion={region}
                 onRegionChange={(region) => handleUpdateLatLng(region)}
                 onRegionChangeComplete={() => handleLocationName(region.latitude, region.longitude)}
             >
-            </MapView>  
+            </MapView>
 
             <View style={styles.searchBar}>
               <View style={{ width: "100%" }}>
@@ -100,7 +100,7 @@ export const MapPick = ({route, navigation}: any) => {
                   language: 'vn',
                 }}
                 textInputProps={{
-                  onFocus: () => setSearchingStatus(true),             
+                  onFocus: () => setSearchingStatus(true),
                   onEndEditing: () => setSearchingStatus(false),
                   placeholderTextColor: 'grey'
                 }}
@@ -113,15 +113,15 @@ export const MapPick = ({route, navigation}: any) => {
                   row: {
                     borderRadius: ScreenSize.width * 0.02,
                     borderColor: Color.grey_100,
-                    borderWidth: 1             
+                    borderWidth: 1
                   }
                 }}
                 />
               </View>
-              
+
             </View>
-           
-           { !isSearching 
+
+           { !isSearching
               ? <View style={{ position: 'absolute' }}>
               <Image
                 source={require('../../images/marker.png')}
@@ -133,9 +133,9 @@ export const MapPick = ({route, navigation}: any) => {
             </View>
             : null
            }
-            
+
         </View>
-      
+
 
       <View style={{ paddingTop: ScreenSize.height * 0.02, alignItems: 'center' }}>
         <Text style={styles.nameText}>{name}</Text>
@@ -183,9 +183,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   searchBar: {
-    top: ScreenSize.height * 0.06, 
+    top: ScreenSize.height * 0.06,
     width: ScreenSize.width * 0.8,
-    alignItems: 'center', 
+    alignItems: 'center',
     position: 'absolute'
   }
 });

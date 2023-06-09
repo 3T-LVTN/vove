@@ -29,8 +29,8 @@ export function InquiryDetail(props: any) {
       await fetchData()
       const inquiries = await AsyncStorage.getItem('inquiries')
       inquiry.status = 2
-      props.navigation.navigate('InquiryList', 
-      { 
+      props.navigation.navigate('InquiryList',
+      {
         update: true,
         updateList: JSON.parse(inquiries!)
       })
@@ -54,10 +54,10 @@ export function InquiryDetail(props: any) {
         isAdmin: false,
         message: newCmtText,
         time: new Date().toISOString()
-      } 
+      }
       inquiry.comments.push(newCmt)
-      props.navigation.navigate('InquiryList', 
-      { 
+      props.navigation.navigate('InquiryList',
+      {
         update: true,
         updateList: JSON.parse(inquiries!)
       })
@@ -93,10 +93,10 @@ export function InquiryDetail(props: any) {
               information={inquiry.message}
             ></InputInformation>
           </View>
-          
+
           <View style={{ paddingTop: ScreenSize.height * 0.008 }} />
         </View>
-        
+
         <View style={{ paddingTop: ScreenSize.height * 0.02 }} />
         <View style={{ paddingBottom: ScreenSize.height * 0.02 }}>
             <Text style={{ ...TextStyle.h3, color: Color.dark_100 }}>
@@ -149,7 +149,7 @@ export function InquiryDetail(props: any) {
                     title="Nội dung"
                     information={item.message}
                   ></InputInformation>
-                </View>              
+                </View>
                 <View style={{ paddingTop: ScreenSize.height * 0.02 }} />
                 </View>
             ))}
@@ -173,9 +173,9 @@ export function InquiryDetail(props: any) {
                   text={newCmtText}
                   output={setNewCmtText}
                   />
-              </View>              
+              </View>
               <View style={{ paddingTop: ScreenSize.height * 0.3 }} /></>}
-              
+
       </ScrollView>
 
       <View
