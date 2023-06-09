@@ -25,19 +25,8 @@ export const postGetPredictionSummary = (
     });
 };
 
-export const postGetDistrictSummary = (
-  locations: [
-    {
-      lat: number,
-      lng: number,
-      locationCode: string,
-      idx: number
-    }
-  ]
-) => {
-  return axios.post(
-    'https://vove-managed.com/api/prediction/summary',
-    {
-      locations: locations
-    });
+export const getGetDistrictSummary = () => {
+  return axios.get(
+    'https://vove-managed.com/api/prediction/hcmc/summary',
+    );
 };

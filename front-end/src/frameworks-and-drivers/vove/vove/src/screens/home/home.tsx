@@ -13,7 +13,7 @@ import { ButtonHalfWidth,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import NormalMap from '../../components/src/map/normal-map';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fetchData, postGetPredictionSummary } from '../../services';
+import { fetchData, getGetDistrictSummary, postGetPredictionSummary } from '../../services';
 
 export function Home(props: any) {
   const [addressName, setAddressName] = useState('')
@@ -55,8 +55,18 @@ export function Home(props: any) {
     setMapVisible(false)
   }
 
+  async function handleGetHCMCSummary() {
+    try {
+      const realSummary = await getGetDistrictSummary()
+      if (realSummary.data.length !== 0) setSummaryList(realSummary.data)
+    } catch (err) {
+      Alert.alert('Không lấy được thông tin thống kê mới');
+    }
+  }
+
   useEffect(() => {
     handleRefresh(false)
+    //handleGetHCMCSummary()
   }, []);
 
   useEffect(() => {
