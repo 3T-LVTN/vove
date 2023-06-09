@@ -9,7 +9,8 @@ import {
   View,
 } from 'react-native';
 import { ButtonType, Color, ScreenSize, TextStyle, customSize } from '@front-end/shared/utils';
-import { ButtonHalfWidth,
+import {
+  ButtonFullWidth, ButtonHalfWidth,
 } from '@front-end/frameworks-and-drivers/vove/vove/src/components';
 import NormalMap from '../../components/src/map/normal-map';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +19,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export function Home(props: any) {
   const [addressName, setAddressName] = useState('')
+  const [searchAddress, setSearchAddress] = useState(false)
   const [homeStatus, setHomeStatus] = useState(0)
   const [location, setLocation] = useState({
     lat: null,
@@ -56,6 +58,10 @@ export function Home(props: any) {
     setMapVisible(false)
   }
 
+  async function handleSearchLocation(placeId: string){
+    setAddressName(placeId);
+    setSearchAddress(true);
+  }
   async function handleGetHCMCSummary() {
     try {
       const realSummary = await getGetDistrictSummary()
@@ -81,8 +87,8 @@ export function Home(props: any) {
   }, [mapVisible])
 
   return (
-    <ScrollView style={styles.screen}>
-       <View style={{ paddingTop: ScreenSize.height * 0.04 }}>
+    <View style={styles.screen}>
+       <View style={{ paddingTop: ScreenSize.height * 0.02 }}>
        <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
           Dự đoán phân bố muỗi TP.HCM
        </Text>
@@ -99,7 +105,7 @@ export function Home(props: any) {
           >
             <View
               style={{
-                height: ScreenSize.width * 0.25,
+                height: ScreenSize.width * 0.22,
                 backgroundColor: Color.primary_60,
                 width: '83%',
                 borderRadius: 10,
@@ -108,9 +114,6 @@ export function Home(props: any) {
                 justifyContent: 'center',
               }}
             >
-              <Text style={{ ...TextStyle.bodyLarge, color: 'white' }}>
-                Nhà của tôi
-              </Text>
               <Text style={{ ...TextStyle.bodySmall, color: 'white' }}>
                 {addressName == '' ? 'Bạn chưa có địa chỉ. Hãy chọn địa chỉ ở trang cá nhân'
                 : addressName}
@@ -119,7 +122,7 @@ export function Home(props: any) {
 
             <Pressable
               style={{
-                height: ScreenSize.width * 0.25,
+                height: ScreenSize.width * 0.22,
                 backgroundColor: Color.primary_100,
                 width: '15%',
                 borderRadius: 10,
@@ -127,9 +130,14 @@ export function Home(props: any) {
                 justifyContent: 'center',
               }}
               onPress={() => {
-                location ? props.navigation.navigate('PlaceDetail',
-                { title: 'Nhà của tôi', placeName: addressName,
-                  address: location, status: homeStatus })
+                location ?
+                  !searchAddress ?
+                    props.navigation.navigate('PlaceDetail',
+                  { title: 'Nhà của tôi', placeName: addressName,
+                    address: location, status: homeStatus })
+                    : props.navigation.navigate('PlaceDetail',
+                      { title: 'Kết quả dự đoán', placeName: addressName,
+                        address: location, status: homeStatus })
                 : props.navigation.navigate('UserProfile')
               }}
             >
@@ -139,20 +147,20 @@ export function Home(props: any) {
 
           <View style={styles.mapContainer}>
             { mapVisible ?
-            <NormalMap lat={location.lat} lng={location.lng}></NormalMap> :
+            <NormalMap lat={location.lat} lng={location.lng} handleSearch={handleSearchLocation}></NormalMap> :
             <ActivityIndicator size={'small'} color='black' />
             }
           </View>
         </View>
 
-        <ScrollView style={styles.screen}>
-        <View
-          style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}
-        >
-          <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
-            Tổng quan
-          </Text>
-        </View>
+        <ScrollView>
+        {/*<View*/}
+        {/*  style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}*/}
+        {/*>*/}
+        {/*  <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>*/}
+        {/*    Tổng quan tình hình TP.HCM*/}
+        {/*  </Text>*/}
+        {/*</View>*/}
 
         <View style={styles.hcmcSummaryContainer}>
           <View
@@ -162,7 +170,7 @@ export function Home(props: any) {
               Tốt
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.primary_20 }}>
-            {summaryList[0]}
+            {summaryList[0]} quận huyện
             </Text>
           </View>
           <View
@@ -172,7 +180,7 @@ export function Home(props: any) {
               Thấp
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.yellow_20 }}>
-            {summaryList[1]}
+            {summaryList[1]} quận huyện
             </Text>
           </View>
           <View
@@ -182,7 +190,7 @@ export function Home(props: any) {
               Vừa
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.orange_20 }}>
-            {summaryList[2]}
+            {summaryList[2]} quận huyện
             </Text>
           </View>
           <View
@@ -192,33 +200,19 @@ export function Home(props: any) {
               Cao
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.red_100 }}>
-              {summaryList[3]}
+              {summaryList[3]} quận huyện
             </Text>
           </View>
         </View>
         <View style={{ height: ScreenSize.width * 0.03 }}></View>
-        </ScrollView>
-    <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          paddingBottom: ScreenSize.height * 0.04,
-        }}
-      >
-        <ButtonHalfWidth
+
+        <ButtonFullWidth
           type={ButtonType.DEFAULT}
-          content='Tải lại'
-          onPress={() => {
-            handleRefresh(true);
-          }}
-        />
-        <ButtonHalfWidth
-          type={ButtonType.DEFAULT}
-          content='Vị trí theo dõi'
+          content='Danh sách vị trí theo dõi'
           onPress={() => props.navigation.navigate('TrackingList', { homeStatus: homeStatus })}
         />
-      </View>
-    </ScrollView>
+        </ScrollView>
+    </View>
   );
 }
 
@@ -240,7 +234,7 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: ScreenSize.width * 0.86,
-    height: ScreenSize.width * 0.9,
+    height: ScreenSize.width * 0.8,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
