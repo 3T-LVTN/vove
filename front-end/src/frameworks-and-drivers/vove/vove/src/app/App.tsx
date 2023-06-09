@@ -6,6 +6,10 @@ import {
   Lato_700Bold,
   useFonts,
 } from '@expo-google-fonts/lato';
+import { LogBox } from 'react-native'; 
+// for No native ExpoFirebaseCore module found issue 
+// https://github.com/expo/expo/issues/7781
+LogBox.ignoreAllLogs()
 
 export function App() {
   const [fontsLoaded] = useFonts({

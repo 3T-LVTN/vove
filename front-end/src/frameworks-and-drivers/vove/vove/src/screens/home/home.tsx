@@ -23,6 +23,7 @@ export function Home(props: any) {
     lng: null
   })
   const [mapVisible, setMapVisible] = useState(false)
+  const [summaryList, setSummaryList] = useState<number[]>([9,6,4,3])
 
   async function handleGetHomeStatus() {
     const homeLocation = {
@@ -133,6 +134,7 @@ export function Home(props: any) {
           </View>
         </View>
         
+        <ScrollView style={styles.screen}>
         <View
           style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}
         >
@@ -149,7 +151,7 @@ export function Home(props: any) {
               Tốt
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.primary_20 }}>
-              19
+            {summaryList[0]}
             </Text>
           </View>
           <View
@@ -159,7 +161,7 @@ export function Home(props: any) {
               Thấp
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.yellow_20 }}>
-              1
+            {summaryList[1]}
             </Text>
           </View>
           <View
@@ -169,7 +171,7 @@ export function Home(props: any) {
               Vừa
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.orange_20 }}>
-              1
+            {summaryList[2]}
             </Text>
           </View>
           <View
@@ -179,12 +181,12 @@ export function Home(props: any) {
               Cao
             </Text>
             <Text style={{ ...TextStyle.bodyLarge, color: Color.red_100 }}>
-              1
+              {summaryList[3]}
             </Text>
           </View>
         </View>
         <View style={{ height: ScreenSize.width * 0.03 }}></View>
-
+        </ScrollView>
     <View
         style={{
           flexDirection: 'row',

@@ -46,6 +46,7 @@ export function TrackingList({route, navigation}: any) {
 
     const trackingPlaces = await AsyncStorage.getItem('trackingPlaces')
     const parsedData = JSON.parse(trackingPlaces!)
+    if (parsedData.length === 0) setGetRateStatus(true)
     setTrackingList(parsedData)
   }
 
@@ -85,8 +86,7 @@ export function TrackingList({route, navigation}: any) {
     if (trackingList.length !== 0) {
       setGetRateStatus(false)
       handleGetRate()
-      console.log('update tracking list')
-    }
+    } 
   }, [trackingList])
 
   useEffect(() => {

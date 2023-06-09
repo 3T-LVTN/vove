@@ -24,3 +24,20 @@ export const postGetPredictionSummary = (
       locations: locations
     });
 };
+
+export const postGetDistrictSummary = (
+  locations: [
+    {
+      lat: number,
+      lng: number,
+      locationCode: string,
+      idx: number
+    }
+  ]
+) => {
+  return axios.post(
+    'https://vove-managed.com/api/prediction/summary',
+    {
+      locations: locations
+    });
+};
