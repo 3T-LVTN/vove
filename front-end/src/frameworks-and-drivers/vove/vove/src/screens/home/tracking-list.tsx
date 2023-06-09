@@ -86,7 +86,8 @@ export function TrackingList({route, navigation}: any) {
     if (trackingList.length !== 0) {
       setGetRateStatus(false)
       handleGetRate()
-    } 
+
+    }
   }, [trackingList])
 
   useEffect(() => {

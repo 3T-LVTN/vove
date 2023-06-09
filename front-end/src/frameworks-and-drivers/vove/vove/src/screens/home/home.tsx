@@ -70,11 +70,11 @@ export function Home(props: any) {
   }, [mapVisible])
 
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
        <View style={{ paddingTop: ScreenSize.height * 0.04 }}>
        <Text style={{ ...TextStyle.h3, color: Color.primary_100 }}>
           Dự đoán phân bố muỗi TP.HCM
-        </Text>
+       </Text>
        </View>
         <View style={styles.placeContainer}>
           <View
@@ -207,7 +207,7 @@ export function Home(props: any) {
           onPress={() => props.navigation.navigate('TrackingList', { homeStatus: homeStatus })}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
