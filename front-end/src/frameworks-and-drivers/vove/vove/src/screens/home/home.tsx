@@ -14,6 +14,7 @@ import { ButtonHalfWidth,
 import NormalMap from '../../components/src/map/normal-map';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchData, getGetDistrictSummary, postGetPredictionSummary } from '../../services';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export function Home(props: any) {
   const [addressName, setAddressName] = useState('')
@@ -44,7 +45,7 @@ export function Home(props: any) {
 
   async function handleRefresh(selfPress: boolean) {
     if (selfPress) await fetchData()
-    
+
     const realAddress = await AsyncStorage.getItem('address')
     const realAddressName = await AsyncStorage.getItem('addressName')
 
@@ -98,9 +99,9 @@ export function Home(props: any) {
           >
             <View
               style={{
-                height: ScreenSize.width * 0.19,
-                backgroundColor: Color.light_40,
-                width: '78%',
+                height: ScreenSize.width * 0.25,
+                backgroundColor: Color.primary_60,
+                width: '83%',
                 borderRadius: 10,
                 paddingHorizontal: ScreenSize.width * 0.025,
                 alignItems: 'flex-start',
@@ -118,32 +119,32 @@ export function Home(props: any) {
 
             <Pressable
               style={{
-                height: ScreenSize.width * 0.19,
+                height: ScreenSize.width * 0.25,
                 backgroundColor: Color.primary_100,
-                width: '20%',
+                width: '15%',
                 borderRadius: 10,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
               onPress={() => {
-                location ? props.navigation.navigate('PlaceDetail', 
-                { title: 'Nhà của tôi', placeName: addressName, 
+                location ? props.navigation.navigate('PlaceDetail',
+                { title: 'Nhà của tôi', placeName: addressName,
                   address: location, status: homeStatus })
                 : props.navigation.navigate('UserProfile')
               }}
             >
-              <Text style={{ ...TextStyle.h4, color: 'white' }}>Chi tiết</Text>
+              <MaterialCommunityIcons name={"menu-right"} size={(50 / 375) * ScreenSize.width} color={Color.light_80}/>
             </Pressable>
           </View>
 
           <View style={styles.mapContainer}>
             { mapVisible ?
-            <NormalMap lat={location.lat} lng={location.lng}></NormalMap> : 
+            <NormalMap lat={location.lat} lng={location.lng}></NormalMap> :
             <ActivityIndicator size={'small'} color='black' />
             }
           </View>
         </View>
-        
+
         <ScrollView style={styles.screen}>
         <View
           style={{ alignItems: 'flex-start', width: ScreenSize.width * 0.9 }}
@@ -152,7 +153,7 @@ export function Home(props: any) {
             Tổng quan
           </Text>
         </View>
-        
+
         <View style={styles.hcmcSummaryContainer}>
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
@@ -213,7 +214,7 @@ export function Home(props: any) {
         />
         <ButtonHalfWidth
           type={ButtonType.DEFAULT}
-          content='Danh sách theo dõi'
+          content='Vị trí theo dõi'
           onPress={() => props.navigation.navigate('TrackingList', { homeStatus: homeStatus })}
         />
       </View>

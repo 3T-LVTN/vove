@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.white_100,
     alignItems: 'center',
+    paddingHorizontal: ScreenSize.width*0.03
   },
 });
 

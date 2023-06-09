@@ -39,10 +39,10 @@ export function InsertOtpSignup(props: any) {
       .then(() => {
         setOTP('')
         props.navigation.navigate('SetNewPassword', { phoneNumber: phoneNumber, name: name })
-        props.navigation.navigate('ActionSuccess', {
-          title: 'Xác thực thành công',
-          message: 'Vui lòng tạo mật khẩu'
-        })
+        // props.navigation.navigate('ActionSuccess', {
+        //   title: 'Xác thực thành công',
+        //   message: 'Vui lòng tạo mật khẩu'
+        // })
       })
       .catch(() => {
         props.navigation.navigate('ActionFailed', {

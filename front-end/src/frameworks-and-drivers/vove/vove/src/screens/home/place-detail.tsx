@@ -30,8 +30,8 @@ export function PlaceDetail(props: any) {
     const h = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const m = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
     const s = Math.floor((time % (1000 * 60)) / 1000)
-    return ((h < 10)? '0' :  '') + h 
-    + ((m < 10)? ':0' :  ':') + m 
+    return ((h < 10)? '0' :  '') + h
+    + ((m < 10)? ':0' :  ':') + m
     + ((s < 10)? ':0' :  ':') + s
   }
 
@@ -41,7 +41,7 @@ export function PlaceDetail(props: any) {
       await postSendFeedback(point, receivedAddress, JSON.parse(token!))
       props.navigation.navigate('ActionSuccess', {
         title: 'Gửi phản hồi thành công',
-        message: 'Bạn có thể tiếp tục gửi phản hồi vị trí này sau 24 giờ nữa'
+        message: 'Hãy gửi thêm phản hồi khi có dự đoán mới'
       })
     } catch (err: any) {
       if (err.response.status == 403) {
@@ -49,7 +49,7 @@ export function PlaceDetail(props: any) {
         const validTime = new Date(err.response.data).getTime()
         props.navigation.navigate('ActionFailed', {
           title: 'Gửi phản hồi thất bại',
-          message: 'Vẫn còn quá sớm so với lần phản hồi trước của bạn\nHãy quay lại sau ' + handleFormatTimeLeft(validTime - currentTime)
+          message: 'Kết quả dự đoán chưa được cập nhật\nHãy quay lại sau '
         })
       }
       else Alert.alert('Thông tin đăng nhập đã hết hạn, xin vui lòng đăng nhập lại');
