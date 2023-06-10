@@ -31,7 +31,7 @@ export const normalMap = (props: any) => {
     if (res.data.result){
       var newName = await getLocationName(res.data.result.geometry.location.lat, res.data.result.geometry.location.lng)
       if (newName) {
-      props.handleSearch(newName.data.display_name);
+      props.handleSearch(newName.data.display_name, res.data.result.geometry.location.lat, res.data.result.geometry.location.lng);
     }}
   }
 

@@ -20,7 +20,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 export function Home(props: any) {
   const [addressName, setAddressName] = useState('')
   const [searchAddress, setSearchAddress] = useState(false)
-  const [homeStatus, setHomeStatus] = useState(0)
+  const [homeStatus, setPlaceStatus] = useState(0)
   const [location, setLocation] = useState({
     lat: null,
     lng: null
@@ -28,7 +28,7 @@ export function Home(props: any) {
   const [mapVisible, setMapVisible] = useState(false)
   const [summaryList, setSummaryList] = useState<number[]>([9,6,4,3])
 
-  async function handleGetHomeStatus() {
+  async function handleGetPlaceStatus() {
     const homeLocation = {
       lat: location.lat,
       lng: location.lng,
@@ -39,10 +39,10 @@ export function Home(props: any) {
     list.push(homeLocation)
     const res = await postGetPredictionSummary(list)
     const rate = res.data.data[0].rate
-    rate == "SAFE" ? setHomeStatus(0)
-    : rate == "NORMAL" ? setHomeStatus(1)
-    : rate == "LOW_RISK" ? setHomeStatus(2)
-    : setHomeStatus(3)
+    rate == "SAFE" ? setPlaceStatus(0)
+    : rate == "NORMAL" ? setPlaceStatus(1)
+    : rate == "LOW_RISK" ? setPlaceStatus(2)
+    : setPlaceStatus(3)
   }
 
   async function handleRefresh(selfPress: boolean) {
@@ -58,9 +58,10 @@ export function Home(props: any) {
     setMapVisible(false)
   }
 
-  async function handleSearchLocation(placeId: string){
+  async function handleSearchLocation(placeId: string, lat: any, lng: any){
     setAddressName(placeId);
     setSearchAddress(true);
+    setLocation({lat, lng})
   }
   async function handleGetHCMCSummary() {
     try {
@@ -78,7 +79,7 @@ export function Home(props: any) {
 
   useEffect(() => {
     if (location.lat) {
-      handleGetHomeStatus()
+      handleGetPlaceStatus()
     }
   }, [location])
 
