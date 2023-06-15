@@ -1,54 +1,45 @@
 // Screen
 import React from 'react';
-import {Image} from 'react-native';
 // Navigation
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreenSize} from '@front-end/shared/utils';
-import {Login} from '../screens/login/login';
-import LoginFailed from '../screens/login-failed/login-failed';
-import ForgetPassword from '../screens/forget-password/forget-password';
-import {SignUpStack} from './signup.navigator';
-import {UserStack} from './user.navigator';
-import {ForgetPasswordStack} from './forget-password.navigator';
-
-export type MainStackPropsData = {
-  Login: undefined;
-  LoginFailed: undefined;
-  ForgetPasswordStack: undefined;
-  SignupStack: undefined;
-  UserStack: { userId: string } | undefined;
-};
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SignUpStack } from './signup.navigator';
+import { ForgetPasswordStack } from './forget-password.navigator';
+import { ActionFailed, ActionSuccess, Login, MapPick } from '../screens';
+import { UserNavBar } from './user-nav-bar.navigator';
 
 export function MainStack() {
-  const Stack = createStackNavigator<MainStackPropsData>();
+  const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="LoginFailed"
-          component={LoginFailed}
-          options={{headerShown: false}}
         />
         <Stack.Screen
           name="ForgetPasswordStack"
           component={ForgetPasswordStack}
-          options={{headerShown: false}}
         />
         <Stack.Screen
           name="SignupStack"
           component={SignUpStack}
-          options={{headerShown: false}}
         />
         <Stack.Screen
           name="UserStack"
-          component={UserStack}
-          options={{headerShown: false}}
+          component={UserNavBar}
+        />
+        <Stack.Screen
+          name="ActionFailed"
+          component={ActionFailed}
+        />
+        <Stack.Screen
+          name="ActionSuccess"
+          component={ActionSuccess}
+        />
+        <Stack.Screen
+          name="MapPick"
+          component={MapPick}
         />
       </Stack.Navigator>
     </NavigationContainer>

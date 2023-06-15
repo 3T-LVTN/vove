@@ -1,1 +1,1 @@
-export * from './lib/user.interactor'
+export * from './lib/user.interactor';

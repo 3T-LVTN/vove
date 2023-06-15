@@ -1,50 +1,27 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreenSize} from '@front-end/shared/utils';
-import Home from "../screens/home/home";
-import SignupSucceed from "../screens/signup-succeed/signup-succeed";
-import InquiryList from "../screens/inquiry-list/inquiry-list";
-import InquiryDetail from "../screens/inquiry-detail/inquiry-detail";
-import NewInquiry from "../screens/new-inquiry/new-inquiry";
-
-const Stack = createStackNavigator();
-
-const backButtonImg = () => {
-  return (
-    <Image
-      source={require("../images/back-button.png")}
-      style={{
-        height: ScreenSize.width * 0.1,
-        width: ScreenSize.width * 0.1,
-        marginLeft: ScreenSize.width * 0.06,
-      }}
-    />
-  );
-};
-
-let center = "center" as "center" | "left" | undefined;
-
-
-const HeaderStyle = {
-  headerBackImage: backButtonImg,
-  headerStyle: {
-    backgroundColor: "white",
-    height: ScreenSize.height * 0.1,
-  },
-  headerTitleStyle: {fontSize: ScreenSize.width * 0.05},
-  headerTintColor: "black",
-  headerBackTitleVisible: false,
-  headerTitleAlign: center,
-};
-
+import { createStackNavigator } from '@react-navigation/stack';
+import { InquiryList, InquiryDetail, NewInquiry } from '../screens';
+import { HeaderStyle } from './header.style';
 
 export const InquiryStack = () => {
+  const Stack = createStackNavigator();
   return (
-    <Stack.Navigator screenOptions={HeaderStyle} initialRouteName="InquiryList">
-      <Stack.Screen name="InquiryList" component={InquiryList} options={{ headerShown: false }}/>
-      <Stack.Screen name="InquiryDetail" component={InquiryDetail} options={{ title: "Inquiry Detail" }}/>
-      <Stack.Screen name="NewInquiry" component={NewInquiry} options={{ title: "New Inquiry" }}/>
+    <Stack.Navigator screenOptions={HeaderStyle as any} initialRouteName="InquiryList">
+      <Stack.Screen
+        name="InquiryList"
+        component={InquiryList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="InquiryDetail"
+        component={InquiryDetail}
+        options={{ title: 'Chi tiết yêu cầu' }}
+      />
+      <Stack.Screen
+        name="NewInquiry"
+        component={NewInquiry}
+        options={{ title: 'Tạo yêu cầu mới' }}
+      />
     </Stack.Navigator>
   );
 };

@@ -1,1 +1,1 @@
-export * from './lib/inquiry.view-models'
+export * from './lib/inquiry.view-models';

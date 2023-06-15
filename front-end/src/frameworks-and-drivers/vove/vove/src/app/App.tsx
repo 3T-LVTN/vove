@@ -1,23 +1,15 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useRef, useState } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
-import Svg, { Path } from 'react-native-svg';
-import { Login } from '../screens/login/login';
+import React from 'react';
 import { MainStack } from '../navigation/main.navigator';
 import {
   Lato_400Regular,
   Lato_700Bold,
   useFonts,
 } from '@expo-google-fonts/lato';
+import { LogBox } from 'react-native'; 
+// for No native ExpoFirebaseCore module found issue 
+// https://github.com/expo/expo/issues/7781
+LogBox.ignoreAllLogs()
 
 export function App() {
   const [fontsLoaded] = useFonts({

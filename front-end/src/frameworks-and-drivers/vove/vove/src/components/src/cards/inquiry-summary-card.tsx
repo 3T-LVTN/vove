@@ -1,30 +1,37 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import {ButtonType, Color, customSize, InquiryStatusType, ScreenSize, TextStyle} from "@front-end/shared/utils";
-import {StatusLabel} from "../status/status-label";
-import {InquiryViewModel} from "@front-end/interface-adapters/view-models/inquiry";
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Color,
+  customSize,
+  ScreenSize,
+  TextStyle,
+} from '@front-end/shared/utils';
+import { StatusLabel } from '../status/status-label';
+import { formatDate } from './time-format';
 
 export interface InquirySummaryCardProps {
-  readonly title: string;
-  readonly timeStamp: string;
-  readonly status: InquiryStatusType;
   readonly navigation: any;
-  readonly inquiryDetail: InquiryViewModel;
+  readonly inquiry: any;
 }
-export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
-  const { title, timeStamp, status, navigation, inquiryDetail } = props;
 
+export const InquirySummaryCard = (props: InquirySummaryCardProps) => {
+  const vnTime = formatDate(props.inquiry.time)
   return (
-    <Pressable onPress={() => {navigation.navigate("InquiryDetail", inquiryDetail)}} style={{width: "99%", alignSelf:"center"}}>
+    <Pressable
+      onPress={() => {
+        props.navigation.navigate('InquiryDetail', props.inquiry);
+      }}
+      style={{ width: '99%', alignSelf: 'center' }}
+    >
       <View style={styles.container}>
         <View style={styles.line}>
-          <Text style={{...TextStyle.bodySmall, color: Color.dark_80}}>
-            {timeStamp}
+          <Text style={{ ...TextStyle.bodySmall, color: Color.dark_80 }}>
+            {vnTime}
           </Text>
-          <StatusLabel status={status} />
+          <StatusLabel status={props.inquiry.status} />
         </View>
         <View style={{ height: customSize(14) }} />
         <View style={styles.line}>
-          <Text style={TextStyle.h3}>{title}</Text>
+          <Text style={TextStyle.h3}>{props.inquiry.title}</Text>
         </View>
       </View>
     </Pressable>
@@ -41,19 +48,16 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white_100,
     borderColor: Color.dark_40,
     marginTop: (12 / 375) * ScreenSize.width,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
   },
   line: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
-
-

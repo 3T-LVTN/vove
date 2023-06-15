@@ -1,1 +1,1 @@
-export * from './lib/tracking-places.view-model'
+export * from './lib/tracking-places.view-model';

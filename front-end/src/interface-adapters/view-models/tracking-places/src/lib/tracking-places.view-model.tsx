@@ -1,4 +1,4 @@
-import {TrackingPlaceStatusType} from "@front-end/shared/utils";
+import { TrackingPlaceStatusType } from '@front-end/shared/utils';
 
 export interface TrackingPlacesViewModel {
   id: string;

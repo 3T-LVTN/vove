@@ -2,6 +2,8 @@
   "expo": {
     "name": "Vove",
     "slug": "vove",
+    "privacy": "public",
+    "description": "Join the fight against mosquitoes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

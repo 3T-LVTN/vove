@@ -1,3 +1,5 @@
 export enum InquiryStatusType {
-  OPENING, WAITING, CLOSED
+  OPENING,
+  WAITING,
+  CLOSED,
 }
